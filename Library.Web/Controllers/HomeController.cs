@@ -1,9 +1,6 @@
 ﻿using Library.Web.Entities;
 using Library.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Text;
 using System.Web.Mvc;
 
 namespace Library.Web.Controllers
@@ -26,8 +23,13 @@ namespace Library.Web.Controllers
         [HttpPost]
         public ActionResult Create(Book book)
         {
-            _bookRepository.Books.Add(book);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", ReCaptcha());
+        }
+        public FileContentResult ReCaptcha()
+        {
+            string str = "Hello World";
+            byte[] b1 = Encoding.ASCII.GetBytes(str);
+            return File(b1, "txt", "1");
         }
     }
 }
