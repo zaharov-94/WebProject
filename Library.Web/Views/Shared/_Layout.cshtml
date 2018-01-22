@@ -1,0 +1,49 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>User page</title>
+    <!-- Custom styles for this template -->
+    @Styles.Render("~/Content/justified-nav.css")
+    @Styles.Render("~/Content/Site.css")
+
+</head>
+<body>
+    <div class="container">
+        <header class="masthead">
+            <h3 class="text-muted">Project name</h3>
+            <nav class="navbar navbar-expand-md navbar-fixed-top bg-light rounded mb-3">
+                @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>*@
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav text-md-center nav-justified w-100">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="https://getbootstrap.com/docs/4.0/examples/justified-nav/#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div class="tabs">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a href="#tab-1" data-toggle="tab">Books <span class="sr-only">(current)</span></a></li>
+                    @*<li><a href="#tab-2" data-toggle="tab">Reports</a></li>*@
+                </ul>
+            </div>
+            @RenderBody()
+        </div>
+
+    </div> <!-- /container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script> -->
+    @Scripts.Render("~/Scripts/jquery-3.2.1.slim.min.js")
+    @Scripts.Render("~/Scripts/popper.min.js")
+    @Scripts.Render("~/Scripts/bootstrap.min.js")
+</body>
+</html>
