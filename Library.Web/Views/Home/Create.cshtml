@@ -1,11 +1,9 @@
 ﻿@model Library.Web.Entities.Book
-
 @{
     Layout = null;
 }
-
+@Styles.Render("~/Content/Site.css")
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -46,14 +44,11 @@
     
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Add book" class="btn btn-success" />
+                    @Html.ActionLink("Cancel", "Index", null, new {@Class = "btn btn-danger" } )
                 </div>
             </div>
         </div>
     }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
 </body>
 </html>
