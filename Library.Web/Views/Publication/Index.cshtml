@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Library.Web.Entities.Book>
+﻿@model IEnumerable<Library.Web.Entities.Publication>
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,7 +6,7 @@
 @Styles.Render("~/Content/dashboard.css")
 @Styles.Render("~/Content/Site.css")
 <header class="masthead col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
-    <h3 class="text-muted">User books</h3>
+    <h3 class="text-muted">All pulications</h3>
 </header>
 <div class="tab-content col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <br />
@@ -18,10 +18,7 @@
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Author)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.YearOfPublishing)
+                        @Html.DisplayNameFor(model => model.Type)
                     </th>
                 </tr>
             </thead>
@@ -33,17 +30,11 @@
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Author)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.YearOfPublishing)
+                            @Html.DisplayFor(modelItem => item.Type)
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-        <p>
-            @Html.ActionLink("Add book", "Create",null, new { @class = "btn btn-info" })
-        </p>
     </div>
 </div>

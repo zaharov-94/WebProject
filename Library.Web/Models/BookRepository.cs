@@ -19,7 +19,10 @@ namespace Library.Web.Models
         {
             Books = new List<Book>();
             _fileStreamManager = new FileStreamManager();
-            Books = _fileStreamManager.Read();
+            foreach (var book in _fileStreamManager.Read(typeof(Book)))
+            {
+                Books.Add((Book)book);
+            }
         }
         public void AddBook(Book book)
         {

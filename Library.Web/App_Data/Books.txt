@@ -1,3 +1,33 @@
-Author:Palermo Name:Asp.Net Year:2008
-Author:Rihter Name:CLR Year:2005
-Author:Ratz Name:Linq Year:2009
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publications>
+  <book>
+    <name>12</name>
+    <author>qwe</author>
+    <yearOfPublish>2001</yearOfPublish>
+  </book>
+  <book>
+    <name>12</name>
+    <author>qwe</author>
+    <yearOfPublish>2001</yearOfPublish>
+  </book>
+  <book>
+    <name>Serhii</name>
+    <author>qwe</author>
+    <yearOfPublish>5</yearOfPublish>
+  </book>
+  <magazine>
+    <name>Serhii</name>
+    <number>1</number>
+    <yearOfPublish>2010</yearOfPublish>
+  </magazine>
+  <book>
+    <name>Serhii</name>
+    <author>Rihter</author>
+    <yearOfPublish>2010</yearOfPublish>
+  </book>
+  <magazine>
+    <name>Admin</name>
+    <number>3</number>
+    <yearOfPublish>2000</yearOfPublish>
+  </magazine>
+</publications>
