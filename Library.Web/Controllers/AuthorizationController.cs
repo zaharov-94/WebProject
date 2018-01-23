@@ -9,12 +9,19 @@ namespace Library.Web.Controllers
 {
     public class AuthorizationController : Controller
     {
-        Authorization _authorization = new Authorization();
+        private Authorization _authorization;
+
+        public AuthorizationController()
+        {
+            _authorization = new Authorization();
+        }
+
         // GET: Authorization
         public ActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Login(User user)
         {
@@ -22,6 +29,7 @@ namespace Library.Web.Controllers
             {
                 return Redirect("/Home/Index");
             }
+
             if ((_authorization.IsAuth(user)) && (_authorization.GetRole(user) == Enums.Roles.Administrator))
             {
                 return Redirect("/Admin/Index");

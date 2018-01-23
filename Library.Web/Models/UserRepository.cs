@@ -9,7 +9,7 @@ namespace Library.Web.Models
 {
     public class UserRepository
     {
-        List<User> _users;
+        private List<User> _users;
         public UserRepository()
         {
             _users = new List<User>();

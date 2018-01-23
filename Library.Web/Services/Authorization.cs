@@ -10,7 +10,7 @@ namespace Library.Web
 {
     public class Authorization
     {
-        UserRepository _userRepository;
+        private UserRepository _userRepository;
         public Authorization()
         {
             _userRepository = new UserRepository();

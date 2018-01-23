@@ -8,6 +8,8 @@ namespace Library.Web.Models
 {
     public class BookRepository
     {
+        private FileStreamManager _fileStreamManager;
+
         public List<Book> Books
         {
             get;
@@ -16,8 +18,13 @@ namespace Library.Web.Models
         public BookRepository()
         {
             Books = new List<Book>();
-            Books.Add(new Book { Name = "1", Author = "1", YearOfPublishing = 1999 });
-            Books.Add(new Book { Name = "2", Author = "2", YearOfPublishing = 2006 });
+            _fileStreamManager = new FileStreamManager();
+            Books = _fileStreamManager.Read();
+        }
+        public void AddBook(Book book)
+        {
+            _fileStreamManager.Write(book);
+            Books.Add(book);
         }
     }
 }
