@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Library.Web.Entities.Book>
+﻿@model IEnumerable<Library.Web.Entities.Brochure>
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,7 +6,7 @@
 @Styles.Render("~/Content/dashboard.css")
 @Styles.Render("~/Content/Site.css")
 <header class="masthead col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
-    <h3 class="text-muted">User books</h3>
+    <h3 class="text-muted">User brochures</h3>
 </header>
 <div class="tab-content col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <br />
@@ -18,10 +18,10 @@
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Author)
+                        @Html.DisplayNameFor(model => model.TypeOfCover)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.YearOfPublishing)
+                        @Html.DisplayNameFor(model => model.NumberOfPages)
                     </th>
                     <th>
                         
@@ -36,10 +36,10 @@
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Author)
+                        @Html.DisplayFor(modelItem => item.TypeOfCover)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.YearOfPublishing)
+                        @Html.DisplayFor(modelItem => item.NumberOfPages)
                     </td>
                     <td>
                         <div class="btn-group">
@@ -52,7 +52,7 @@
             </tbody>
         </table>
         <p>
-            @Html.ActionLink("Add book", "Create",null, new { @class = "btn btn-success" })
+            @Html.ActionLink("Add brochure", "Create",null, new { @class = "btn btn-success" })
         </p>
     </div>
 </div>

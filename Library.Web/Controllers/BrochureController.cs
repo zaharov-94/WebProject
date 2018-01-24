@@ -1,21 +1,20 @@
-﻿using BusinesLogicLayer.Services;
-using Library.Web.Entities;
+﻿using Library.Web.Entities;
+using BusinesLogicLayer.Services;
 using System.Web.Mvc;
 
 namespace Library.Web.Controllers
 {
-    public class MagazineController : Controller
+    public class BrochureController : Controller
     {
-        private MagazineService _magazineService;
+        private BrochureService _brochureService;
 
-        public MagazineController()
+        public BrochureController()
         {
-            _magazineService = new MagazineService(Settings.GetConnectionString());
+            _brochureService = new BrochureService(Settings.GetConnectionString());
         }
-        // GET: Magazine
         public ActionResult Index()
         {
-            return View(_magazineService.GetAll());
+            return View(_brochureService.GetAll());
         }
         public ActionResult Create()
         {
@@ -23,23 +22,23 @@ namespace Library.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Magazine magazine)
+        public ActionResult Create(Brochure brochure)
         {
-            _magazineService.Add(magazine);
+            _brochureService.Add(brochure);
             return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id)
         {
-            return View(_magazineService.GetById(id));
+            return View(_brochureService.GetById(id));
         }
 
         [HttpPost]
-        public ActionResult Edit(Magazine magazine)
+        public ActionResult Edit(Brochure brochure)
         {
             try
             {
-                _magazineService.Edit(magazine);
+                _brochureService.Edit(brochure);
                 return RedirectToAction("Index");
             }
             catch
@@ -47,11 +46,11 @@ namespace Library.Web.Controllers
                 return View();
             }
         }
-
         public ActionResult Delete(int id)
         {
-            _magazineService.Delete(id);
+            _brochureService.Delete(id);
             return RedirectToAction("Index");
         }
+
     }
 }
