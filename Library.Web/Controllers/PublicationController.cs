@@ -18,7 +18,7 @@ namespace Library.Web.Controllers
         // GET: Pulicatons
         public ActionResult Index()
         {
-            return View(_publicationRepository.AllPublications);
+            return View(_publicationRepository.GetAllPublications());
         }
     }
 }
