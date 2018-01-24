@@ -68,20 +68,10 @@ namespace Library.Web.Models
         }
         public void Add(Book book)
         {
-            string sqlExpression = string.Empty;
-            foreach(string property in GetProperties())
-            {
-                if (sqlExpression.Length != 0)
-                {
-                    sqlExpression += ", " + property;
-                }
-                if (sqlExpression.Length == 0)
-                {
-                    sqlExpression += property;
-                }    
-            }
-
-            sqlExpression = string.Format("INSERT INTO Books ({0}) VALUES ('{1}', '{2}', {3})", sqlExpression, book.Name, book.Author, book.YearOfPublishing);
+            List<string> bookProperties = GetProperties();
+            string sqlExpression = string.Format("INSERT INTO Books ({0}, {1}, {2}) VALUES ('{3}', '{4}', {5})", 
+                bookProperties[0], bookProperties[1], bookProperties[2], 
+                book.Name, book.Author, book.YearOfPublishing);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -91,7 +81,10 @@ namespace Library.Web.Models
         }
         public void Update(Book book)
         {
-            string sqlExpression = string.Format("UPDATE Books SET Name='{0}', Author='{1}', YearOfPublishing={2} WHERE Id={3}", book.Name, book.Author, book.YearOfPublishing, book.Id);
+            List<string> bookProperties = GetProperties();
+            string sqlExpression = string.Format("UPDATE Books SET {0}='{3}', {1}='{4}', {2}={5} WHERE Id={6}",
+                bookProperties[0], bookProperties[1], bookProperties[2],
+                book.Name, book.Author, book.YearOfPublishing, book.Id);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
