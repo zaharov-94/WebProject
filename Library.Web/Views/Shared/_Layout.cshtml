@@ -7,28 +7,27 @@
     <title>User page</title>
     <!-- Custom styles for this template -->  
     @Styles.Render("~/Content/justified-nav.css")
-
-
+    @Scripts.Render("~/Scripts/jquery-3.2.1.slim.min.js")
 </head>
 <body>
     <div class="container">
         <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li class="active">
-                    @Html.ActionLink("Books", "Index", "Home")
-                </li>
-                <li>
-                    @Html.ActionLink("Magazines", "Index", "Magazine")
-                </li>
-                <li>
-                    @Html.ActionLink("All publications", "Index", "Publication")
-                </li>
-            </ul>
-        </div>
+                <ul class="nav nav-sidebar">
+                    <li class="active">
+                        @Html.ActionLink("Books", "Index", "Home")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Magazines", "Index", "Magazine")
+                    </li>
+                    <li>
+                        @Html.ActionLink("All publications", "Index", "Publication")
+                    </li>
+                </ul>
+            </div>
         @RenderBody()
     </div>
 
-    @Scripts.Render("~/Scripts/jquery-3.2.1.slim.min.js")
+
     @Scripts.Render("~/Scripts/popper.min.js")
     @Scripts.Render("~/Scripts/bootstrap.min.js")
     @Scripts.Render("~/Scripts/additional.js")
