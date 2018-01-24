@@ -214,6 +214,7 @@
     <Content Include="Views\Magazine\Create.cshtml" />
     <Content Include="Views\Publication\Index.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Magazine\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

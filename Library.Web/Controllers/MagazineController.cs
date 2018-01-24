@@ -25,10 +25,36 @@ namespace Library.Web.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Create(Magazine magazine)
         {
-            _magazineRepository.AddMagazine(magazine);
+            _magazineRepository.Add(magazine);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            return View(_magazineRepository.GetById(id));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Magazine magazine)
+        {
+            try
+            {
+                _magazineRepository.Updete(magazine);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult Delete(int id)
+        {
+            _magazineRepository.Delete(id);
             return RedirectToAction("Index");
         }
     }

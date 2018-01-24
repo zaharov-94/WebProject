@@ -9,7 +9,7 @@ namespace Library.Web.Models
 {
     public class BookRepository
     {
-        string _connectionString;
+        private string _connectionString;
 
         public List<Book> Books
         {

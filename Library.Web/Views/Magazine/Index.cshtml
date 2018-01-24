@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<Library.Web.Entities.Magazine>
 @{
-    ViewBag.Title = "Magazine Page";
+    ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Styles.Render("~/Content/dashboard.css")
 @Styles.Render("~/Content/Site.css")
 <header class="masthead col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
-    <h3 class="text-muted">User magazines</h3>
+    <h3 class="text-muted">User books</h3>
 </header>
 <div class="tab-content col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <br />
@@ -23,6 +23,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.YearOfPublishing)
                     </th>
+                    <th>
+
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -38,13 +41,18 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.YearOfPublishing)
                         </td>
+                        <td>
+                            <div class="btn-group">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-info" })
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                            </div>
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
         <p>
-            @Html.ActionLink("Add magazine", "Create", null, new { @class = "btn btn-info" })
+            @Html.ActionLink("Add magazine", "Create", null, new { @class = "btn btn-success" })
         </p>
     </div>
 </div>
-
