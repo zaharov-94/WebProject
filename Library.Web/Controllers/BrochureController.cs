@@ -10,7 +10,7 @@ namespace Library.Web.Controllers
 
         public BrochureController()
         {
-            _brochureService = new BrochureService(GetConnectionString());
+            _brochureService = new BrochureService(Settings.GetConnectionString());
         }
         public ActionResult Index()
         {
@@ -51,17 +51,6 @@ namespace Library.Web.Controllers
             _brochureService.Delete(id);
             return RedirectToAction("Index");
         }
-        private string GetConnectionString()
-        {
-            System.Configuration.Configuration rootWebConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MyWebSiteRoot");
-            System.Configuration.ConnectionStringSettings connString;
-            if (0 < rootWebConfig.ConnectionStrings.ConnectionStrings.Count)
-            {
-                connString = rootWebConfig.ConnectionStrings.ConnectionStrings["PublicationsContext"];
-                if (null != connString)
-                    return connString.ConnectionString;
-            }
-            return "";
-        }
+
     }
 }

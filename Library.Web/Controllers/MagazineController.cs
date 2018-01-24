@@ -10,7 +10,7 @@ namespace Library.Web.Controllers
 
         public MagazineController()
         {
-            _magazineService = new MagazineService(GetConnectionString());
+            _magazineService = new MagazineService(Settings.GetConnectionString());
         }
         // GET: Magazine
         public ActionResult Index()
@@ -52,18 +52,6 @@ namespace Library.Web.Controllers
         {
             _magazineService.Delete(id);
             return RedirectToAction("Index");
-        }
-        private string GetConnectionString()
-        {
-            System.Configuration.Configuration rootWebConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MyWebSiteRoot");
-            System.Configuration.ConnectionStringSettings connString;
-            if (0 < rootWebConfig.ConnectionStrings.ConnectionStrings.Count)
-            {
-                connString = rootWebConfig.ConnectionStrings.ConnectionStrings["PublicationsContext"];
-                if (null != connString)
-                    return connString.ConnectionString;
-            }
-            return "";
         }
     }
 }

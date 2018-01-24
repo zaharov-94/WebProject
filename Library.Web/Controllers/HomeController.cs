@@ -10,7 +10,7 @@ namespace Library.Web.Controllers
 
         public HomeController()
         {
-            _bookService = new BookService(GetConnectionString());
+            _bookService = new BookService(Settings.GetConnectionString());
         }
         public ActionResult Index()
         {
@@ -51,18 +51,6 @@ namespace Library.Web.Controllers
         {
             _bookService.Delete(id);
             return RedirectToAction("Index");
-        }
-        private string GetConnectionString()
-        {
-            System.Configuration.Configuration rootWebConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MyWebSiteRoot");
-            System.Configuration.ConnectionStringSettings connString;
-            if (0 < rootWebConfig.ConnectionStrings.ConnectionStrings.Count)
-            {
-                connString = rootWebConfig.ConnectionStrings.ConnectionStrings["PublicationsContext"];
-                if (null != connString)
-                    return connString.ConnectionString;
-            }
-            return "";
         }
     }
 }

@@ -9,24 +9,12 @@ namespace Library.Web.Controllers
 
         public PublicationController()
         {
-            _publicationService = new PublicationService(GetConnectionString());
+            _publicationService = new PublicationService(Settings.GetConnectionString());
         }
         // GET: Pulicatons
         public ActionResult Index()
         {
             return View(_publicationService.GetAllPublications());
-        }
-        private string GetConnectionString()
-        {
-            System.Configuration.Configuration rootWebConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MyWebSiteRoot");
-            System.Configuration.ConnectionStringSettings connString;
-            if (0 < rootWebConfig.ConnectionStrings.ConnectionStrings.Count)
-            {
-                connString = rootWebConfig.ConnectionStrings.ConnectionStrings["PublicationsContext"];
-                if (null != connString)
-                    return connString.ConnectionString;
-            }
-            return "";
         }
     }
 }

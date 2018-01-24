@@ -1,6 +1,7 @@
 ﻿using Library.Web.Entities;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Reflection;
 
 namespace Library.Web.Models
 {
@@ -67,7 +68,20 @@ namespace Library.Web.Models
         }
         public void Add(Book book)
         {
-            string sqlExpression = string.Format("INSERT INTO Books (Name, Author, YearOfPublishing) VALUES ('{0}', '{1}', {2})", book.Name, book.Author, book.YearOfPublishing);
+            string sqlExpression = string.Empty;
+            foreach(string property in GetProperties())
+            {
+                if (sqlExpression.Length != 0)
+                {
+                    sqlExpression += ", " + property;
+                }
+                if (sqlExpression.Length == 0)
+                {
+                    sqlExpression += property;
+                }    
+            }
+
+            sqlExpression = string.Format("INSERT INTO Books ({0}) VALUES ('{1}', '{2}', {3})", sqlExpression, book.Name, book.Author, book.YearOfPublishing);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -94,6 +108,18 @@ namespace Library.Web.Models
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 command.ExecuteNonQuery();
             }
+        }
+        private List<string> GetProperties()
+        {
+            List<string> properties = new List<string>();
+            foreach (PropertyInfo myPropInfo in typeof(Book).GetProperties())
+            {
+                if (myPropInfo.Name != "Id")
+                {
+                    properties.Add(myPropInfo.Name);
+                }
+            }
+            return properties;
         }
     }
 }
