@@ -15,7 +15,7 @@ namespace Library.Web.Controllers
         {
             _publicationRepository = new PublicationRepository();
         }
-        // GET: Magazine
+        // GET: Pulicatons
         public ActionResult Index()
         {
             return View(_publicationRepository.AllPublications);

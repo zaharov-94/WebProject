@@ -30,4 +30,14 @@
     <number>3</number>
     <yearOfPublish>2000</yearOfPublish>
   </magazine>
+  <magazine>
+    <name>Admin</name>
+    <number>5</number>
+    <yearOfPublish>2009</yearOfPublish>
+  </magazine>
+  <magazine>
+    <name>Serhii</name>
+    <number>5</number>
+    <yearOfPublish>2000</yearOfPublish>
+  </magazine>
 </publications>

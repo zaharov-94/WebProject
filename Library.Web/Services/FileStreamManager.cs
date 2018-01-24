@@ -44,9 +44,8 @@ namespace Library.Web
             }
             XElement xElementParent = new XElement(xmlDocument.Element("publications"));
             xElementParent.Add(xElement);
-            xmlDocument.Root.Elements().Remove();
-            xmlDocument.Root.Add(xElementParent.Elements());
-            //сохраняем наш документ
+            xmlDocument.Root.ReplaceAll(xElementParent.Elements());
+
             xmlDocument.Save(_absolutePathToFile);
         }
 
@@ -54,14 +53,14 @@ namespace Library.Web
         {
             XDocument xmlDocument = XDocument.Load(_absolutePathToFile);
             List<Object> list = new List<Object>();
-            //проходим по каждому элементу в найшей library
-            //(этот элемент сразу доступен через свойство doc.Root)
+
             if (type == typeof(Book))
             {
                 foreach (XElement el in xmlDocument.Root.Elements().Where(x =>x.Name == "book"))
                 {
                     //выводим в цикле названия всех дочерних элементов и их значения
-                    list.Add(new Book { Name = el.Elements().ElementAt(0).Value, Author = el.Elements().ElementAt(1).Value, YearOfPublishing = int.Parse(el.Elements().ElementAt(2).Value) });
+                    list.Add(new Book { Name = el.Elements().ElementAt(0).Value, Author = el.Elements().ElementAt(1).Value,
+                        YearOfPublishing = int.Parse(el.Elements().ElementAt(2).Value) });
                 }
                 return list;
             }
@@ -69,7 +68,6 @@ namespace Library.Web
             {
                 foreach (XElement el in xmlDocument.Root.Elements().Where(x => x.Name == "magazine"))
                 {
-                    //выводим в цикле названия всех дочерних элементов и их значения
                     list.Add(new Magazine { Name = el.Elements().ElementAt(0).Value, Number = int.Parse(el.Elements().ElementAt(1).Value),
                         YearOfPublishing = int.Parse(el.Elements().ElementAt(2).Value) });
                 }
