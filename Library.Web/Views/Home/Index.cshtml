@@ -23,27 +23,36 @@
                     <th>
                         @Html.DisplayNameFor(model => model.YearOfPublishing)
                     </th>
+                    <th>
+                        
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Author)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.YearOfPublishing)
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.YearOfPublishing)
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                        </div>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
         <p>
-            @Html.ActionLink("Add book", "Create",null, new { @class = "btn btn-info" })
+            @Html.ActionLink("Add book", "Create",null, new { @class = "btn btn-success" })
         </p>
     </div>
 </div>

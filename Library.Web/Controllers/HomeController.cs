@@ -24,10 +24,35 @@ namespace Library.Web.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Create(Book book)
         {
-            _bookRepository.AddBook(book);
+            _bookRepository.Add(book);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            return View(_bookRepository.GetById(id));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Book book)
+        {
+            try
+            {
+                _bookRepository.Updete(book);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        public ActionResult Delete(int id)
+        {
+            _bookRepository.Delete(id);
             return RedirectToAction("Index");
         }
     }

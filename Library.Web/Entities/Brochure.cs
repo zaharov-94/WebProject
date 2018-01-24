@@ -6,15 +6,15 @@ using System.Web;
 
 namespace Library.Web.Entities
 {
-    public class Magazine
+    public class Brochure
     {
         [Key]
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
-        public int Number { get; set; }
+        public string TypeOfCover { get; set; }
         [Required]
-        public int YearOfPublishing { get; set; }
+        public int NumberOfPages { get; set; }
     }
 }

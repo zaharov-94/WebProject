@@ -144,6 +144,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\MagazineController.cs" />
     <Compile Include="Controllers\PublicationController.cs" />
+    <Compile Include="Entities\Brochure.cs" />
     <Compile Include="Entities\Magazine.cs" />
     <Compile Include="Entities\Publication.cs" />
     <Compile Include="Models\MagazineRepository.cs" />
@@ -212,6 +213,7 @@
     <Content Include="Views\Magazine\Index.cshtml" />
     <Content Include="Views\Magazine\Create.cshtml" />
     <Content Include="Views\Publication\Index.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

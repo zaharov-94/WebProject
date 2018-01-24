@@ -40,4 +40,14 @@
     <number>5</number>
     <yearOfPublish>2000</yearOfPublish>
   </magazine>
+  <book>
+    <name>Admin</name>
+    <author>123</author>
+    <yearOfPublish>2001</yearOfPublish>
+  </book>
+  <magazine>
+    <name>123</name>
+    <number>4</number>
+    <yearOfPublish>2009</yearOfPublish>
+  </magazine>
 </publications>
