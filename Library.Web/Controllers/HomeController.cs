@@ -1,25 +1,22 @@
-﻿using Library.Web.Entities;
-using Library.Web.Models;
-using System;
-using System.IO;
-using System.Text;
-using System.Web;
+﻿using BusinesLogicLayer.Services;
+using Library.Web.Entities;
 using System.Web.Mvc;
 
 namespace Library.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private BookRepository _bookRepository;
+        private BookService _bookService;
 
         public HomeController()
         {
-            _bookRepository = new BookRepository();
+            _bookService = new BookService(GetConnectionString());
         }
         public ActionResult Index()
         {
-            return View(_bookRepository.Books);
+            return View(_bookService.GetAll());
         }
+
         public ActionResult Create()
         {
             return View();
@@ -28,13 +25,13 @@ namespace Library.Web.Controllers
         [HttpPost]
         public ActionResult Create(Book book)
         {
-            _bookRepository.Add(book);
+            _bookService.Add(book);
             return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id)
         {
-            return View(_bookRepository.GetById(id));
+            return View(_bookService.GetById(id));
         }
 
         [HttpPost]
@@ -42,7 +39,7 @@ namespace Library.Web.Controllers
         {
             try
             {
-                _bookRepository.Updete(book);
+                _bookService.Edit(book);
                 return RedirectToAction("Index");
             }
             catch
@@ -52,8 +49,20 @@ namespace Library.Web.Controllers
         }
         public ActionResult Delete(int id)
         {
-            _bookRepository.Delete(id);
+            _bookService.Delete(id);
             return RedirectToAction("Index");
+        }
+        private string GetConnectionString()
+        {
+            System.Configuration.Configuration rootWebConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MyWebSiteRoot");
+            System.Configuration.ConnectionStringSettings connString;
+            if (0 < rootWebConfig.ConnectionStrings.ConnectionStrings.Count)
+            {
+                connString = rootWebConfig.ConnectionStrings.ConnectionStrings["PublicationsContext"];
+                if (null != connString)
+                    return connString.ConnectionString;
+            }
+            return "";
         }
     }
 }

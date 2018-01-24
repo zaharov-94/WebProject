@@ -1,24 +1,32 @@
-﻿using Library.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BusinesLogicLayer.Services;
 using System.Web.Mvc;
 
 namespace Library.Web.Controllers
 {
     public class PublicationController : Controller
     {
-        private PublicationRepository _publicationRepository;
+        private PublicationService _publicationService;
 
         public PublicationController()
         {
-            _publicationRepository = new PublicationRepository();
+            _publicationService = new PublicationService(GetConnectionString());
         }
         // GET: Pulicatons
         public ActionResult Index()
         {
-            return View(_publicationRepository.GetAllPublications());
+            return View(_publicationService.GetAllPublications());
+        }
+        private string GetConnectionString()
+        {
+            System.Configuration.Configuration rootWebConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MyWebSiteRoot");
+            System.Configuration.ConnectionStringSettings connString;
+            if (0 < rootWebConfig.ConnectionStrings.ConnectionStrings.Count)
+            {
+                connString = rootWebConfig.ConnectionStrings.ConnectionStrings["PublicationsContext"];
+                if (null != connString)
+                    return connString.ConnectionString;
+            }
+            return "";
         }
     }
 }

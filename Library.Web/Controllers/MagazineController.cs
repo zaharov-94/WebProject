@@ -1,25 +1,21 @@
-﻿using Library.Web.Entities;
-using Library.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BusinesLogicLayer.Services;
+using Library.Web.Entities;
 using System.Web.Mvc;
 
 namespace Library.Web.Controllers
 {
     public class MagazineController : Controller
     {
-        private MagazineRepository _magazineRepository;
+        private MagazineService _magazineService;
 
         public MagazineController()
         {
-            _magazineRepository = new MagazineRepository();
+            _magazineService = new MagazineService(GetConnectionString());
         }
         // GET: Magazine
         public ActionResult Index()
         {
-            return View(_magazineRepository.Magazines);
+            return View(_magazineService.GetAll());
         }
         public ActionResult Create()
         {
@@ -29,13 +25,13 @@ namespace Library.Web.Controllers
         [HttpPost]
         public ActionResult Create(Magazine magazine)
         {
-            _magazineRepository.Add(magazine);
+            _magazineService.Add(magazine);
             return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id)
         {
-            return View(_magazineRepository.GetById(id));
+            return View(_magazineService.GetById(id));
         }
 
         [HttpPost]
@@ -43,7 +39,7 @@ namespace Library.Web.Controllers
         {
             try
             {
-                _magazineRepository.Updete(magazine);
+                _magazineService.Edit(magazine);
                 return RedirectToAction("Index");
             }
             catch
@@ -54,8 +50,20 @@ namespace Library.Web.Controllers
 
         public ActionResult Delete(int id)
         {
-            _magazineRepository.Delete(id);
+            _magazineService.Delete(id);
             return RedirectToAction("Index");
+        }
+        private string GetConnectionString()
+        {
+            System.Configuration.Configuration rootWebConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MyWebSiteRoot");
+            System.Configuration.ConnectionStringSettings connString;
+            if (0 < rootWebConfig.ConnectionStrings.ConnectionStrings.Count)
+            {
+                connString = rootWebConfig.ConnectionStrings.ConnectionStrings["PublicationsContext"];
+                if (null != connString)
+                    return connString.ConnectionString;
+            }
+            return "";
         }
     }
 }

@@ -1,23 +1,21 @@
 ﻿using Library.Web.Entities;
-using System;
+using Library.Web.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace Library.Web.Models
+namespace BusinesLogicLayer.Services
 {
-    public class PublicationRepository
+    public class PublicationService
     {
         private BookRepository _bookRepository;
         private BrochureRepository _brochureRepository;
         private MagazineRepository _magazineRepository;
         private List<Publication> _publicationList;
-        public PublicationRepository()
+        public PublicationService(string connectionString)
         {
             _publicationList = new List<Publication>();
-            _bookRepository = new BookRepository();
-            _brochureRepository = new BrochureRepository();
-            _magazineRepository = new MagazineRepository();
+            _bookRepository = new BookRepository(connectionString);
+            _brochureRepository = new BrochureRepository(connectionString);
+            _magazineRepository = new MagazineRepository(connectionString);
         }
         public List<Publication> GetAllPublications()
         {

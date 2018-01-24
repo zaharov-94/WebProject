@@ -7,41 +7,41 @@ using System.Web;
 
 namespace Library.Web.Models
 {
-    public class MagazineRepository
+    public class BrochureRepository
     {
         private string _connectionString;
 
-        public List<Magazine> Magazines
+        public List<Brochure> Brochures
         {
             get;
             set;
         }
-        public MagazineRepository()
+        public BrochureRepository(string connectionString)
         {
-            Magazines = new List<Magazine>();
-            _connectionString = @"Data Source=localhost;Initial Catalog=PublicationsDb;Integrated Security=True";
+            Brochures = new List<Brochure>();
+            _connectionString = connectionString;
             RefreshData();
         }
         public void RefreshData()
         {
-            string sqlExpression = "SELECT * FROM Magazines";
-            Magazines.Clear();
+            string sqlExpression = "SELECT * FROM Brochures";
+            Brochures.Clear();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 SqlDataReader reader = command.ExecuteReader();
-                Magazines.Clear();
+                Brochures.Clear();
                 if (reader.HasRows) // если есть данные
                 {
                     while (reader.Read()) // построчно считываем данные
                     {
-                        Magazines.Add(new Magazine
+                        Brochures.Add(new Brochure
                         {
                             Id = int.Parse(reader.GetValue(0).ToString()),
                             Name = reader.GetValue(1).ToString(),
-                            Number = int.Parse(reader.GetValue(2).ToString()),
-                            YearOfPublishing = int.Parse(reader.GetValue(3).ToString())
+                            TypeOfCover = reader.GetValue(2).ToString(),
+                            NumberOfPages = int.Parse(reader.GetValue(3).ToString())
                         });
                     }
                 }
@@ -49,10 +49,10 @@ namespace Library.Web.Models
                 reader.Close();
             }
         }
-        public Magazine GetById(int id)
+        public Brochure GetById(int id)
         {
-            string sqlExpression = string.Format("SELECT * FROM Magazines WHERE Id={0}", id);
-            Magazine magazine = null;
+            string sqlExpression = string.Format("SELECT * FROM Brochures WHERE Id={0}", id);
+            Brochure brochure = null;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -61,21 +61,21 @@ namespace Library.Web.Models
                 if (reader.HasRows) // если есть данные
                 {
                     reader.Read();
-                    magazine = new Magazine
+                    brochure = new Brochure
                     {
                         Id = int.Parse(reader.GetValue(0).ToString()),
                         Name = reader.GetValue(1).ToString(),
-                        Number = int.Parse(reader.GetValue(2).ToString()),
-                        YearOfPublishing = int.Parse(reader.GetValue(3).ToString())
+                        TypeOfCover = reader.GetValue(2).ToString(),
+                        NumberOfPages = int.Parse(reader.GetValue(3).ToString())
                     };
                 }
                 reader.Close();
             }
-            return magazine;
+            return brochure;
         }
-        public void Add(Magazine magazine)
+        public void Add(Brochure brochure)
         {
-            string sqlExpression = string.Format("INSERT INTO Magazines (Name, Number, YearOfPublishing) VALUES ('{0}', {1}, {2})", magazine.Name, magazine.Number, magazine.YearOfPublishing);
+            string sqlExpression = string.Format("INSERT INTO Brochures (Name, TypeOfCover, NumberOfPages) VALUES ('{0}', '{1}', {2})", brochure.Name, brochure.TypeOfCover, brochure.NumberOfPages);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -83,9 +83,9 @@ namespace Library.Web.Models
                 command.ExecuteNonQuery();
             }
         }
-        public void Updete(Magazine magazine)
+        public void Update(Brochure brochure)
         {
-            string sqlExpression = string.Format("UPDATE Magazines SET Name='{0}', Number={1}, YearOfPublishing={2} WHERE Id={3}", magazine.Name, magazine.Number, magazine.YearOfPublishing, magazine.Id);
+            string sqlExpression = string.Format("UPDATE Brochures SET Name='{0}', TypeOfCover='{1}', NumberOfPages={2} WHERE Id={3}", brochure.Name, brochure.TypeOfCover, brochure.NumberOfPages, brochure.Id);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -95,7 +95,7 @@ namespace Library.Web.Models
         }
         public void Delete(int id)
         {
-            string sqlExpression = string.Format("DELETE FROM Magazines WHERE Id={0}", id);
+            string sqlExpression = string.Format("DELETE FROM Brochures WHERE Id={0}", id);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();

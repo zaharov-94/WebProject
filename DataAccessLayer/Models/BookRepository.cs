@@ -1,58 +1,50 @@
 ﻿using Library.Web.Entities;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace Library.Web.Models
 {
-    public class BrochureRepository
+    public class BookRepository
     {
         private string _connectionString;
 
-        public List<Brochure> Brochures
+        public List<Book> Books
         {
             get;
             set;
         }
-        public BrochureRepository()
+        public BookRepository(string connectionString)
         {
-            Brochures = new List<Brochure>();
-            _connectionString = @"Data Source=localhost;Initial Catalog=PublicationsDb;Integrated Security=True";
+            Books = new List<Book>();
+            _connectionString = connectionString;
             RefreshData();
         }
         public void RefreshData()
         {
-            string sqlExpression = "SELECT * FROM Brochures";
-            Brochures.Clear();
+            string sqlExpression = "SELECT * FROM Books";
+            Books.Clear();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 SqlDataReader reader = command.ExecuteReader();
-                Brochures.Clear();
+                Books.Clear();
                 if (reader.HasRows) // если есть данные
                 {
                     while (reader.Read()) // построчно считываем данные
                     {
-                        Brochures.Add(new Brochure
-                        {
-                            Id = int.Parse(reader.GetValue(0).ToString()),
-                            Name = reader.GetValue(1).ToString(),
-                            TypeOfCover = reader.GetValue(2).ToString(),
-                            NumberOfPages = int.Parse(reader.GetValue(3).ToString())
-                        });
+                        Books.Add(new Book { Id = int.Parse(reader.GetValue(0).ToString()), Name = reader.GetValue(1).ToString(),
+                            Author = reader.GetValue(2).ToString(), YearOfPublishing = int.Parse(reader.GetValue(3).ToString()) });
                     }
                 }
 
                 reader.Close();
             }
         }
-        public Brochure GetById(int id)
+        public Book GetById(int id)
         {
-            string sqlExpression = string.Format("SELECT * FROM Brochures WHERE Id={0}", id);
-            Brochure brochure = null;
+            string sqlExpression = string.Format("SELECT * FROM Books WHERE Id={0}", id);
+            Book book = null;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -61,21 +53,21 @@ namespace Library.Web.Models
                 if (reader.HasRows) // если есть данные
                 {
                     reader.Read();
-                    brochure = new Brochure
+                    book = new Book
                     {
                         Id = int.Parse(reader.GetValue(0).ToString()),
                         Name = reader.GetValue(1).ToString(),
-                        TypeOfCover = reader.GetValue(2).ToString(),
-                        NumberOfPages = int.Parse(reader.GetValue(3).ToString())
+                        Author = reader.GetValue(2).ToString(),
+                        YearOfPublishing = int.Parse(reader.GetValue(3).ToString())
                     };
                 }
                 reader.Close();
             }
-            return brochure;
+            return book;
         }
-        public void Add(Brochure brochure)
+        public void Add(Book book)
         {
-            string sqlExpression = string.Format("INSERT INTO Brochures (Name, TypeOfCover, NumberOfPages) VALUES ('{0}', '{1}', {2})", brochure.Name, brochure.TypeOfCover, brochure.NumberOfPages);
+            string sqlExpression = string.Format("INSERT INTO Books (Name, Author, YearOfPublishing) VALUES ('{0}', '{1}', {2})", book.Name, book.Author, book.YearOfPublishing);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -83,9 +75,9 @@ namespace Library.Web.Models
                 command.ExecuteNonQuery();
             }
         }
-        public void Updete(Brochure brochure)
+        public void Update(Book book)
         {
-            string sqlExpression = string.Format("UPDATE Brochures SET Name='{0}', TypeOfCover='{1}', NumberOfPages={2} WHERE Id={3}", brochure.Name, brochure.TypeOfCover, brochure.NumberOfPages, brochure.Id);
+            string sqlExpression = string.Format("UPDATE Books SET Name='{0}', Author='{1}', YearOfPublishing={2} WHERE Id={3}", book.Name, book.Author, book.YearOfPublishing, book.Id);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -95,7 +87,7 @@ namespace Library.Web.Models
         }
         public void Delete(int id)
         {
-            string sqlExpression = string.Format("DELETE FROM Brochures WHERE Id={0}", id);
+            string sqlExpression = string.Format("DELETE FROM Books WHERE Id={0}", id);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();

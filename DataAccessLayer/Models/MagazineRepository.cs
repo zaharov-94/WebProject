@@ -7,47 +7,52 @@ using System.Web;
 
 namespace Library.Web.Models
 {
-    public class BookRepository
+    public class MagazineRepository
     {
         private string _connectionString;
 
-        public List<Book> Books
+        public List<Magazine> Magazines
         {
             get;
             set;
         }
-        public BookRepository()
+        public MagazineRepository(string connectionString)
         {
-            Books = new List<Book>();
-            _connectionString = @"Data Source=localhost;Initial Catalog=PublicationsDb;Integrated Security=True";
+            Magazines = new List<Magazine>();
+            _connectionString = connectionString;
             RefreshData();
         }
         public void RefreshData()
         {
-            string sqlExpression = "SELECT * FROM Books";
-            Books.Clear();
+            string sqlExpression = "SELECT * FROM Magazines";
+            Magazines.Clear();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 SqlDataReader reader = command.ExecuteReader();
-                Books.Clear();
+                Magazines.Clear();
                 if (reader.HasRows) // если есть данные
                 {
                     while (reader.Read()) // построчно считываем данные
                     {
-                        Books.Add(new Book { Id = int.Parse(reader.GetValue(0).ToString()), Name = reader.GetValue(1).ToString(),
-                            Author = reader.GetValue(2).ToString(), YearOfPublishing = int.Parse(reader.GetValue(3).ToString()) });
+                        Magazines.Add(new Magazine
+                        {
+                            Id = int.Parse(reader.GetValue(0).ToString()),
+                            Name = reader.GetValue(1).ToString(),
+                            Number = int.Parse(reader.GetValue(2).ToString()),
+                            YearOfPublishing = int.Parse(reader.GetValue(3).ToString())
+                        });
                     }
                 }
 
                 reader.Close();
             }
         }
-        public Book GetById(int id)
+        public Magazine GetById(int id)
         {
-            string sqlExpression = string.Format("SELECT * FROM Books WHERE Id={0}", id);
-            Book book = null;
+            string sqlExpression = string.Format("SELECT * FROM Magazines WHERE Id={0}", id);
+            Magazine magazine = null;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -56,21 +61,21 @@ namespace Library.Web.Models
                 if (reader.HasRows) // если есть данные
                 {
                     reader.Read();
-                    book = new Book
+                    magazine = new Magazine
                     {
                         Id = int.Parse(reader.GetValue(0).ToString()),
                         Name = reader.GetValue(1).ToString(),
-                        Author = reader.GetValue(2).ToString(),
+                        Number = int.Parse(reader.GetValue(2).ToString()),
                         YearOfPublishing = int.Parse(reader.GetValue(3).ToString())
                     };
                 }
                 reader.Close();
             }
-            return book;
+            return magazine;
         }
-        public void Add(Book book)
+        public void Add(Magazine magazine)
         {
-            string sqlExpression = string.Format("INSERT INTO Books (Name, Author, YearOfPublishing) VALUES ('{0}', '{1}', {2})", book.Name, book.Author, book.YearOfPublishing);
+            string sqlExpression = string.Format("INSERT INTO Magazines (Name, Number, YearOfPublishing) VALUES ('{0}', {1}, {2})", magazine.Name, magazine.Number, magazine.YearOfPublishing);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -78,9 +83,9 @@ namespace Library.Web.Models
                 command.ExecuteNonQuery();
             }
         }
-        public void Updete(Book book)
+        public void Update(Magazine magazine)
         {
-            string sqlExpression = string.Format("UPDATE Books SET Name='{0}', Author='{1}', YearOfPublishing={2} WHERE Id={3}", book.Name, book.Author, book.YearOfPublishing, book.Id);
+            string sqlExpression = string.Format("UPDATE Magazines SET Name='{0}', Number={1}, YearOfPublishing={2} WHERE Id={3}", magazine.Name, magazine.Number, magazine.YearOfPublishing, magazine.Id);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -90,7 +95,7 @@ namespace Library.Web.Models
         }
         public void Delete(int id)
         {
-            string sqlExpression = string.Format("DELETE FROM Books WHERE Id={0}", id);
+            string sqlExpression = string.Format("DELETE FROM Magazines WHERE Id={0}", id);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
