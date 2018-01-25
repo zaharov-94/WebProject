@@ -1,15 +1,14 @@
-﻿using Library.Web.Entities;
-using System;
+﻿using DataAccessLayer;
+using Library.Web.Entities;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace Library.Web.Models
 {
     public class BrochureRepository
     {
         private string _connectionString;
+        private Sql _sql;
 
         public List<Brochure> Brochures
         {
@@ -20,6 +19,7 @@ namespace Library.Web.Models
         {
             Brochures = new List<Brochure>();
             _connectionString = connectionString;
+            _sql = new Sql();
             RefreshData();
         }
         public void RefreshData()
@@ -75,7 +75,7 @@ namespace Library.Web.Models
         }
         public void Add(Brochure brochure)
         {
-            string sqlExpression = string.Format("INSERT INTO Brochures (Name, TypeOfCover, NumberOfPages) VALUES ('{0}', '{1}', {2})", brochure.Name, brochure.TypeOfCover, brochure.NumberOfPages);
+            string sqlExpression = _sql.CreateInsertString(brochure);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -85,7 +85,7 @@ namespace Library.Web.Models
         }
         public void Update(Brochure brochure)
         {
-            string sqlExpression = string.Format("UPDATE Brochures SET Name='{0}', TypeOfCover='{1}', NumberOfPages={2} WHERE Id={3}", brochure.Name, brochure.TypeOfCover, brochure.NumberOfPages, brochure.Id);
+            string sqlExpression = _sql.CreateUpdateString(brochure);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();

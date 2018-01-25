@@ -1,4 +1,5 @@
-﻿using Library.Web.Entities;
+﻿using DataAccessLayer;
+using Library.Web.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -10,6 +11,7 @@ namespace Library.Web.Models
     public class MagazineRepository
     {
         private string _connectionString;
+        private Sql _sql;
 
         public List<Magazine> Magazines
         {
@@ -20,6 +22,7 @@ namespace Library.Web.Models
         {
             Magazines = new List<Magazine>();
             _connectionString = connectionString;
+            _sql = new Sql();
             RefreshData();
         }
         public void RefreshData()
@@ -75,7 +78,7 @@ namespace Library.Web.Models
         }
         public void Add(Magazine magazine)
         {
-            string sqlExpression = string.Format("INSERT INTO Magazines (Name, Number, YearOfPublishing) VALUES ('{0}', {1}, {2})", magazine.Name, magazine.Number, magazine.YearOfPublishing);
+            string sqlExpression = _sql.CreateInsertString(magazine);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -85,7 +88,7 @@ namespace Library.Web.Models
         }
         public void Update(Magazine magazine)
         {
-            string sqlExpression = string.Format("UPDATE Magazines SET Name='{0}', Number={1}, YearOfPublishing={2} WHERE Id={3}", magazine.Name, magazine.Number, magazine.YearOfPublishing, magazine.Id);
+            string sqlExpression = _sql.CreateUpdateString(magazine);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();

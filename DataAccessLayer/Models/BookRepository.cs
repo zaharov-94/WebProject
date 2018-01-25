@@ -1,13 +1,14 @@
-﻿using Library.Web.Entities;
+﻿using DataAccessLayer;
+using Library.Web.Entities;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Reflection;
 
 namespace Library.Web.Models
 {
     public class BookRepository
     {
         private string _connectionString;
+        private Sql _sql;
 
         public List<Book> Books
         {
@@ -18,6 +19,7 @@ namespace Library.Web.Models
         {
             Books = new List<Book>();
             _connectionString = connectionString;
+            _sql = new Sql();
             RefreshData();
         }
         public void RefreshData()
@@ -68,10 +70,7 @@ namespace Library.Web.Models
         }
         public void Add(Book book)
         {
-            List<string> bookProperties = GetProperties();
-            string sqlExpression = string.Format("INSERT INTO Books ({0}, {1}, {2}) VALUES ('{3}', '{4}', {5})", 
-                bookProperties[0], bookProperties[1], bookProperties[2], 
-                book.Name, book.Author, book.YearOfPublishing);
+            string sqlExpression = _sql.CreateInsertString(book);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -81,10 +80,7 @@ namespace Library.Web.Models
         }
         public void Update(Book book)
         {
-            List<string> bookProperties = GetProperties();
-            string sqlExpression = string.Format("UPDATE Books SET {0}='{3}', {1}='{4}', {2}={5} WHERE Id={6}",
-                bookProperties[0], bookProperties[1], bookProperties[2],
-                book.Name, book.Author, book.YearOfPublishing, book.Id);
+            string sqlExpression = _sql.CreateUpdateString(book);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -101,18 +97,6 @@ namespace Library.Web.Models
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 command.ExecuteNonQuery();
             }
-        }
-        private List<string> GetProperties()
-        {
-            List<string> properties = new List<string>();
-            foreach (PropertyInfo myPropInfo in typeof(Book).GetProperties())
-            {
-                if (myPropInfo.Name != "Id")
-                {
-                    properties.Add(myPropInfo.Name);
-                }
-            }
-            return properties;
         }
     }
 }
