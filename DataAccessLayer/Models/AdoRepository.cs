@@ -101,10 +101,8 @@ namespace DataAccessLayer.Models
         }
         private TEntity GetEntity(SqlDataReader reader)
         {
-            Object entity = null;
-            if (typeof(TEntity) == typeof(Book)) entity = new Book();
-            if (typeof(TEntity) == typeof(Magazine)) entity = new Magazine();
-            if (typeof(TEntity) == typeof(Brochure)) entity = new Brochure();
+            TEntity entity = Activator.CreateInstance<TEntity>();
+
             int number = 0;
             foreach (PropertyInfo property in typeof(TEntity).GetProperties())
             {
@@ -118,7 +116,7 @@ namespace DataAccessLayer.Models
                 }
                 number++;
             }
-            return (TEntity)entity;
+            return entity;
         }
     }
 }
