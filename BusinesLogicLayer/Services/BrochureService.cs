@@ -1,7 +1,6 @@
 ﻿using DataAccessLayer.Abstract;
 using DataAccessLayer.Models;
 using Library.Web.Entities;
-using Library.Web.Models;
 using System.Collections.Generic;
 
 namespace BusinesLogicLayer.Services
@@ -14,9 +13,9 @@ namespace BusinesLogicLayer.Services
         {
             _brochureRepository = new AdoRepository<Brochure>(connectionString);
         }
-        public List<Brochure> GetAll()
+        public IEnumerable<Brochure> GetAll()
         {
-            return (List<Brochure>)_brochureRepository.GetAll();
+            return _brochureRepository.GetAll();
         }
 
         public void Add(Brochure brochure)

@@ -13,9 +13,9 @@ namespace BusinesLogicLayer.Services
         {
             _magazineRepository = new AdoRepository<Magazine>(connectionString);
         }
-        public List<Magazine> GetAll()
+        public IEnumerable<Magazine> GetAll()
         {
-            return (List<Magazine>)_magazineRepository.GetAll();
+            return _magazineRepository.GetAll();
         }
 
         public void Add(Magazine magazine)

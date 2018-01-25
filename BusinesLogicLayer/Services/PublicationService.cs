@@ -1,7 +1,6 @@
 ﻿using DataAccessLayer.Abstract;
 using DataAccessLayer.Models;
 using Library.Web.Entities;
-using Library.Web.Models;
 using System.Collections.Generic;
 
 namespace BusinesLogicLayer.Services
@@ -19,7 +18,7 @@ namespace BusinesLogicLayer.Services
             _brochureRepository = new AdoRepository<Brochure>(connectionString);
             _magazineRepository = new AdoRepository<Magazine>(connectionString);
         }
-        public List<Publication> GetAllPublications()
+        public IEnumerable<Publication> GetAllPublications()
         {
             _publicationList.Clear();
             foreach (Book book in _bookRepository.GetAll())

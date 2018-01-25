@@ -11,11 +11,11 @@ namespace BusinesLogicLayer.Services
 
         public BookService(string connectionString)
         {
-            _bookRepository = new AdoRepository<Book>(connectionString);
+            _bookRepository = new EntityRepository<Book>(connectionString);
         }
-        public List<Book> GetAll()
+        public IEnumerable<Book> GetAll()
         {
-            return (List<Book>)_bookRepository.GetAll();
+            return _bookRepository.GetAll();
         }
 
         public void Add(Book book)
