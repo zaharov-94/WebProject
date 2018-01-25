@@ -1,20 +1,21 @@
-﻿using Library.Web.Entities;
-using Library.Web.Models;
+﻿using DataAccessLayer.Abstract;
+using DataAccessLayer.Models;
+using Library.Web.Entities;
 using System.Collections.Generic;
 
 namespace BusinesLogicLayer.Services
 {
     public class MagazineService
     {
-        private MagazineRepository _magazineRepository;
+        private IGenericRepository<Magazine> _magazineRepository;
 
         public MagazineService(string connectionString)
         {
-            _magazineRepository = new MagazineRepository(connectionString);
+            _magazineRepository = new AdoRepository<Magazine>(connectionString);
         }
         public List<Magazine> GetAll()
         {
-            return _magazineRepository.Magazines;
+            return (List<Magazine>)_magazineRepository.GetAll();
         }
 
         public void Add(Magazine magazine)
@@ -24,7 +25,7 @@ namespace BusinesLogicLayer.Services
 
         public Magazine GetById(int id)
         {
-            return _magazineRepository.GetById(id);
+            return _magazineRepository.FindById(id);
         }
 
         public void Edit(Magazine magazine)
@@ -33,7 +34,7 @@ namespace BusinesLogicLayer.Services
         }
         public void Delete(int id)
         {
-            _magazineRepository.Delete(id);
+            _magazineRepository.Remove(id);
         }
     }
 }

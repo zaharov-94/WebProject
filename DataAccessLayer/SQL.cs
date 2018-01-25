@@ -4,6 +4,20 @@ namespace DataAccessLayer
 {
     class Sql<T> where T : class
     {
+        public string CreateSelectAllString()
+        {
+            string thisType = typeof(T).Name + "s";
+            string sqlExpression = sqlExpression = "SELECT * FROM " + thisType;
+            return sqlExpression;
+        }
+
+        public string CreateSelectByIdString(int id)
+        {
+            string thisType = typeof(T).Name + "s";
+            string sqlExpression = sqlExpression = "SELECT * FROM " + thisType + " WHERE Id="+id.ToString();
+            return sqlExpression;
+        }
+
         public string CreateInsertString(T entity)
         {
             string sqlExpression = string.Empty;
@@ -68,6 +82,13 @@ namespace DataAccessLayer
             }
             sqlExpression = sqlExpression.Substring(0, sqlExpression.Length - 2);
             sqlExpression += " WHERE Id=" + id;
+            return sqlExpression;
+        }
+
+        public string CreateDeleteString(int id)
+        {
+            string thisType = typeof(T).Name + "s";
+            string sqlExpression = sqlExpression = "DELETE FROM " + thisType + " WHERE Id=" + id.ToString(); ;
             return sqlExpression;
         }
     }

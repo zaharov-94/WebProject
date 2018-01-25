@@ -1,20 +1,21 @@
-﻿using Library.Web.Entities;
-using Library.Web.Models;
+﻿using DataAccessLayer.Abstract;
+using DataAccessLayer.Models;
+using Library.Web.Entities;
 using System.Collections.Generic;
 
 namespace BusinesLogicLayer.Services
 {
     public class BookService
     {
-        private BookRepository _bookRepository;
+        private IGenericRepository<Book> _bookRepository;
 
         public BookService(string connectionString)
         {
-            _bookRepository = new BookRepository(connectionString);
+            _bookRepository = new AdoRepository<Book>(connectionString);
         }
         public List<Book> GetAll()
         {
-            return _bookRepository.Books;
+            return (List<Book>)_bookRepository.GetAll();
         }
 
         public void Add(Book book)
@@ -24,7 +25,7 @@ namespace BusinesLogicLayer.Services
 
         public Book GetById(int id)
         {
-            return _bookRepository.GetById(id);
+            return _bookRepository.FindById(id);
         }
 
         public void Edit(Book book)
@@ -33,7 +34,7 @@ namespace BusinesLogicLayer.Services
         }
         public void Delete(int id)
         {
-            _bookRepository.Delete(id);
+            _bookRepository.Remove(id);
         }
     }
 }

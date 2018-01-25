@@ -40,9 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\BookRepository.cs" />
-    <Compile Include="Models\BrochureRepository.cs" />
-    <Compile Include="Models\MagazineRepository.cs" />
+    <Compile Include="Abstract\IGenericRepository.cs" />
+    <Compile Include="Models\AdoRepository.cs" />
     <Compile Include="Models\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sql.cs" />

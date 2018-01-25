@@ -1,4 +1,6 @@
-﻿using Library.Web.Entities;
+﻿using DataAccessLayer.Abstract;
+using DataAccessLayer.Models;
+using Library.Web.Entities;
 using Library.Web.Models;
 using System.Collections.Generic;
 
@@ -6,29 +8,29 @@ namespace BusinesLogicLayer.Services
 {
     public class PublicationService
     {
-        private BookRepository _bookRepository;
-        private BrochureRepository _brochureRepository;
-        private MagazineRepository _magazineRepository;
+        private IGenericRepository<Book> _bookRepository;
+        private IGenericRepository<Brochure> _brochureRepository;
+        private IGenericRepository<Magazine> _magazineRepository;
         private List<Publication> _publicationList;
         public PublicationService(string connectionString)
         {
             _publicationList = new List<Publication>();
-            _bookRepository = new BookRepository(connectionString);
-            _brochureRepository = new BrochureRepository(connectionString);
-            _magazineRepository = new MagazineRepository(connectionString);
+            _bookRepository = new AdoRepository<Book>(connectionString);
+            _brochureRepository = new AdoRepository<Brochure>(connectionString);
+            _magazineRepository = new AdoRepository<Magazine>(connectionString);
         }
         public List<Publication> GetAllPublications()
         {
             _publicationList.Clear();
-            foreach (Book book in _bookRepository.Books)
+            foreach (Book book in _bookRepository.GetAll())
             {
                 _publicationList.Add(new Publication { Name = book.Name, Type = "Book" });
             }
-            foreach (Brochure brochure in _brochureRepository.Brochures)
+            foreach (Brochure brochure in _brochureRepository.GetAll())
             {
                 _publicationList.Add(new Publication { Name = brochure.Name, Type = "Brochure" });
             }
-            foreach (Magazine magazine in _magazineRepository.Magazines)
+            foreach (Magazine magazine in _magazineRepository.GetAll())
             {
                 _publicationList.Add(new Publication { Name = magazine.Name, Type = "Magazine" });
             }
