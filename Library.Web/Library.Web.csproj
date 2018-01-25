@@ -154,6 +154,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PublicationHouseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -214,6 +215,9 @@
     <Content Include="Views\Brochure\Create.cshtml" />
     <Content Include="Views\Brochure\Edit.cshtml" />
     <Content Include="Views\Brochure\Index.cshtml" />
+    <Content Include="Views\PublicationHouse\Index.cshtml" />
+    <Content Include="Views\PublicationHouse\Create.cshtml" />
+    <Content Include="Views\PublicationHouse\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

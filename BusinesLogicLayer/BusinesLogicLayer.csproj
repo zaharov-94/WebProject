@@ -45,6 +45,7 @@
     <Compile Include="Services\BookService.cs" />
     <Compile Include="Services\BrochureService.cs" />
     <Compile Include="Services\MagazineService.cs" />
+    <Compile Include="Services\PublicationHouseService.cs" />
     <Compile Include="Services\PublicationService.cs" />
   </ItemGroup>
   <ItemGroup>

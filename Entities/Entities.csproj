@@ -48,6 +48,7 @@
     <Compile Include="Entities\Brochure.cs" />
     <Compile Include="Entities\Magazine.cs" />
     <Compile Include="Entities\Publication.cs" />
+    <Compile Include="Entities\PublicationHouse.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Enums\Roles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

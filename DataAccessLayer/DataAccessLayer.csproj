@@ -48,6 +48,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IGenericRepository.cs" />
+    <Compile Include="Migrations\201801251422397_migration.cs" />
+    <Compile Include="Migrations\201801251422397_migration.Designer.cs">
+      <DependentUpon>201801251422397_migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdoRepository.cs" />
     <Compile Include="Models\LibraryDbContext.cs" />
     <Compile Include="Models\EntityRepository.cs" />
@@ -64,6 +69,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801251422397_migration.resx">
+      <DependentUpon>201801251422397_migration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
