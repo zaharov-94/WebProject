@@ -2,9 +2,9 @@
 
 namespace DataAccessLayer
 {
-    class Sql
+    class Sql<T> where T : class
     {
-        public string CreateInsertString(object entity)
+        public string CreateInsertString(T entity)
         {
             string sqlExpression = string.Empty;
             string thisType = entity.GetType().Name + "s";
@@ -37,7 +37,7 @@ namespace DataAccessLayer
             return sqlExpression;
         }
 
-        public string CreateUpdateString(object entity)
+        public string CreateUpdateString(T entity)
         {
             string thisType = entity.GetType().Name + "s";
             string sqlExpression = sqlExpression = "UPDATE " + thisType + " SET ";

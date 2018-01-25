@@ -8,7 +8,7 @@ namespace Library.Web.Models
     public class BookRepository
     {
         private string _connectionString;
-        private Sql _sql;
+        private Sql<Book> _sql;
 
         public List<Book> Books
         {
@@ -19,7 +19,7 @@ namespace Library.Web.Models
         {
             Books = new List<Book>();
             _connectionString = connectionString;
-            _sql = new Sql();
+            _sql = new Sql<Book>();
             RefreshData();
         }
         public void RefreshData()

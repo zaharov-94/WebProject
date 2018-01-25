@@ -1,17 +1,14 @@
 ﻿using DataAccessLayer;
 using Library.Web.Entities;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace Library.Web.Models
 {
     public class MagazineRepository
     {
         private string _connectionString;
-        private Sql _sql;
+        private Sql<Book> _sql;
 
         public List<Magazine> Magazines
         {
@@ -22,7 +19,7 @@ namespace Library.Web.Models
         {
             Magazines = new List<Magazine>();
             _connectionString = connectionString;
-            _sql = new Sql();
+            _sql = new Sql<Book>();
             RefreshData();
         }
         public void RefreshData()
