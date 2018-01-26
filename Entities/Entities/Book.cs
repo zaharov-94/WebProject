@@ -16,8 +16,10 @@ namespace Library.Web.Entities
         [Required]
         public int YearOfPublishing { get; set; }
 
-        [ForeignKey("PublicationHouses")]
-        public int PublicationHouseId { get; set; }
-        public List<PublicationHouse> PublicationHouses { get; set; }
+        public ICollection<PublicationHouse> PublicationHouses { get; set; }
+        public Book()
+        {
+            PublicationHouses = new List<PublicationHouse>();
+        }
     }
 }

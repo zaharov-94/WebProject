@@ -3,7 +3,7 @@ namespace DataAccessLayer.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class migration : DbMigration
+    public partial class change : DbMigration
     {
         public override void Up()
         {
@@ -15,7 +15,6 @@ namespace DataAccessLayer.Migrations
                         Name = c.String(nullable: false),
                         Author = c.String(nullable: false),
                         YearOfPublishing = c.Int(nullable: false),
-                        PublicationHouseId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -26,7 +25,6 @@ namespace DataAccessLayer.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false),
                         Address = c.String(nullable: false),
-                        BookId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -53,27 +51,27 @@ namespace DataAccessLayer.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.BookPublicationHouses",
+                "dbo.PublicationHouseBooks",
                 c => new
                     {
-                        Book_Id = c.Int(nullable: false),
                         PublicationHouse_Id = c.Int(nullable: false),
+                        Book_Id = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.Book_Id, t.PublicationHouse_Id })
-                .ForeignKey("dbo.Books", t => t.Book_Id, cascadeDelete: true)
+                .PrimaryKey(t => new { t.PublicationHouse_Id, t.Book_Id })
                 .ForeignKey("dbo.PublicationHouses", t => t.PublicationHouse_Id, cascadeDelete: true)
-                .Index(t => t.Book_Id)
-                .Index(t => t.PublicationHouse_Id);
+                .ForeignKey("dbo.Books", t => t.Book_Id, cascadeDelete: true)
+                .Index(t => t.PublicationHouse_Id)
+                .Index(t => t.Book_Id);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.BookPublicationHouses", "PublicationHouse_Id", "dbo.PublicationHouses");
-            DropForeignKey("dbo.BookPublicationHouses", "Book_Id", "dbo.Books");
-            DropIndex("dbo.BookPublicationHouses", new[] { "PublicationHouse_Id" });
-            DropIndex("dbo.BookPublicationHouses", new[] { "Book_Id" });
-            DropTable("dbo.BookPublicationHouses");
+            DropForeignKey("dbo.PublicationHouseBooks", "Book_Id", "dbo.Books");
+            DropForeignKey("dbo.PublicationHouseBooks", "PublicationHouse_Id", "dbo.PublicationHouses");
+            DropIndex("dbo.PublicationHouseBooks", new[] { "Book_Id" });
+            DropIndex("dbo.PublicationHouseBooks", new[] { "PublicationHouse_Id" });
+            DropTable("dbo.PublicationHouseBooks");
             DropTable("dbo.Magazines");
             DropTable("dbo.Brochures");
             DropTable("dbo.PublicationHouses");

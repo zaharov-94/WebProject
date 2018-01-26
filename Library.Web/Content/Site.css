@@ -48,3 +48,16 @@ h4
 {
     margin-left : 15%
 }
+.k-item
+{
+    max-width : 600px;
+}
+.demo-section label {
+    display: block;
+    margin: 15px 0 5px 0;
+}
+
+#get {
+    float: right;
+    margin: 25px auto 0;
+}
