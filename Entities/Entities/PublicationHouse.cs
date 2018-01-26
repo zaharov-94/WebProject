@@ -13,8 +13,6 @@ namespace Library.Web.Entities
         [Required]
         public string Address { get; set; }
 
-        [ForeignKey("Books")]
-        public int BookId { get; set; }
-        public List<Book> Books { get; set; }
+        public ICollection<Book> Book { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BusinesLogicLayer.Services;
 using Library.Web.Entities;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Library.Web.Controllers
@@ -7,10 +8,12 @@ namespace Library.Web.Controllers
     public class HomeController : Controller
     {
         private BookService _bookService;
+        private PublicationHouseService _publicationHouseService;
 
         public HomeController()
         {
             _bookService = new BookService(Settings.GetConnectionString());
+            _publicationHouseService = new PublicationHouseService(Settings.GetConnectionString());
         }
         public ActionResult Index()
         {
@@ -29,6 +32,10 @@ namespace Library.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public JsonResult GetPublish(int id)
+        {
+            return Json(_publicationHouseService.GetById(id), JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Edit(int id)
         {
             return View(_bookService.GetById(id));
