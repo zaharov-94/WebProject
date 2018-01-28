@@ -13,6 +13,10 @@ namespace Library.Web.Entities
         [Required]
         public string Address { get; set; }
 
-        public ICollection<Book> Book { get; set; }
+        public virtual ICollection<Book> Books { get; set; }
+        public PublicationHouse()
+        {
+            Books = new List<Book>();
+        }
     }
 }

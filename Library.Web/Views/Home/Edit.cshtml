@@ -2,12 +2,12 @@
 @{
     Layout = null;
 }
-@Styles.Render("~/Content/Site.css")
 @Styles.Render("~/Content/kendo.common-material.min.css")
 @Styles.Render("~/Content/kendo.material.min.css")
 @Scripts.Render("~/Scripts/jquery.min.js")
 @Scripts.Render("~/Scripts/kendo.all.min.js")
 @Scripts.Render("~/Scripts/kendo.user.js")
+@Styles.Render("~/Content/Site.css")
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,60 +46,11 @@
                 @Html.ValidationMessageFor(model => model.YearOfPublishing, "", new { @class = "text-danger" })
             </div>
         </div>
-        <script type="text/javascript">
-            var t = $.getJSON("/home/GetPublish/1", function (json) {
-                $.each(json, function setSelectOptions("#required", json, valueKey, textKey, defaultValue) {
-
-                    if (typeof (selectElement) == "string") {
-                        selectElement = $(selectElement);
-                    }
-
-                    selectElement.empty();
-
-                    if (typeof (values) == 'object') {
-
-                        if (values.length) {
-
-                            var type = typeof (values[0]);
-                            var html = "";
-
-                            if (type == 'object') {
-                                // values is array of hashes
-                                var optionElement = null;
-
-                                $.each(values, function () {
-                                    html += '<option value="' + this[valueKey] + '">' + this[textKey] + '</option>';
-                                });
-
-                            } else {
-                                // array of strings
-                                $.each(values, function () {
-                                    var value = this.toString();
-                                    html += '<option value="' + value + '">' + value + '</option>';
-                                });
-                            }
-
-                            selectElement.append(html);
-                        }
-
-                        // select the defaultValue is one was passed in
-                        if (typeof defaultValue != 'undefined') {
-                            selectElement.children('option[value="' + defaultValue + '"]').attr('selected', 'selected');
-                        }
-
-                    }
-
-                    return false;
-
-                });
-            });
-            
-        </script>
-        <div class="form-group col-md-10">
+        <div class="form-group">
             @Html.LabelFor(model => model.PublicationHouses, htmlAttributes: new { @class = "control-label col-md-2" })
-            <select class="form-control" id="required" multiple="multiple" data-placeholder="Select attendees...">
-                
-            </select>
+            <div class="col-md-10">
+                <select id="multiselect" class="form-control" style="width: 400px;"></select>
+            </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -109,6 +60,7 @@
         </div>
     </div>
     }
+
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }

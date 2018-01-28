@@ -31,10 +31,23 @@ namespace Library.Web.Controllers
             _bookService.Add(book);
             return RedirectToAction("Index");
         }
-
-        public JsonResult GetPublish(int id)
+        public JsonResult GetAllPublish()
         {
-            return Json(_publicationHouseService.GetById(id), JsonRequestBehavior.AllowGet);
+            List<PublicationHouse> list = new List<PublicationHouse>();
+            foreach(PublicationHouse item in _publicationHouseService.GetAll())
+            {
+                list.Add(new PublicationHouse {Id = item.Id, Name = item.Name});
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetSelectedPublish(int id)
+        {
+            List<PublicationHouse> list = new List<PublicationHouse>();
+            foreach(PublicationHouse item in _bookService.GetById(id).PublicationHouses)
+            {
+                list.Add(new PublicationHouse {Id = item.Id, Name = item.Name});
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
         public ActionResult Edit(int id)
         {
