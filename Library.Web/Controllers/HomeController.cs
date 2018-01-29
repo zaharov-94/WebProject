@@ -1,5 +1,6 @@
 ﻿using BusinesLogicLayer.Services;
 using Library.Web.Entities;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -9,7 +10,18 @@ namespace Library.Web.Controllers
     {
         private BookService _bookService;
         private PublicationHouseService _publicationHouseService;
+        public class Bookt
+        {
+            public int Id { get; set; }
 
+            public string Name { get; set; }
+
+            public string Author { get; set; }
+
+            public int YearOfPublishing { get; set; }
+
+            public virtual ICollection<string> PublicationHouses { get; set; }
+        }
         public HomeController()
         {
             _bookService = new BookService(Settings.GetConnectionString());
@@ -33,21 +45,21 @@ namespace Library.Web.Controllers
         }
         public JsonResult GetAllPublish()
         {
-            List<PublicationHouse> list = new List<PublicationHouse>();
-            foreach(PublicationHouse item in _publicationHouseService.GetAll())
+            List<PublicationHouse> publicationHouses = new List<PublicationHouse>();
+            foreach (var item in _publicationHouseService.GetAll())
             {
-                list.Add(new PublicationHouse {Id = item.Id, Name = item.Name});
+                publicationHouses.Add(new PublicationHouse { Id = item.Id, Name = item.Name, Address = item.Address, Books = null });
             }
-            return Json(list, JsonRequestBehavior.AllowGet);
+            return Json(publicationHouses, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetSelectedPublish(int id)
         {
-            List<PublicationHouse> list = new List<PublicationHouse>();
-            foreach(PublicationHouse item in _bookService.GetById(id).PublicationHouses)
+            List<PublicationHouse> publicationHouses = new List<PublicationHouse>();
+            foreach (var item in _bookService.GetById(id).PublicationHouses)
             {
-                list.Add(new PublicationHouse {Id = item.Id, Name = item.Name});
+                publicationHouses.Add(new PublicationHouse { Id = item.Id, Name = item.Name, Address = item.Address, Books = null });
             }
-            return Json(list, JsonRequestBehavior.AllowGet);
+            return Json(publicationHouses, JsonRequestBehavior.AllowGet);
         }
         public ActionResult Edit(int id)
         {
@@ -55,15 +67,30 @@ namespace Library.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Book book)
+        public ActionResult Edit(Bookt bookt)
         {
             try
             {
-                _bookService.Edit(book);
+                Book book = new Book { Name = bookt.Name, Author = bookt.Author, YearOfPublishing = bookt.YearOfPublishing };
+
+                foreach (var item in bookt.PublicationHouses)
+                {
+                    book.PublicationHouses.Add(_publicationHouseService.GetById(int.Parse(item)));
+                }
+                _bookService.GetById(bookt.Id).Name = bookt.Name;
+                _bookService.GetById(bookt.Id).Author = bookt.Author;
+                _bookService.GetById(bookt.Id).YearOfPublishing = bookt.YearOfPublishing;
+                foreach (var item in book.PublicationHouses)
+                {
+                    _bookService.GetById(bookt.Id).PublicationHouses.Add(item);
+                }
+
+                _bookService.Edit(_bookService.GetById(bookt.Id));
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
+                string str = ex.InnerException + " " + ex.Message;
                 return View();
             }
         }

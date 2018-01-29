@@ -1,7 +1,9 @@
 ﻿using DataAccessLayer.Abstract;
 using DataAccessLayer.Models;
 using Library.Web.Entities;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace BusinesLogicLayer.Services
 {
@@ -22,7 +24,7 @@ namespace BusinesLogicLayer.Services
         {
             _bookRepository.Add(book);
         }
-
+        
         public Book GetById(int id)
         {
             return _bookRepository.FindById(id);
