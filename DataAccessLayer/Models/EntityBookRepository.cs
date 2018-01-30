@@ -47,9 +47,9 @@ namespace DataAccessLayer.Models
             _dbSet.Remove(_dbSet.Find(id));
             _context.SaveChanges();
         }
-        public void Update(TEntity item)
+        public void Update(TEntity entity)
         {
-            foreach (var item in bookViewModel.SelectedPublicationHouses)
+            foreach (var item in entity.SelectedPublicationHouses)
             {
                 if (_context.PublicationHouses.Find(item).Books.Where(x => x.Id == id).Count() == 0)
                 {
@@ -59,7 +59,7 @@ namespace DataAccessLayer.Models
             List<PublicationHouse> listRemove = new List<PublicationHouse>();
             foreach (var item in _context.Books.Find(id).PublicationHouses)
             {
-                if (!bookViewModel.SelectedPublicationHouses.Contains(item.Id))
+                if (!entity.SelectedPublicationHouses.Contains(item.Id))
                 {
                     listRemove.Add(item);
                 }
@@ -70,9 +70,9 @@ namespace DataAccessLayer.Models
             }
             Book book = new Book
             {
-                Name = bookViewModel.Book.Name,
-                Author = bookViewModel.Book.Author,
-                YearOfPublishing = bookViewModel.Book.YearOfPublishing
+                Name = entity.Book.Name,
+                Author = entity.Book.Author,
+                YearOfPublishing = entity.Book.YearOfPublishing
             };
             //_bookService.Edit(book);
             _context.Books.Find(id).Name = book.Name;
