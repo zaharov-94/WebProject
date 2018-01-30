@@ -39,6 +39,7 @@ namespace Library.Web.Controllers
         public JsonResult GetAllPublish()
         {
             List<PublicationHouse> publicationHouses = new List<PublicationHouse>();
+            
             foreach (var item in _publicationHouseService.GetAll())
             {
                 publicationHouses.Add(new PublicationHouse { Id = item.Id, Name = item.Name, Address = item.Address, Books = null });
@@ -68,7 +69,6 @@ namespace Library.Web.Controllers
         {
             try
             {
-                //List<PublicationHouse> listAdd = new List<PublicationHouse>();
                 foreach (var item in bookViewModel.SelectedPublicationHouses)
                 {
                     if (_publicationHouseService.GetById(item).Books.Where(x => x.Id == id).Count() == 0)
@@ -84,15 +84,10 @@ namespace Library.Web.Controllers
                         listRemove.Add(item);
                     }
                 }
-                //foreach (var item in listAdd)
-                //{
-                //    context.Books.Find(id).PublicationHouses.Add(item);
-                //}
                 foreach (var item in listRemove)
                 {
                     context.Books.Find(id).PublicationHouses.Remove(item);
                 }
-
                 Book book = new Book
                 {
                     Name = bookViewModel.Book.Name,
