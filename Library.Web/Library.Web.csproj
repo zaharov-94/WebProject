@@ -150,7 +150,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BrochureController.cs" />
     <Compile Include="Controllers\MagazineController.cs" />
-    <Compile Include="Controllers\PublicationController.cs" />
+    <Compile Include="Controllers\AllPublicationController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -158,9 +158,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HtmlHelpers\MultiselectHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="View models\BookViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -220,7 +220,7 @@
     <Content Include="Views\Authorization\Login.cshtml" />
     <Content Include="Views\Magazine\Index.cshtml" />
     <Content Include="Views\Magazine\Create.cshtml" />
-    <Content Include="Views\Publication\Index.cshtml" />
+    <Content Include="Views\AllPublication\Index.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Magazine\Edit.cshtml" />
     <Content Include="Views\Brochure\Create.cshtml" />
@@ -250,6 +250,10 @@
     <ProjectReference Include="..\BusinesLogicLayer\BusinesLogicLayer.csproj">
       <Project>{6ac767ad-802c-4ea3-adc5-3e773cc4f031}</Project>
       <Name>BusinesLogicLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{e9ed9e86-5d55-4a98-be3f-ceb3254aff66}</Project>
+      <Name>DataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{23fe3147-466c-4314-9f9d-ac6babb8f195}</Project>

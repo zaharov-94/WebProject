@@ -15,6 +15,10 @@ namespace BusinesLogicLayer.Services
         {
             _bookRepository = new EntityRepository<Book>(connectionString);
         }
+        public BookService(LibraryDbContext context)
+        {
+            _bookRepository = new EntityRepository<Book>(context);
+        }
         public IEnumerable<Book> GetAll()
         {
             return _bookRepository.GetAll();

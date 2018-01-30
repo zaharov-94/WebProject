@@ -14,7 +14,13 @@ namespace DataAccessLayer.Models
 
         public EntityRepository(string connectionString)
         {
-            _context = new LibraryDbContext(connectionString);
+           _context = new LibraryDbContext(connectionString);
+            _dbSet = _context.Set<TEntity>();
+        }
+
+        public EntityRepository(LibraryDbContext context)
+        {
+            _context = context;
             _dbSet = _context.Set<TEntity>();
         }
 

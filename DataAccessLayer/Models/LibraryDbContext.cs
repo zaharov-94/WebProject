@@ -10,7 +10,7 @@ namespace DataAccessLayer.Models
         public DbSet<Magazine> Magazines { get; set; }
         public DbSet<PublicationHouse> PublicationHouses { get; set; }
 
-        public LibraryDbContext():base("PublicationsContext") { }
+      //  public LibraryDbContext():base("PublicationsContext") { }
         public LibraryDbContext(string connectionString) : base(connectionString)
         { }
     }

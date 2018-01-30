@@ -3,11 +3,11 @@ using System.Web.Mvc;
 
 namespace Library.Web.Controllers
 {
-    public class PublicationController : Controller
+    public class AllPublicationController : Controller
     {
         private PublicationService _publicationService;
 
-        public PublicationController()
+        public AllPublicationController()
         {
             _publicationService = new PublicationService(Settings.GetConnectionString());
         }

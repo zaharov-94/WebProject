@@ -15,6 +15,10 @@ namespace BusinesLogicLayer.Services
         {
             _houseRepository = new EntityRepository<PublicationHouse>(connectionString);
         }
+        public PublicationHouseService(LibraryDbContext context)
+        {
+            _houseRepository = new EntityRepository<PublicationHouse>(context);
+        }
         public IEnumerable<PublicationHouse> GetAll()
         {
             return _houseRepository.GetAll();

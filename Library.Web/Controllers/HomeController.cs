@@ -1,7 +1,10 @@
 ﻿using BusinesLogicLayer.Services;
+using DataAccessLayer.Models;
 using Library.Web.Entities;
+using Library.Web.View_models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Library.Web.Controllers
@@ -10,22 +13,12 @@ namespace Library.Web.Controllers
     {
         private BookService _bookService;
         private PublicationHouseService _publicationHouseService;
-        public class Bookt
-        {
-            public int Id { get; set; }
+        LibraryDbContext context = new LibraryDbContext(Settings.GetConnectionString());
 
-            public string Name { get; set; }
-
-            public string Author { get; set; }
-
-            public int YearOfPublishing { get; set; }
-
-            public virtual ICollection<string> PublicationHouses { get; set; }
-        }
         public HomeController()
         {
-            _bookService = new BookService(Settings.GetConnectionString());
-            _publicationHouseService = new PublicationHouseService(Settings.GetConnectionString());
+            _bookService = new BookService(context);
+            _publicationHouseService = new PublicationHouseService(context);
         }
         public ActionResult Index()
         {
@@ -63,29 +56,56 @@ namespace Library.Web.Controllers
         }
         public ActionResult Edit(int id)
         {
-            return View(_bookService.GetById(id));
+            var book = _bookService.GetById(id);
+            var AllPublicationHouses = _publicationHouseService.GetAll();
+            BookViewModel viewModel = new BookViewModel(book,
+                AllPublicationHouses.ToList());
+            return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Edit(Bookt bookt)
+        public ActionResult Edit(BookViewModel bookViewModel, int id)
         {
             try
             {
-                Book book = new Book { Name = bookt.Name, Author = bookt.Author, YearOfPublishing = bookt.YearOfPublishing };
-
-                foreach (var item in bookt.PublicationHouses)
+                //List<PublicationHouse> listAdd = new List<PublicationHouse>();
+                foreach (var item in bookViewModel.SelectedPublicationHouses)
                 {
-                    book.PublicationHouses.Add(_publicationHouseService.GetById(int.Parse(item)));
+                    if (_publicationHouseService.GetById(item).Books.Where(x => x.Id == id).Count() == 0)
+                    {
+                        context.Books.Find(id).PublicationHouses.Add(_publicationHouseService.GetById(item));
+                    }
                 }
-                _bookService.GetById(bookt.Id).Name = bookt.Name;
-                _bookService.GetById(bookt.Id).Author = bookt.Author;
-                _bookService.GetById(bookt.Id).YearOfPublishing = bookt.YearOfPublishing;
-                foreach (var item in book.PublicationHouses)
+                List<PublicationHouse> listRemove = new List<PublicationHouse>();
+                foreach (var item in context.Books.Find(id).PublicationHouses)
                 {
-                    _bookService.GetById(bookt.Id).PublicationHouses.Add(item);
+                    if(!bookViewModel.SelectedPublicationHouses.Contains(item.Id))
+                    {
+                        listRemove.Add(item);
+                    }
+                }
+                //foreach (var item in listAdd)
+                //{
+                //    context.Books.Find(id).PublicationHouses.Add(item);
+                //}
+                foreach (var item in listRemove)
+                {
+                    context.Books.Find(id).PublicationHouses.Remove(item);
                 }
 
-                _bookService.Edit(_bookService.GetById(bookt.Id));
+                Book book = new Book
+                {
+                    Name = bookViewModel.Book.Name,
+                    Author = bookViewModel.Book.Author,
+                    YearOfPublishing = bookViewModel.Book.YearOfPublishing                  
+                };
+                //_bookService.Edit(book);
+                context.Books.Find(id).Name = book.Name;
+                context.Books.Find(id).Author = book.Author;
+                context.Books.Find(id).YearOfPublishing = book.YearOfPublishing;
+                context.Entry(book).State = System.Data.Entity.EntityState.Detached;
+                context.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             catch(Exception ex)

@@ -2,7 +2,7 @@
     var location = window.location.pathname.split("/");
     var bookId = location[location.length - 1];
 
-    $("#PublicationHouses").kendoMultiSelect({
+    $("#SelectedPublicationHouses").kendoMultiSelect({
         dataTextField: "Name",
         dataValueField: "Id"
       });
@@ -13,9 +13,8 @@
             pageSize: 500
         });
 
-        var multiselect = $("#PublicationHouses").data("kendoMultiSelect");
+        var multiselect = $("#SelectedPublicationHouses").data("kendoMultiSelect");
         multiselect.setDataSource(dataSource);
         multiselect.value(jsonsel);
     });
 });
-
