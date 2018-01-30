@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdoRepository.cs" />
+    <Compile Include="Models\EntityBookRepository.cs" />
     <Compile Include="Models\LibraryDbContext.cs" />
     <Compile Include="Models\EntityRepository.cs" />
     <Compile Include="Models\UserRepository.cs" />
