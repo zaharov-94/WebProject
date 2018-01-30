@@ -55,11 +55,11 @@ namespace BusinesLogicLayer.Services
 
             if (!repositories.ContainsKey(type))
             {
-                var repositoryType = typeof(IGenericRepository<T>);
+                var repositoryType = typeof(EntityRepository<>);
                 var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(T)), _context);
                 repositories.Add(type, repositoryInstance);
             }
-            return (IGenericRepository <T>) repositories[type];
+            return (EntityRepository<T>) repositories[type];
         }
     }
 }

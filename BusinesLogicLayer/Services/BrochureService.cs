@@ -8,10 +8,12 @@ namespace BusinesLogicLayer.Services
     public class BrochureService
     {
         private IGenericRepository<Brochure> _brochureRepository;
+        private UnitOfWork _unitOfWork;
 
         public BrochureService(string connectionString)
         {
-            _brochureRepository = new AdoRepository<Brochure>(connectionString);
+            _unitOfWork = new UnitOfWork(connectionString);
+            _brochureRepository = _unitOfWork.Repository<Brochure>();
         }
         public IEnumerable<Brochure> GetAll()
         {
