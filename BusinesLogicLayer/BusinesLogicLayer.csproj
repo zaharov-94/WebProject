@@ -48,6 +48,7 @@
     <Compile Include="Services\MagazineService.cs" />
     <Compile Include="Services\PublicationHouseService.cs" />
     <Compile Include="Services\PublicationService.cs" />
+    <Compile Include="Services\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">

@@ -49,39 +49,39 @@ namespace DataAccessLayer.Models
         }
         public void Update(TEntity entity)
         {
-            //foreach (var item in entity.SelectedPublicationHouses)
-            //{
-            //    if (_context.PublicationHouses.Find(item).Books.Where(x => x.Id == id).Count() == 0)
+            //    foreach (var item in entity.SelectedPublicationHouses)
             //    {
-            //        _context.Books.Find(id).PublicationHouses.Add(_context.PublicationHouses.Find(item));
+            //        if (_context.PublicationHouses.Find(item).Books.Where(x => x.Id == id).Count() == 0)
+            //        {
+            //            _context.Books.Find(id).PublicationHouses.Add(_context.PublicationHouses.Find(item));
+            //        }
             //    }
-            //}
-            //List<PublicationHouse> listRemove = new List<PublicationHouse>();
-            //foreach (var item in _context.Books.Find(id).PublicationHouses)
-            //{
-            //    if (!entity.SelectedPublicationHouses.Contains(item.Id))
+            //    List<PublicationHouse> listRemove = new List<PublicationHouse>();
+            //    foreach (var item in _context.Books.Find(id).PublicationHouses)
             //    {
-            //        listRemove.Add(item);
+            //        if (!entity.SelectedPublicationHouses.Contains(item.Id))
+            //        {
+            //            listRemove.Add(item);
+            //        }
             //    }
-            //}
-            //foreach (var item in listRemove)
-            //{
-            //    _context.Books.Find(id).PublicationHouses.Remove(item);
-            //}
-            //Book book = new Book
-            //{
-            //    Name = entity.Book.Name,
-            //    Author = entity.Book.Author,
-            //    YearOfPublishing = entity.Book.YearOfPublishing
-            //};
-            ////_bookService.Edit(book);
-            //_context.Books.Find(id).Name = book.Name;
-            //_context.Books.Find(id).Author = book.Author;
-            //_context.Books.Find(id).YearOfPublishing = book.YearOfPublishing;
-            //_context.Entry(book).State = System.Data.Entity.EntityState.Detached;
-            //_context.SaveChanges();
-            ////_context.Entry(item).State = EntityState.Modified;
-            ////_context.SaveChanges();
+            //    foreach (var item in listRemove)
+            //    {
+            //        _context.Books.Find(id).PublicationHouses.Remove(item);
+            //    }
+            //    Book book = new Book
+            //    {
+            //        Name = entity.Book.Name,
+            //        Author = entity.Book.Author,
+            //        YearOfPublishing = entity.Book.YearOfPublishing
+            //    };
+            //    //_bookService.Edit(book);
+            //    _context.Books.Find(id).Name = book.Name;
+            //    _context.Books.Find(id).Author = book.Author;
+            //    _context.Books.Find(id).YearOfPublishing = book.YearOfPublishing;
+            //    _context.Entry(book).State = System.Data.Entity.EntityState.Detached;
+            //    _context.SaveChanges();
+            //    //_context.Entry(item).State = EntityState.Modified;
+            //    //_context.SaveChanges();
         }
     }
 }
