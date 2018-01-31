@@ -47,9 +47,10 @@ namespace DataAccessLayer.Models
             _dbSet.Remove(_dbSet.Find(id));
             _context.SaveChanges();
         }
-        public void Update(TEntity item)
+        public virtual void Update(object item)
         {
-            _context.Entry(item).State = EntityState.Modified;
+            TEntity entity = (TEntity) item;
+            _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
         }
     }

@@ -1,9 +1,11 @@
 ﻿using DataAccessLayer.Abstract;
 using DataAccessLayer.Models;
+using DataAccessLayer;
 using Library.Web.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Library.Web.View_models;
 
 namespace BusinesLogicLayer.Services
 {
@@ -16,10 +18,15 @@ namespace BusinesLogicLayer.Services
         public BookService(string connectionString)
         {
             _unitOfWork = new UnitOfWork(connectionString);
-            _bookRepository = _unitOfWork.Repository<Book>();
+            _bookRepository = _unitOfWork.Repository<Book>(); ;
             _publicationHouseRepository = _unitOfWork.Repository<PublicationHouse>();
         }
-
+        public BookService(LibraryDbContext context)
+        {
+            _unitOfWork = new UnitOfWork(context);
+            _bookRepository = new EntityBookRepository<Book>(context);
+            _publicationHouseRepository = _unitOfWork.Repository<PublicationHouse>();
+        }
         public IEnumerable<Book> GetAllBook()
         {
             return _bookRepository.GetAll();
@@ -44,13 +51,9 @@ namespace BusinesLogicLayer.Services
         {
             return _publicationHouseRepository.FindById(id);
         }
-        public void Edit(Book book)
+        public void Edit(BookViewModel bookViewModel)
         {
-            _bookRepository.Update(book);
-        }
-        public void Edit(PublicationHouse publicationHouse)
-        {
-            _publicationHouseRepository.Update(publicationHouse);
+            _bookRepository.Update(bookViewModel);
         }
         public void DeleteBook(int id)
         {

@@ -13,6 +13,6 @@ namespace DataAccessLayer.Abstract
         IEnumerable<TEntity> GetAll();
         IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);
         void Remove(int id);
-        void Update(TEntity item);
+        void Update(object item);
     }
 }

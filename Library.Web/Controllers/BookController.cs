@@ -9,20 +9,17 @@ using System.Web.Mvc;
 
 namespace Library.Web.Controllers
 {
-    public class HomeController : Controller
+    public class BookController : Controller
     {
         private BookService _bookService;
-        private PublicationHouseService _publicationHouseService;
-        LibraryDbContext context = new LibraryDbContext(Settings.GetConnectionString());
-
-        public HomeController()
+        
+        public BookController()
         {
-            _bookService = new BookService(context);
-            _publicationHouseService = new PublicationHouseService(context);
+            _bookService = new BookService(Settings.GetConnectionString());
         }
         public ActionResult Index()
         {
-            return View(_bookService.GetAll());
+            return View(_bookService.GetAllBook());
         }
 
         public ActionResult Create()
@@ -40,7 +37,7 @@ namespace Library.Web.Controllers
         {
             List<PublicationHouse> publicationHouses = new List<PublicationHouse>();
             
-            foreach (var item in _publicationHouseService.GetAll())
+            foreach (var item in _bookService.GetAllPublicationHouses())
             {
                 publicationHouses.Add(new PublicationHouse { Id = item.Id, Name = item.Name, Address = item.Address, Books = null });
             }
@@ -49,7 +46,7 @@ namespace Library.Web.Controllers
         public JsonResult GetSelectedPublish(int id)
         {
             List<PublicationHouse> publicationHouses = new List<PublicationHouse>();
-            foreach (var item in _bookService.GetById(id).PublicationHouses)
+            foreach (var item in _bookService.GetBookById(id).PublicationHouses)
             {
                 publicationHouses.Add(new PublicationHouse { Id = item.Id, Name = item.Name, Address = item.Address, Books = null });
             }
@@ -57,35 +54,18 @@ namespace Library.Web.Controllers
         }
         public ActionResult Edit(int id)
         {
-            var book = _bookService.GetById(id);
-            var AllPublicationHouses = _publicationHouseService.GetAll();
-            BookViewModel viewModel = new BookViewModel(book,
-                AllPublicationHouses.ToList());
+            var book = _bookService.GetBookById(id);
+            var AllPublicationHouses = _bookService.GetAllPublicationHouses();
+            BookViewModel viewModel = new BookViewModel(book, AllPublicationHouses.ToList());
             return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Edit(BookViewModel bookViewModel, int id)
+        public ActionResult Edit(BookViewModel bookViewModel)
         {
             try
             {
-                var book = _bookService.GetById(id);
-                foreach (var item in bookViewModel.SelectedPublicationHouses)
-                {
-                    if (_publicationHouseService.GetById(item).Books.Where(x => x.Id == id).Count() == 0)
-                    {
-                        context.Books.Find(id).PublicationHouses.Add(_publicationHouseService.GetById(item));
-                    }
-                }
-                List<PublicationHouse> listRemove = new List<PublicationHouse>();
-                foreach (var item in bookViewModel.SelectedPublicationHouses)
-                {
-                        
-                }
-
-                context.Entry(book).State = System.Data.Entity.EntityState.Modified;
-                context.SaveChanges();
-
+                _bookService.Edit(bookViewModel);
                 return RedirectToAction("Index");
             }
             catch(Exception ex)
@@ -96,7 +76,7 @@ namespace Library.Web.Controllers
         }
         public ActionResult Delete(int id)
         {
-            _bookService.Delete(id);
+            _bookService.DeleteBook(id);
             return RedirectToAction("Index");
         }
     }

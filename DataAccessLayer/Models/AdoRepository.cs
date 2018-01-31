@@ -90,9 +90,10 @@ namespace DataAccessLayer.Models
                 command.ExecuteNonQuery();
             }
         }
-        public void Update(TEntity item)
+        public void Update(object item)
         {
-            string sqlExpression = _sql.CreateUpdateString(item);
+            TEntity entity = (TEntity)item;
+            string sqlExpression = _sql.CreateUpdateString(entity);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();

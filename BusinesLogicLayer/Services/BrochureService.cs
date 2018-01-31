@@ -1,5 +1,5 @@
 ﻿using DataAccessLayer.Abstract;
-using DataAccessLayer.Models;
+using DataAccessLayer;
 using Library.Web.Entities;
 using System.Collections.Generic;
 
