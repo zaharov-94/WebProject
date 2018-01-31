@@ -18,7 +18,7 @@ namespace Library.Web.View_models
         public BookViewModel(Book _book, List<PublicationHouse> _publicationHouses)
         {
             Book = _book;
-            PublicationHouses = _publicationHouses;
+            PublicationHouses = new List<PublicationHouse>();
             SelectedPublicationHouses = new List<int>();
         }
     }
