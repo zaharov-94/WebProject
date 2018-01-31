@@ -36,7 +36,7 @@ namespace DataAccessLayer.Models
             book.PublicationHouses.Clear();
             List<PublicationHouse> list = _context.PublicationHouses.ToList();
 
-            foreach (var item in entity.SelectedPublicationHouses)
+            foreach (var item in entity.PublicationHouses)
             {
                 book.PublicationHouses.Add(list.Find( x => x.Id == item));
             }

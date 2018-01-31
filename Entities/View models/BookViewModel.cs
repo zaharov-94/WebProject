@@ -6,9 +6,8 @@ namespace Library.Web.View_models
     public class BookViewModel
     {
         public Book Book { get; set; }
-        public List<int> SelectedPublicationHouses { get; set; }
+        public List<int> PublicationHouses { get; set; }
 
-        public virtual List<PublicationHouse> PublicationHouses { get; set; }
 
         public BookViewModel()
         {
@@ -18,8 +17,7 @@ namespace Library.Web.View_models
         public BookViewModel(Book _book, List<PublicationHouse> _publicationHouses)
         {
             Book = _book;
-            PublicationHouses = new List<PublicationHouse>();
-            SelectedPublicationHouses = new List<int>();
+            PublicationHouses = new List<int>();
         }
     }
 }
