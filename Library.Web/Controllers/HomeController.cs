@@ -69,6 +69,7 @@ namespace Library.Web.Controllers
         {
             try
             {
+                var book = _bookService.GetById(id);
                 foreach (var item in bookViewModel.SelectedPublicationHouses)
                 {
                     if (_publicationHouseService.GetById(item).Books.Where(x => x.Id == id).Count() == 0)
@@ -77,28 +78,12 @@ namespace Library.Web.Controllers
                     }
                 }
                 List<PublicationHouse> listRemove = new List<PublicationHouse>();
-                foreach (var item in context.Books.Find(id).PublicationHouses)
+                foreach (var item in bookViewModel.SelectedPublicationHouses)
                 {
-                    if(!bookViewModel.SelectedPublicationHouses.Contains(item.Id))
-                    {
-                        listRemove.Add(item);
-                    }
+                        
                 }
-                foreach (var item in listRemove)
-                {
-                    context.Books.Find(id).PublicationHouses.Remove(item);
-                }
-                Book book = new Book
-                {
-                    Name = bookViewModel.Book.Name,
-                    Author = bookViewModel.Book.Author,
-                    YearOfPublishing = bookViewModel.Book.YearOfPublishing                  
-                };
-                //_bookService.Edit(book);
-                context.Books.Find(id).Name = book.Name;
-                context.Books.Find(id).Author = book.Author;
-                context.Books.Find(id).YearOfPublishing = book.YearOfPublishing;
-                context.Entry(book).State = System.Data.Entity.EntityState.Detached;
+
+                context.Entry(book).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
 
                 return RedirectToAction("Index");
