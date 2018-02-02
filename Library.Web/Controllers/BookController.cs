@@ -36,11 +36,19 @@ namespace Library.Web.Controllers
         public JsonResult GetAllPublish()
         {
             List<PublicationHouse> publicationHouses = new List<PublicationHouse>();
-            
+
             foreach (var item in _bookService.GetAllPublicationHouses())
             {
                 publicationHouses.Add(new PublicationHouse { Id = item.Id, Name = item.Name, Address = item.Address, Books = null });
             }
+            //string publicationHouses = "[";
+
+            //foreach (var item in _bookService.GetAllPublicationHouses())
+            //{
+            //    publicationHouses+="{Id:"+item.Id+", Name:"+item.Name+", Address:"+item.Address+", Books:null },";
+            //}
+            //publicationHouses = publicationHouses.Remove(publicationHouses.Length - 1, 1)+"]";
+
             return Json(publicationHouses, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetSelectedPublish(int id)
@@ -55,8 +63,8 @@ namespace Library.Web.Controllers
         public ActionResult Edit(int id)
         {
             var book = _bookService.GetBookById(id);
-            var AllPublicationHouses = _bookService.GetAllPublicationHouses();
-            BookViewModel viewModel = new BookViewModel(book, AllPublicationHouses.ToList());
+            var PublicationHouses = _bookService.GetAllPublicationHouses();
+            BookViewModel viewModel = new BookViewModel(book, PublicationHouses.ToList());
             return View(viewModel);
         }
 
