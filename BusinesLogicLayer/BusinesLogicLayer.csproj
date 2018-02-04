@@ -31,6 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,6 +49,7 @@
     <Compile Include="Services\Authorization.cs" />
     <Compile Include="Services\BookService.cs" />
     <Compile Include="Services\BrochureService.cs" />
+    <Compile Include="Services\CustomUserManager.cs" />
     <Compile Include="Services\MagazineService.cs" />
     <Compile Include="Services\PublicationHouseService.cs" />
     <Compile Include="Services\PublicationService.cs" />
@@ -58,6 +63,9 @@
       <Project>{23fe3147-466c-4314-9f9d-ac6babb8f195}</Project>
       <Name>Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

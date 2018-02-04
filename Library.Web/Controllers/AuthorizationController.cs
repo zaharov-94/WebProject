@@ -1,5 +1,9 @@
-﻿using Library.Web.Entities;
+﻿using BusinesLogicLayer.Services;
+using Library.Web.Entities;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace Library.Web.Controllers
 {
@@ -31,6 +35,25 @@ namespace Library.Web.Controllers
                 return Redirect("/Admin/Index");
             }
             return View();
+        }
+        private static CustomUserManager _customUserManager;
+
+        public CustomUserManager UserManager
+        {
+            get
+            {
+                return _customUserManager ??
+                       (_customUserManager = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<CustomUserManager>());
+            }
+        }
+        public async Task<bool> Authenticate(string name, string password)
+        {
+            if (await UserManager.FindAsync(name, password) != null)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
