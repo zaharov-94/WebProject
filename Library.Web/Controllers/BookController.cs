@@ -5,6 +5,7 @@ using Library.Web.View_models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace Library.Web.Controllers
@@ -19,7 +20,12 @@ namespace Library.Web.Controllers
         }
         public ActionResult Index()
         {
-            return View(_bookService.GetAllBook());
+            return View();
+        }
+        public JsonResult List()
+        {
+            return Json(_bookService.GetAllBook().Select(x => new Book {Id=x.Id, Name=x.Name,
+                Author =x.Author, YearOfPublishing=x.YearOfPublishing }), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Create()
@@ -41,14 +47,6 @@ namespace Library.Web.Controllers
             {
                 publicationHouses.Add(new PublicationHouse { Id = item.Id, Name = item.Name, Address = item.Address, Books = null });
             }
-            //string publicationHouses = "[";
-
-            //foreach (var item in _bookService.GetAllPublicationHouses())
-            //{
-            //    publicationHouses+="{Id:"+item.Id+", Name:"+item.Name+", Address:"+item.Address+", Books:null },";
-            //}
-            //publicationHouses = publicationHouses.Remove(publicationHouses.Length - 1, 1)+"]";
-
             return Json(publicationHouses, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetSelectedPublish(int id)
@@ -85,7 +83,7 @@ namespace Library.Web.Controllers
         public ActionResult Delete(int id)
         {
             _bookService.DeleteBook(id);
-            return RedirectToAction("Index");
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }
 }

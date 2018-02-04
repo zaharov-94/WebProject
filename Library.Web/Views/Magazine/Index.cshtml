@@ -4,53 +4,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Styles.Render("~/Content/dashboard.css")
+@Styles.Render("~/Content/kendo.common-material.min.css")
+@Styles.Render("~/Content/kendo.material.min.css")
 @Styles.Render("~/Content/Site.css")
+@Scripts.Render("~/Scripts/jquery.min.js")
+@Scripts.Render("~/Scripts/kendo.all.min.js")
+@Scripts.Render("~/Scripts/kendo.grid.magazine.js")
+
+
 <header class="masthead col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
     <h3 class="text-muted">User magazines</h3>
 </header>
 <div class="tab-content col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <br />
+   
     <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Number)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.YearOfPublishing)
-                    </th>
-                    <th>
-
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Number)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.YearOfPublishing)
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-info" })
-                                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div id="grid" ></div>
+        <br />
         <p>
             @Html.ActionLink("Add magazine", "Create", null, new { @class = "btn btn-success" })
         </p>

@@ -1,5 +1,7 @@
 ﻿using BusinesLogicLayer.Services;
 using Library.Web.Entities;
+using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace Library.Web.Controllers
@@ -16,7 +18,15 @@ namespace Library.Web.Controllers
         {
             return View(_publicationHouseService.GetAll());
         }
-
+        public JsonResult List()
+        {
+            return Json(_publicationHouseService.GetAll().Select(x => new PublicationHouse
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Address = x.Address
+            }), JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Create()
         {
             return View();
@@ -50,7 +60,7 @@ namespace Library.Web.Controllers
         public ActionResult Delete(int id)
         {
             _publicationHouseService.Delete(id);
-            return RedirectToAction("Index");
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }
 }

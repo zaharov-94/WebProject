@@ -1,6 +1,7 @@
 ﻿using Library.Web.Entities;
 using BusinesLogicLayer.Services;
 using System.Web.Mvc;
+using System.Net;
 
 namespace Library.Web.Controllers
 {
@@ -15,6 +16,10 @@ namespace Library.Web.Controllers
         public ActionResult Index()
         {
             return View(_brochureService.GetAll());
+        }
+        public JsonResult List()
+        {
+            return Json(_brochureService.GetAll(), JsonRequestBehavior.AllowGet);
         }
         public ActionResult Create()
         {
@@ -49,7 +54,7 @@ namespace Library.Web.Controllers
         public ActionResult Delete(int id)
         {
             _brochureService.Delete(id);
-            return RedirectToAction("Index");
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
     }

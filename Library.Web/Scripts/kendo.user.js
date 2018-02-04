@@ -1,5 +1,4 @@
-﻿
-$.getJSON('../../Book/GetAllPublish/', function (json) {
+﻿$.getJSON('../../Book/GetAllPublish/', function (json) {
     var location = window.location.pathname.split("/");
     var bookId = location[location.length - 1];
     var val = $("#PublicationHouses");

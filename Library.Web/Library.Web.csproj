@@ -195,6 +195,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\kendo.all.min.js" />
     <Content Include="Scripts\kendo.aspnetmvc.min.js" />
+    <Content Include="Scripts\kendo.grid.publicationHouse.js" />
+    <Content Include="Scripts\kendo.grid.publication.js" />
+    <Content Include="Scripts\kendo.grid.book.js" />
     <Content Include="Scripts\kendo.user.js" />
     <Content Include="Scripts\kendo.web.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -228,6 +231,8 @@
     <Content Include="Views\PublicationHouse\Index.cshtml" />
     <Content Include="Views\PublicationHouse\Create.cshtml" />
     <Content Include="Views\PublicationHouse\Edit.cshtml" />
+    <Content Include="Scripts\kendo.grid.magazine.js" />
+    <Content Include="Scripts\kendo.grid.brochure.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,5 +1,6 @@
 ﻿using BusinesLogicLayer.Services;
 using Library.Web.Entities;
+using System.Net;
 using System.Web.Mvc;
 
 namespace Library.Web.Controllers
@@ -15,8 +16,13 @@ namespace Library.Web.Controllers
         // GET: Magazine
         public ActionResult Index()
         {
-            return View(_magazineService.GetAll());
+            return View();
         }
+        public JsonResult List()
+        {
+            return Json(_magazineService.GetAll(), JsonRequestBehavior.AllowGet);
+        }
+        
         public ActionResult Create()
         {
             return View();
@@ -51,7 +57,7 @@ namespace Library.Web.Controllers
         public ActionResult Delete(int id)
         {
             _magazineService.Delete(id);
-            return RedirectToAction("Index");
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }
 }
