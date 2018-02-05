@@ -1,12 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using BusinesLogicLayer.Services;
+﻿using BusinesLogicLayer.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-
-[assembly: OwinStartup(typeof(Library.Web.Startup))]
 
 namespace Library.Web
 {
@@ -14,9 +10,11 @@ namespace Library.Web
     {
         public void Configuration(IAppBuilder app)
         {
-
-            ConfigureAuth(app);
-
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/Account/Login")
+            });
         }
     }
 }
