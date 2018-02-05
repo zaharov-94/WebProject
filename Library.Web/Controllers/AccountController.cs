@@ -8,6 +8,11 @@ using Entities.View_models;
 using System.Web.Security;
 using Entities.Entities;
 using DataAccessLayer.Models;
+using BusinesLogicLayer.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using System.Security.Claims;
+using System;
 
 namespace Library.Web.Controllers
 {
@@ -18,99 +23,90 @@ namespace Library.Web.Controllers
         {
 
         }
+        private ApplicationUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
 
-        // GET: Authorization
-        public ActionResult Login()
+        public ActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Login(LoginModel model)
+        public async Task<ActionResult> Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
-                bool auth = Authenticate(model.Name, model.Password).Result;
-                if (auth)
+                ApplicationUser user = new ApplicationUser { UserName = model.Name, Password = model.Password};
+                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Name, true);
-                    return RedirectToAction("Index", "Book");
+                    return RedirectToAction("Login", "Account");
                 }
-                if (!auth)
+                else
                 {
-                    ModelState.AddModelError("", "User not exists");
+                    foreach (string error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error);
+                    }
                 }
             }
-
             return View(model);
         }
 
-        public ActionResult Registration()
-        {
-            return View();
-        }
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Registration(RegisterModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        User user = null;
-        //        using (UserContext db = new UserContext())
-        //        {
-        //            user = db.Users.FirstOrDefault(u => u.Email == model.Name);
-        //        }
-        //        if (user == null)
-        //        {
-        //            // создаем нового пользователя
-        //            using (UserContext db = new UserContext())
-        //            {
-        //                db.Users.Add(new User { Email = model.Name, Password = model.Password, Age = model.Age });
-        //                db.SaveChanges();
-
-        //                user = db.Users.Where(u => u.Email == model.Name && u.Password == model.Password).FirstOrDefault();
-        //            }
-        //            // если пользователь удачно добавлен в бд
-        //            if (user != null)
-        //            {
-        //                FormsAuthentication.SetAuthCookie(model.Name, true);
-        //                return RedirectToAction("Index", "Home");
-        //            }
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("", "Пользователь с таким логином уже существует");
-        //        }
-        //    }
-
-        //    return View(model);
-        //}
-
-        public ActionResult Logoff()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
-        }
-
-        private static CustomUserManager _customUserManager;
-
-        public CustomUserManager UserManager
+        // GET: Authorization
+        private IAuthenticationManager AuthenticationManager
         {
             get
             {
-                return _customUserManager ??
-                       (_customUserManager = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<CustomUserManager>());
+                return HttpContext.GetOwinContext().Authentication;
             }
         }
-        public async Task<bool> Authenticate(string name, string password)
-        {
-            if (await UserManager.FindAsync(name, password) != null)
-            {
-                return true;
-            }
 
-            return false;
+        public ActionResult Login(string returnUrl)
+        {
+            ViewBag.returnUrl = returnUrl;
+            return View();
         }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(LoginModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = await UserManager.FindAsync(model.Name, model.Password);
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "Неверный логин или пароль.");
+                }
+                else
+                {
+                    ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user,
+                                            DefaultAuthenticationTypes.ApplicationCookie);
+                    AuthenticationManager.SignOut();
+                    AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    }, claim);
+                    if (String.IsNullOrEmpty(returnUrl))
+                        return RedirectToAction("Index", "Home");
+                    return Redirect(returnUrl);
+                }
+            }
+            ViewBag.returnUrl = returnUrl;
+            return View(model);
+        }
+        public ActionResult Logout()
+        {
+            AuthenticationManager.SignOut();
+            return RedirectToAction("Login");
+        }
+
+
     }
 }
