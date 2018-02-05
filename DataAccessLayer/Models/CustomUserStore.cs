@@ -10,7 +10,12 @@ namespace DataAccessLayer.Models
 {
     public class CustomUserStore : IUserStore<ApplicationUser>
     {
-        static readonly List<ApplicationUser> Users = new List<ApplicationUser>();
+        private LibraryDbContext _context;
+        
+        public CustomUserStore(string connectionString)
+        {
+            _context = new LibraryDbContext(connectionString);
+        }
 
         public void Dispose()
         {
@@ -19,7 +24,7 @@ namespace DataAccessLayer.Models
 
         public Task CreateAsync(ApplicationUser user)
         {
-            return Task.Factory.StartNew(() => Users.Add(user));
+            return Task.Factory.StartNew(() => _context.Users.Add(user));
         }
 
         public Task UpdateAsync(ApplicationUser user)
@@ -39,7 +44,7 @@ namespace DataAccessLayer.Models
 
         public Task<ApplicationUser> FindByNameAsync(string userName)
         {
-            return Task<ApplicationUser>.Factory.StartNew(() => Users.FirstOrDefault(u => u.UserName == userName));
+            return Task<ApplicationUser>.Factory.StartNew(() => _context.Users.FirstOrDefault(u => u.UserName == userName));
         }
     }
 }

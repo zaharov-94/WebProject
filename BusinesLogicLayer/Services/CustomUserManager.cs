@@ -17,6 +17,12 @@ namespace BusinesLogicLayer.Services
             this.PasswordHasher = new CustomPasswordHasher();
         }
 
+        public static CustomUserManager Create(string connectionString)
+        {
+            var manager = new CustomUserManager(new CustomUserStore(connectionString));
+            return manager;
+        }
+
         public override Task<ApplicationUser> FindAsync(string userName, string password)
         {
             Task<ApplicationUser> taskInvoke = Task<ApplicationUser>.Factory.StartNew(() =>
@@ -30,6 +36,7 @@ namespace BusinesLogicLayer.Services
             });
             return taskInvoke;
         }
+
     }
 
     public class CustomPasswordHasher : PasswordHasher
