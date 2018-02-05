@@ -184,7 +184,7 @@
     <Compile Include="Controllers\MagazineController.cs" />
     <Compile Include="Controllers\AllPublicationController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\AuthorizationController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\PublicationHouseController.cs" />
     <Compile Include="Global.asax.cs">
@@ -252,7 +252,7 @@
     <Content Include="Views\Book\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Book\Create.cshtml" />
-    <Content Include="Views\Authorization\Login.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Magazine\Index.cshtml" />
     <Content Include="Views\Magazine\Create.cshtml" />
     <Content Include="Views\AllPublication\Index.cshtml" />
@@ -266,6 +266,7 @@
     <Content Include="Views\PublicationHouse\Edit.cshtml" />
     <Content Include="Scripts\kendo.grid.magazine.js" />
     <Content Include="Scripts\kendo.grid.brochure.js" />
+    <Content Include="Views\Account\Registration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

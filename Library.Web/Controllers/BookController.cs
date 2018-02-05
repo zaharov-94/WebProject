@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Library.Web.Controllers
 {
+    //[Authorize(Users="Serhii")]
     public class BookController : Controller
     {
         private BookService _bookService;

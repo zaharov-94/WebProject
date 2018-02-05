@@ -1,4 +1,5 @@
-﻿using Library.Web.Entities;
+﻿using Entities.Entities;
+using Library.Web.Entities;
 using System.Data.Entity;
 
 namespace DataAccessLayer.Models
@@ -9,8 +10,10 @@ namespace DataAccessLayer.Models
         public DbSet<Brochure> Brochures { get; set; }
         public DbSet<Magazine> Magazines { get; set; }
         public DbSet<PublicationHouse> PublicationHouses { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<ApplicationRole> Roles { get; set; }
 
-      //  public LibraryDbContext():base("PublicationsContext") { }
+        public LibraryDbContext() : base("PublicationsContext") { }
         public LibraryDbContext(string connectionString) : base(connectionString)
         { }
     }
