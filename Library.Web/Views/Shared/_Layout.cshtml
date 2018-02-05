@@ -10,7 +10,8 @@
     @Scripts.Render("~/Scripts/jquery.min.js")
 </head>
 <body>
-    <div class="container">
+    
+    <div class="container body-content">
         <div class="navbar">
             @Html.Partial("_LoginPartial")
         </div>
@@ -32,6 +33,7 @@
                     @Html.ActionLink("All Publications", "Index", "AllPublication")
                 </li>
             </ul>
+
         </div>
         @RenderBody()
     </div>

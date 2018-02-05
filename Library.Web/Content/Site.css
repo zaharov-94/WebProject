@@ -43,6 +43,11 @@ div.tab-content
 .sidebar
 {
     top: 0px;
+
+}
+.body-content
+{
+    z-index: 1;
 }
 h4
 {

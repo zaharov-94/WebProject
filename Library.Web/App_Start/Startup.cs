@@ -8,7 +8,7 @@ namespace Library.Web.App_Start
     {
         public void ConfigureAuth(IAppBuilder app)
         {
-            app.CreatePerOwinContext(CustomUserManager.Create);
+            //app.CreatePerOwinContext(CustomUserManager.Create);
         }
     }
 }
