@@ -4,7 +4,7 @@ using System.Data.Entity;
 
 namespace DataAccessLayer.Models
 {
-    public class LibraryDbContext : IdentityDbContext<ApplicationUser>
+    public class LibraryDbContext : DbContext
     {
         public DbSet<Book> Books { get; set; }
         public DbSet<Brochure> Brochures { get; set; }
