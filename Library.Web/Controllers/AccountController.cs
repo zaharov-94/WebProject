@@ -1,18 +1,14 @@
-﻿using BusinesLogicLayer.Services;
-using Library.Web.Entities;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using Entities.View_models;
-using System.Web.Security;
-using Entities.Entities;
-using DataAccessLayer.Models;
 using BusinesLogicLayer.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
 using System;
+using Library.Web.Entities;
 
 namespace Library.Web.Controllers
 {
@@ -31,13 +27,13 @@ namespace Library.Web.Controllers
             }
         }
 
-        public ActionResult Register()
+        public ActionResult Registration()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Register(RegisterModel model)
+        public async Task<ActionResult> Registration(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +70,6 @@ namespace Library.Web.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid)
@@ -94,7 +89,7 @@ namespace Library.Web.Controllers
                         IsPersistent = true
                     }, claim);
                     if (String.IsNullOrEmpty(returnUrl))
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Book");
                     return Redirect(returnUrl);
                 }
             }

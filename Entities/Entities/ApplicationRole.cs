@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Entities
+namespace Library.Web.Entities
 {
     public class ApplicationRole
     {

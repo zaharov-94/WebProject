@@ -5,11 +5,13 @@ using Microsoft.AspNet.Identity;
 using DataAccessLayer.Models;
 using BusinesLogicLayer.Models;
 
-namespace Library.Web.App_Start
+
+[assembly: OwinStartup(typeof(Library.Web.Startup))]
+namespace Library.Web
 {
-    public class Startup
+    public partial class Startup
     {
-        public void Configuration(IAppBuilder app)
+        public void ConfigureAuth(IAppBuilder app)
         {
             // настраиваем контекст и менеджер
             app.CreatePerOwinContext<LibraryDbContext>(LibraryDbContext.Create);
@@ -19,6 +21,7 @@ namespace Library.Web.App_Start
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
             });
+
         }
     }
 }

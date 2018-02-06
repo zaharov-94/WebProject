@@ -1,5 +1,4 @@
-﻿using Entities.Entities;
-using Library.Web.Entities;
+﻿using Library.Web.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
@@ -17,7 +16,7 @@ namespace DataAccessLayer.Models
         { }
         public static LibraryDbContext Create()
         {
-            return new LibraryDbContext();
+            return new LibraryDbContext("PublicationsContext");
         }
     }
 }
