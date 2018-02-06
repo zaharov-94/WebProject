@@ -9,16 +9,16 @@ namespace DataAccessLayer.Models
 {
     public class EntityRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        private LibraryDbContext _context;
+        private ApplicationContext _context;
         private DbSet<TEntity> _dbSet;
 
         public EntityRepository(string connectionString)
         {
-           _context = new LibraryDbContext(connectionString);
+           _context = new ApplicationContext(connectionString);
             _dbSet = _context.Set<TEntity>();
         }
 
-        public EntityRepository(LibraryDbContext context)
+        public EntityRepository(ApplicationContext context)
         {
             _context = context;
             _dbSet = _context.Set<TEntity>();

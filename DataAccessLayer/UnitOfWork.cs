@@ -8,18 +8,18 @@ namespace DataAccessLayer
 {
     public class UnitOfWork : IDisposable
     {
-        private readonly LibraryDbContext _context;
+        private readonly ApplicationContext _context;
         private bool disposed;
         private Dictionary<string, object> repositories;
 
-        public UnitOfWork(LibraryDbContext context)
+        public UnitOfWork(ApplicationContext context)
         {
             _context = context;
         }
 
         public UnitOfWork(string connectionString)
         {
-            _context = new LibraryDbContext(connectionString);
+            _context = new ApplicationContext(connectionString);
         }
 
         public void Dispose()

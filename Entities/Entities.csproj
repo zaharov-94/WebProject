@@ -57,13 +57,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\Brochure.cs" />
+    <Compile Include="Entities\Identity\ApplicationRole.cs" />
+    <Compile Include="Entities\Identity\ApplicationUser.cs" />
+    <Compile Include="Entities\Identity\ClientProfile.cs" />
     <Compile Include="Entities\Magazine.cs" />
     <Compile Include="Entities\Publication.cs" />
     <Compile Include="Entities\PublicationHouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View models\BookViewModel.cs" />
+    <Compile Include="View models\LoginModel.cs" />
+    <Compile Include="View models\RegisterModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

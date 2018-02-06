@@ -63,7 +63,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IClientManager.cs" />
     <Compile Include="Abstract\IGenericRepository.cs" />
+    <Compile Include="Abstract\IUnitOfWork.cs" />
+    <Compile Include="Identity\ApplicationRoleManager.cs" />
+    <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="Migrations\201801260931168_change.cs" />
     <Compile Include="Migrations\201801260931168_change.Designer.cs">
       <DependentUpon>201801260931168_change.cs</DependentUpon>
@@ -92,9 +96,15 @@
     <Compile Include="Migrations\201802061212031_123.Designer.cs">
       <DependentUpon>201802061212031_123.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802061301460_so.cs" />
+    <Compile Include="Migrations\201802061301460_so.Designer.cs">
+      <DependentUpon>201802061301460_so.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdoRepository.cs" />
+    <Compile Include="Models\ClientManager.cs" />
     <Compile Include="Models\EntityBookRepository.cs" />
+    <Compile Include="Models\IdentityUnitOfWork.cs" />
     <Compile Include="Models\LibraryDbContext.cs" />
     <Compile Include="Models\EntityRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -132,6 +142,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802061212031_123.resx">
       <DependentUpon>201802061212031_123.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802061301460_so.resx">
+      <DependentUpon>201802061301460_so.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

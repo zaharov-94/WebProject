@@ -15,7 +15,7 @@ namespace BusinesLogicLayer.Services
         {
             _houseRepository = new EntityRepository<PublicationHouse>(connectionString);
         }
-        public PublicationHouseService(LibraryDbContext context)
+        public PublicationHouseService(ApplicationContext context)
         {
             _houseRepository = new EntityRepository<PublicationHouse>(context);
         }

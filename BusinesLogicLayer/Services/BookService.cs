@@ -21,7 +21,7 @@ namespace BusinesLogicLayer.Services
             _bookRepository = _unitOfWork.Repository<Book>(); ;
             _publicationHouseRepository = _unitOfWork.Repository<PublicationHouse>();
         }
-        public BookService(LibraryDbContext context)
+        public BookService(ApplicationContext context)
         {
             _unitOfWork = new UnitOfWork(context);
             _bookRepository = new EntityBookRepository<Book>(context);

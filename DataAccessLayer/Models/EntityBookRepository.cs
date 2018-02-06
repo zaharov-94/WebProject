@@ -8,16 +8,16 @@ namespace DataAccessLayer.Models
 {
     public class EntityBookRepository<TEntity> : EntityRepository<TEntity> where TEntity : class
     {
-        private LibraryDbContext _context;
+        private ApplicationContext _context;
         private DbSet<TEntity> _dbSet;
 
         public EntityBookRepository(string connectionString) : base (connectionString)
         {
-            _context = new LibraryDbContext(connectionString);
+            _context = new ApplicationContext(connectionString);
             _dbSet = _context.Set<TEntity>();
         }
 
-        public EntityBookRepository(LibraryDbContext context) : base (context)
+        public EntityBookRepository(ApplicationContext context) : base (context)
         {
             _context = context;
             _dbSet = _context.Set<TEntity>();
