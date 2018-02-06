@@ -47,7 +47,7 @@ namespace Library.Web.Controllers
                 ClaimsIdentity claim = await UserService.Authenticate(userDto);
                 if (claim == null)
                 {
-                    ModelState.AddModelError("", "Неверный логин или пароль.");
+                    ModelState.AddModelError("", "Enter correct data.");
                 }
                 else
                 {
@@ -77,7 +77,7 @@ namespace Library.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterModel model)
         {
-            await SetInitialDataAsync();
+            //await SetInitialDataAsync();
 
             if (ModelState.IsValid)
             {

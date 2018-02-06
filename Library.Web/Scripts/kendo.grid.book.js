@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $("#grid").kendoGrid({
+    var grid = $("#grid").kendoGrid({
         dataSource: {
             type: "json",
             transport: {
@@ -27,6 +27,14 @@
         { field: "YearOfPublishing", title: "Year of publishing" },
         { command: [{ text: "Edit", click: Edit }, { text: "Delete", click: Delete }], title: "&nbsp;", width: "250px" }]
     });
+    if (document.getElementById('Create')==null) {
+        grid.data("kendoGrid").setOptions({
+            columns: [
+                { field: "Name", title: "Name" },
+                { field: "Author", title: "Author" },
+                { field: "YearOfPublishing", title: "Year of publishing" }]
+        });
+    }    
 });
 function Edit(e) {
     e.preventDefault();

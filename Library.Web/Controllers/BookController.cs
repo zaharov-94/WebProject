@@ -35,6 +35,7 @@ namespace Library.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="admin")]
         public ActionResult Create(Book book)
         {
             _bookService.Add(book);
@@ -59,6 +60,7 @@ namespace Library.Web.Controllers
             }
             return Json(publicationHouses, JsonRequestBehavior.AllowGet);
         }
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int id)
         {
             var book = _bookService.GetBookById(id);
@@ -68,6 +70,7 @@ namespace Library.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(BookViewModel bookViewModel)
         {
             try
@@ -81,6 +84,7 @@ namespace Library.Web.Controllers
                 return View();
             }
         }
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(int id)
         {
             _bookService.DeleteBook(id);

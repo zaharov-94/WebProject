@@ -1,7 +1,14 @@
 ﻿@model IEnumerable<Library.Web.Entities.Publication>
 @{
     ViewBag.Title = "Home Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!User.IsInRole("admin"))
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    if (User.IsInRole("admin"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
 @Styles.Render("~/Content/dashboard.css")
 @Styles.Render("~/Content/kendo.common-material.min.css")

@@ -1,7 +1,14 @@
 ﻿@model IEnumerable<Library.Web.Entities.Brochure>
 @{
     ViewBag.Title = "Home Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!User.IsInRole("admin"))
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    if (User.IsInRole("admin"))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
 }
 @Styles.Render("~/Content/dashboard.css")
 @Styles.Render("~/Content/kendo.common-material.min.css")
@@ -20,7 +27,10 @@
         <div id="grid"></div>
         <br />
         <p>
-            @Html.ActionLink("Add brochure", "Create",null, new { @class = "btn btn-success" })
+            @if (User.IsInRole("admin"))
+            {
+                @Html.ActionLink("Add brochure", "Create", null, new { @Id = "Create", @class = "btn btn-success" });
+            }
         </p>
     </div>
 </div>
