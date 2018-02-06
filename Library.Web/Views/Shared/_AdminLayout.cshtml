@@ -7,12 +7,7 @@
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header navbar-right">
-                <div class="navbar">
-                    @Html.Partial("_LoginPartial")
-                </div>
-            </div>
+        <div class="container-fluid">   
             <ul class="nav navbar-nav">
                 <li>
                     @Html.ActionLink("Books", "Index", "Book")
@@ -30,6 +25,11 @@
                     @Html.ActionLink("All Publications", "Index", "AllPublication")
                 </li>
             </ul>
+            <div class="navbar-header navbar-right">
+                <div class="navbar">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -38,5 +38,6 @@
     </div>
     @Scripts.Render("~/Scripts/popper.min.js")
     @Scripts.Render("~/Scripts/bootstrap.min.js")
+    @Scripts.Render("~/Scripts/additional.js")
 </body>
 </html>

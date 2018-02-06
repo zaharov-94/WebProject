@@ -31,7 +31,8 @@
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="text" class="form-control text-box single-line" id="Password" name="Password" value="" required="" autofocus="">
             <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
-            <button class="btn btn-lg btn-primary btn-block" value="Login" type="submit">Sign in</button>
+            <button class="btn btn-primary btn-block" value="Login" type="submit">Sign in</button>
+            @Html.ActionLink("Registration", "Register","Account", null, new { @class = "btn btn-success btn-block" });
 
         }
     </div> <!-- /container -->
