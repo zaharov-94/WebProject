@@ -88,6 +88,10 @@
     <Compile Include="Migrations\201802061003391_roles.Designer.cs">
       <DependentUpon>201802061003391_roles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802061212031_123.cs" />
+    <Compile Include="Migrations\201802061212031_123.Designer.cs">
+      <DependentUpon>201802061212031_123.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdoRepository.cs" />
     <Compile Include="Models\EntityBookRepository.cs" />
@@ -125,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802061003391_roles.resx">
       <DependentUpon>201802061003391_roles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802061212031_123.resx">
+      <DependentUpon>201802061212031_123.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

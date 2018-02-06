@@ -192,6 +192,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\BrochureController.cs" />
     <Compile Include="Controllers\MagazineController.cs" />
     <Compile Include="Controllers\AllPublicationController.cs" />
