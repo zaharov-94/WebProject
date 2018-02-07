@@ -2,6 +2,7 @@
 using DataAccessLayer.Models;
 using Library.Web.Entities;
 using Library.Web.View_models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,7 +69,6 @@ namespace Library.Web.Controllers
             BookViewModel viewModel = new BookViewModel(book, PublicationHouses.ToList());
             return View(viewModel);
         }
-
         [HttpPost]
         [Authorize(Roles = "admin")]
         public ActionResult Edit(BookViewModel bookViewModel)

@@ -38,7 +38,7 @@ namespace DataAccessLayer.Models
 
             foreach (var item in entity.PublicationHouses)
             {
-                book.PublicationHouses.Add(list.Find( x => x.Id == item));
+                book.PublicationHouses.Add(list.Find( x => x.Id == item.Id));
             }
             _context.Entry(book).State = System.Data.Entity.EntityState.Modified;
             _context.SaveChanges();

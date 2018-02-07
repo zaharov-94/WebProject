@@ -1,4 +1,5 @@
-﻿$.getJSON('../../Book/GetAllPublish/', function (json) {
+﻿var kendoItems;
+$.getJSON('../../Book/GetAllPublish/', function (json) {
     var location = window.location.pathname.split("/");
     var bookId = location[location.length - 1];
     var val = $("#PublicationHouses");
@@ -31,8 +32,31 @@
         var multiselect = $("#PublicationHouses").data("kendoMultiSelect");
 
         kendo.bind($("#PublicationHouses"), viewModel);
-        multiselect.options.value = multiselect.dataItems();
+        kendoItems = multiselect.dataItems();
         //multiselect.setDataSource(dataSource);
         //multiselect.value(jsonsel);
+    });
+});
+
+$(document).ready(function () {
+    $('form').submit(function () {
+        var multiselect = $("#PublicationHouses").data("kendoMultiSelect");
+
+        var $data = {};
+        $('form').find('input').each(function () {
+           $data[this.name] = $(this).val();
+        });
+        var otherFields = multiselect.dataItems();
+        $data["PublicationHouses"] = otherFields;
+        var obj = $.toJSON($data);
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '../../Book/Edit/',
+            data: obj
+        });
+        window.location.pathname = '../../Book/Index';
+        return false;
     });
 });
