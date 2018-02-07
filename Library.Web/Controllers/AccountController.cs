@@ -6,10 +6,10 @@ using Microsoft.AspNet.Identity.Owin;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using BusinesLogicLayer.Abstract;
-using Entities.DTO;
+using Entities.Tables;
 using BusinesLogicLayer.Infrastructure;
-using ViewModels.ViewModels;
 using Entities.Enums;
+using Library.ViewModels.ViewModels;
 
 namespace Library.Web.Controllers
 {
@@ -44,8 +44,8 @@ namespace Library.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                UserDTO userDto = new UserDTO { Email = model.Email, Password = model.Password};
-                ClaimsIdentity claim = await UserService.Authenticate(userDto);
+                UserTable userTable = new UserTable { Email = model.Email, Password = model.Password};
+                ClaimsIdentity claim = await UserService.Authenticate(userTable);
                 if (claim == null)
                 {
                     ModelState.AddModelError("", "Enter correct data.");
@@ -82,7 +82,7 @@ namespace Library.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                UserDTO userDto = new UserDTO
+                UserTable userTable = new UserTable
                 {
                     Email = model.Email,
                     Password = model.Password,
@@ -90,7 +90,7 @@ namespace Library.Web.Controllers
                     Name = model.Name,
                     Role = Role.User
                 };
-                OperationDetails operationDetails = await UserService.Create(userDto);
+                OperationDetails operationDetails = await UserService.Create(userTable);
                 if (operationDetails.Succedeed)
                     return View("SuccessRegister");
                 else
@@ -101,7 +101,7 @@ namespace Library.Web.Controllers
 
         private async Task SetInitialDataAsync()
         {
-            await UserService.SetInitialData(new UserDTO
+            await UserService.SetInitialData(new UserTable
             {
                 Email = "somemail@mail.ru",
                 UserName = "somemail@mail.ru",

@@ -116,7 +116,7 @@
       <Name>Library.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\ViewModels\Library.ViewModels.csproj">
-      <Project>{A40B1AC6-8712-4098-8E43-AFAA3B68BEF4}</Project>
+      <Project>{a40b1ac6-8712-4098-8e43-afaa3b68bef4}</Project>
       <Name>Library.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>

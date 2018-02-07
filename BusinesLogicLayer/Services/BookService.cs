@@ -1,11 +1,8 @@
-﻿using DataAccessLayer.Abstract;
-using DataAccessLayer.Models;
+﻿using DataAccessLayer.Models;
 using DataAccessLayer;
 using Library.Web.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using ViewModels.ViewModels;
+using Library.ViewModels.ViewModels;
 
 namespace BusinesLogicLayer.Services
 {

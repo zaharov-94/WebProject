@@ -1,6 +1,6 @@
-﻿namespace Entities.DTO
+﻿namespace Entities.Tables
 {
-    public class UserDTO
+    public class UserTable  
     {
         public string Id { get; set; }
         public string Email { get; set; }

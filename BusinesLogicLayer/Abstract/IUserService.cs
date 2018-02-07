@@ -1,5 +1,5 @@
 ﻿using BusinesLogicLayer.Infrastructure;
-using Entities.DTO;
+using Entities.Tables;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -10,8 +10,8 @@ namespace BusinesLogicLayer.Abstract
 {
     public interface IUserService : IDisposable
     {
-        Task<OperationDetails> Create(UserDTO userDto);
-        Task<ClaimsIdentity> Authenticate(UserDTO userDto);
-        Task SetInitialData(UserDTO adminDto, List<string> roles);
+        Task<OperationDetails> Create(UserTable userDto);
+        Task<ClaimsIdentity> Authenticate(UserTable userDto);
+        Task SetInitialData(UserTable adminDto, List<string> roles);
     } 
 }

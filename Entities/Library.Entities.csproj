@@ -57,7 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="Tables\UserTable.cs" />
     <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\Brochure.cs" />
     <Compile Include="Entities\Identity\ApplicationRole.cs" />

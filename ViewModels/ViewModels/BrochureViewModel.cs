@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Library.Web.Entities
+namespace Library.ViewModels.ViewModels
 {
     public class BrochureViewModel
     {

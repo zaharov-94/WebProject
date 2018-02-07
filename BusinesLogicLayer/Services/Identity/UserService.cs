@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using DataAccessLayer.Abstract;
 using BusinesLogicLayer.Abstract;
 using BusinesLogicLayer.Infrastructure;
-using Entities.DTO;
+using Entities.Tables;
 using Entities.Entities;
 
 namespace BusinesLogicLayer.Services.Identity
@@ -19,17 +19,17 @@ namespace BusinesLogicLayer.Services.Identity
             Database = uow;
         }
 
-        public async Task<OperationDetails> Create(UserDTO userDto)
+        public async Task<OperationDetails> Create(UserTable userTable)
         {
-            ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);
+            ApplicationUser user = await Database.UserManager.FindByEmailAsync(userTable.Email);
             if (user == null)
             {
-                user = new ApplicationUser { Email = userDto.Email, UserName = userDto.Email };
-                await Database.UserManager.CreateAsync(user, userDto.Password);
+                user = new ApplicationUser { Email = userTable.Email, UserName = userTable.Email };
+                await Database.UserManager.CreateAsync(user, userTable.Password);
                 // добавляем роль
-                await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role.ToString());
+                await Database.UserManager.AddToRoleAsync(user.Id, userTable.Role.ToString());
                 // создаем профиль клиента
-                ClientProfile clientProfile = new ClientProfile { Id = user.Id, Address = userDto.Address, Name = userDto.Name };
+                ClientProfile clientProfile = new ClientProfile { Id = user.Id, Address = userTable.Address, Name = userTable.Name };
                 Database.ClientManager.Create(clientProfile);
                 await Database.SaveAsync();
                 return new OperationDetails(true, "Регистрация успешно пройдена", "");
@@ -41,11 +41,11 @@ namespace BusinesLogicLayer.Services.Identity
             }
         }
 
-        public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
+        public async Task<ClaimsIdentity> Authenticate(UserTable userTable)
         {
             ClaimsIdentity claim = null;
             // находим пользователя
-            ApplicationUser user = await Database.UserManager.FindAsync(userDto.Email, userDto.Password);
+            ApplicationUser user = await Database.UserManager.FindAsync(userTable.Email, userTable.Password);
             // авторизуем его и возвращаем объект ClaimsIdentity
             if(user!=null)
                 claim= await Database.UserManager.CreateIdentityAsync(user,
@@ -54,7 +54,7 @@ namespace BusinesLogicLayer.Services.Identity
         }
 
         // начальная инициализация бд
-        public async Task SetInitialData(UserDTO adminDto, List<string> roles)
+        public async Task SetInitialData(UserTable adminTable, List<string> roles)
         {
             foreach (string roleName in roles)
             {
@@ -66,7 +66,7 @@ namespace BusinesLogicLayer.Services.Identity
                 }
             }
 
-            await Create(adminDto);
+            await Create(adminTable);
         }
 
         public void Dispose()
