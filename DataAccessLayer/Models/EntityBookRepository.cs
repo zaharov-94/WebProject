@@ -1,8 +1,8 @@
 ﻿using Library.Web.Entities;
-using Library.Web.View_models;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using ViewModels.ViewModels;
 
 namespace DataAccessLayer.Models
 {

@@ -7,14 +7,14 @@ using System.Web;
 
 namespace Library.Web.Entities
 {
-    public class Brochure
+    public class BrochureViewModel
     {
         [Key]
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
-        public TypeOfCover TypeOfCover { get; set; }
+        public string TypeOfCover { get; set; }
         [Required]
         public int NumberOfPages { get; set; }
     }

@@ -8,7 +8,7 @@ using System.Security.Claims;
 using BusinesLogicLayer.Abstract;
 using Entities.DTO;
 using BusinesLogicLayer.Infrastructure;
-using Entities.ViewModels;
+using ViewModels.ViewModels;
 
 namespace Library.Web.Controllers
 {

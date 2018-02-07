@@ -115,6 +115,10 @@
       <Project>{23fe3147-466c-4314-9f9d-ac6babb8f195}</Project>
       <Name>Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ViewModels\ViewModels.csproj">
+      <Project>{A40B1AC6-8712-4098-8E43-AFAA3B68BEF4}</Project>
+      <Name>ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

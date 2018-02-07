@@ -1,7 +1,7 @@
 ﻿using Library.Web.Entities;
 using System.Collections.Generic;
 
-namespace Library.Web.View_models
+namespace ViewModels.ViewModels
 {
     public class BookViewModel
     {

@@ -100,6 +100,10 @@
     <Compile Include="Migrations\201802061301460_so.Designer.cs">
       <DependentUpon>201802061301460_so.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802071210249_TypeOfCover.cs" />
+    <Compile Include="Migrations\201802071210249_TypeOfCover.Designer.cs">
+      <DependentUpon>201802071210249_TypeOfCover.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdoRepository.cs" />
     <Compile Include="Models\ClientManager.cs" />
@@ -115,6 +119,10 @@
     <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{23fe3147-466c-4314-9f9d-ac6babb8f195}</Project>
       <Name>Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModels\ViewModels.csproj">
+      <Project>{A40B1AC6-8712-4098-8E43-AFAA3B68BEF4}</Project>
+      <Name>ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802061301460_so.resx">
       <DependentUpon>201802061301460_so.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802071210249_TypeOfCover.resx">
+      <DependentUpon>201802071210249_TypeOfCover.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

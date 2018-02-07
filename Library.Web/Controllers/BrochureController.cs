@@ -2,6 +2,7 @@
 using BusinesLogicLayer.Services;
 using System.Web.Mvc;
 using System.Net;
+using System.Collections.Generic;
 
 namespace Library.Web.Controllers
 {
@@ -19,7 +20,12 @@ namespace Library.Web.Controllers
         }
         public JsonResult List()
         {
-            return Json(_brochureService.GetAll(), JsonRequestBehavior.AllowGet);
+            List<BrochureViewModel> list = new List<BrochureViewModel>();
+            foreach(Brochure brochure in _brochureService.GetAll())
+            {
+                list.Add(new BrochureViewModel { Id = brochure.Id, Name = brochure.Name, TypeOfCover = brochure.TypeOfCover.ToString(), NumberOfPages = brochure.NumberOfPages });
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize(Roles = "admin")]
