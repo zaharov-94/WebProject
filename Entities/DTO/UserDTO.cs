@@ -8,6 +8,6 @@
         public string UserName { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public string Role { get; set; }
+        public Enums.Role Role { get; set; }
     }
 }

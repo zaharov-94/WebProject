@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Abstract;
+using Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,38 +8,38 @@ using System.Linq.Expressions;
 
 namespace DataAccessLayer.Models
 {
-    public class EntityRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+    public class EntityRepository<T> : IGenericRepository<T> where T : TEntity
     {
         private ApplicationContext _context;
-        private DbSet<TEntity> _dbSet;
+        private DbSet<T> _dbSet;
 
         public EntityRepository(string connectionString)
         {
            _context = new ApplicationContext(connectionString);
-            _dbSet = _context.Set<TEntity>();
+            _dbSet = _context.Set<T>();
         }
 
         public EntityRepository(ApplicationContext context)
         {
             _context = context;
-            _dbSet = _context.Set<TEntity>();
+            _dbSet = _context.Set<T>();
         }
 
-        public void Add(TEntity item)
+        public void Add(T item)
         {
             _dbSet.Add(item);
             _context.SaveChanges();
         }
 
-        public TEntity FindById(int id)
+        public T FindById(int id)
         {
             return _dbSet.Find(id);
         }
-        public IEnumerable<TEntity> GetAll()
+        public IEnumerable<T> GetAll()
         {
             return _dbSet.AsNoTracking().ToList();
         }
-        public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
+        public IEnumerable<T> Get(Func<T, bool> predicate)
         {
             return _dbSet.AsNoTracking().Where(predicate).ToList();
         }
@@ -47,10 +48,9 @@ namespace DataAccessLayer.Models
             _dbSet.Remove(_dbSet.Find(id));
             _context.SaveChanges();
         }
-        public virtual void Update(object item)
+        public virtual void Update(T item)
         {
-            TEntity entity = (TEntity) item;
-            _context.Entry(entity).State = EntityState.Modified;
+             _context.Entry(item).State = EntityState.Modified;
             _context.SaveChanges();
         }
     }

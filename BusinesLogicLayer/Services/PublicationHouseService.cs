@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Abstract;
+﻿using DataAccessLayer;
+using DataAccessLayer.Abstract;
 using DataAccessLayer.Models;
 using Library.Web.Entities;
 using System;
@@ -9,38 +10,35 @@ namespace BusinesLogicLayer.Services
 {
     public class PublicationHouseService
     {
-        private IGenericRepository<PublicationHouse> _houseRepository;
+        private UnitOfWork _unitOfWork;
 
         public PublicationHouseService(string connectionString)
         {
-            _houseRepository = new EntityRepository<PublicationHouse>(connectionString);
+            _unitOfWork = new UnitOfWork(connectionString);
         }
-        public PublicationHouseService(ApplicationContext context)
-        {
-            _houseRepository = new EntityRepository<PublicationHouse>(context);
-        }
+
         public IEnumerable<PublicationHouse> GetAll()
         {
-            return _houseRepository.GetAll();
+            return _unitOfWork.PublicationHouse.GetAll();
         }
 
         public void Add(PublicationHouse publicationHouse)
         {
-            _houseRepository.Add(publicationHouse);
+            _unitOfWork.PublicationHouse.Add(publicationHouse);
         }
 
         public PublicationHouse GetById(int id)
         {
-            return _houseRepository.FindById(id);
+            return _unitOfWork.PublicationHouse.FindById(id);
         }
 
         public void Edit(PublicationHouse publicationHouse)
         {
-            _houseRepository.Update(publicationHouse);
+            _unitOfWork.PublicationHouse.Update(publicationHouse);
         }
         public void Delete(int id)
         {
-            _houseRepository.Remove(id);
+            _unitOfWork.PublicationHouse.Remove(id);
         }
     }
 }

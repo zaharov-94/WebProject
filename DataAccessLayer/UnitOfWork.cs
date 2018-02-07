@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Abstract;
 using DataAccessLayer.Models;
+using Entities.Entities;
 using Library.Web.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,50 @@ namespace DataAccessLayer
         private readonly ApplicationContext _context;
         private bool disposed;
         private Dictionary<string, object> repositories;
+        private IGenericRepository<Magazine> _magazineRepository;
+        private IGenericRepository<PublicationHouse> _houseRepository;
+        private IGenericRepository<Brochure> _brochureRepository;
+        private IGenericRepository<Book> _bookRepository;
+
+        public IGenericRepository<Magazine> Magazine
+        {
+            get
+            {
+                if (_magazineRepository == null)
+                    _magazineRepository = this.Repository<Magazine>();
+                return _magazineRepository;
+            }
+        }
+
+        public IGenericRepository<Book> Book
+        {
+            get
+            {
+                if (_bookRepository == null)
+                    _bookRepository = this.Repository<Book>();
+                return _bookRepository;
+            }
+        }
+
+        public IGenericRepository<Brochure> Brochure
+        {
+            get
+            {
+                if (_brochureRepository == null)
+                    _brochureRepository = this.Repository<Brochure>();
+                return _brochureRepository;
+            }
+        }
+
+        public IGenericRepository<PublicationHouse> PublicationHouse
+        {
+            get
+            {
+                if (_houseRepository == null)
+                    _houseRepository = this.Repository<PublicationHouse>();
+                return _houseRepository;
+            }
+        }
 
         public UnitOfWork(ApplicationContext context)
         {
@@ -45,7 +90,7 @@ namespace DataAccessLayer
             disposed = true;
         }
 
-        public IGenericRepository<T> Repository<T>() where T : class
+        public IGenericRepository<T> Repository<T>() where T : TEntity
         {
             if (repositories == null)
             {
@@ -64,11 +109,7 @@ namespace DataAccessLayer
                 var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(T)), _context);
                 repositories.Add(type, repositoryInstance);
             }
-            if (typeof(T) == typeof(Book))
-            {
-                return (EntityBookRepository<T>)repositories[type];
-            }
-            return (EntityRepository<T>) repositories[type];
+            return (IGenericRepository<T>) repositories[type];
         }
     }
 }

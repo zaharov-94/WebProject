@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Entities.Entities;
 using Library.Web.Entities;
 
 namespace DataAccessLayer.Abstract
 {
-    public interface IGenericRepository<TEntity> where TEntity : class
+    public interface IGenericRepository<T> where T : TEntity
     {
-        void Add(TEntity item);
-        TEntity FindById(int id);
-        IEnumerable<TEntity> GetAll();
-        IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);
+        void Add(T item);
+        T FindById(int id);
+        IEnumerable<T> GetAll();
+        IEnumerable<T> Get(Func<T, bool> predicate);
         void Remove(int id);
-        void Update(object item);
+        void Update(T item);
     }
 }

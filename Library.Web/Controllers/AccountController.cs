@@ -9,6 +9,7 @@ using BusinesLogicLayer.Abstract;
 using Entities.DTO;
 using BusinesLogicLayer.Infrastructure;
 using ViewModels.ViewModels;
+using Entities.Enums;
 
 namespace Library.Web.Controllers
 {
@@ -87,7 +88,7 @@ namespace Library.Web.Controllers
                     Password = model.Password,
                     Address = model.Address,
                     Name = model.Name,
-                    Role = "user"
+                    Role = Role.User
                 };
                 OperationDetails operationDetails = await UserService.Create(userDto);
                 if (operationDetails.Succedeed)
@@ -107,7 +108,7 @@ namespace Library.Web.Controllers
                 Password = "ad46D_ewr3",
                 Name = "Семен Семенович Горбунков",
                 Address = "ул. Спортивная, д.30, кв.75",
-                Role = "admin",
+                Role = Role.Admin,
             }, new List<string> { "user", "admin" });
         }
     }

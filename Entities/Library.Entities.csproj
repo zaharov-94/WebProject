@@ -66,6 +66,8 @@
     <Compile Include="Entities\Magazine.cs" />
     <Compile Include="Entities\Publication.cs" />
     <Compile Include="Entities\PublicationHouse.cs" />
+    <Compile Include="Entities\TEntity.cs" />
+    <Compile Include="Enums\Role.cs" />
     <Compile Include="Enums\TypeOfCover.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

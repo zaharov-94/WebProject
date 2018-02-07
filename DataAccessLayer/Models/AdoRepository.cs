@@ -6,20 +6,21 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Entities.Entities;
 
 namespace DataAccessLayer.Models
 {
-    public class AdoRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+    public class AdoRepository<T> : IGenericRepository<T> where T: TEntity
     {
         private string _connectionString;
-        private Sql<TEntity> _sql;
-        private List<TEntity> _list;
+        private Sql<T> _sql;
+        private List<T> _list;
 
         public AdoRepository(string connectionString)
         {
-            _list = new List<TEntity>();
+            _list = new List<T>();
             _connectionString = connectionString;
-            _sql = new Sql<TEntity>();
+            _sql = new Sql<T>();
             RefreshData();
         }
 
@@ -43,7 +44,7 @@ namespace DataAccessLayer.Models
                 reader.Close();
             }
         }
-        public void Add(TEntity item)
+        public void Add(T item)
         {
             string sqlExpression = _sql.CreateInsertString(item);
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -54,10 +55,10 @@ namespace DataAccessLayer.Models
             }
         }
 
-        public TEntity FindById(int id)
+        public T FindById(int id)
         {
             string sqlExpression = _sql.CreateSelectByIdString(id);
-            TEntity entity = null;
+            T entity = null;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -72,11 +73,11 @@ namespace DataAccessLayer.Models
             }
             return entity;
         }
-        public IEnumerable<TEntity> GetAll()
+        public IEnumerable<T> GetAll()
         {
             return _list;
         }
-        public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
+        public IEnumerable<T> Get(Func<T, bool> predicate)
         {
             return _list.Where(predicate).ToList();
         }
@@ -90,9 +91,9 @@ namespace DataAccessLayer.Models
                 command.ExecuteNonQuery();
             }
         }
-        public void Update(object item)
+        public void Update(T item)
         {
-            TEntity entity = (TEntity)item;
+            T entity = (T)item;
             string sqlExpression = _sql.CreateUpdateString(entity);
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -101,12 +102,12 @@ namespace DataAccessLayer.Models
                 command.ExecuteNonQuery();
             }
         }
-        private TEntity GetEntity(SqlDataReader reader)
+        private T GetEntity(SqlDataReader reader)
         {
-            TEntity entity = Activator.CreateInstance<TEntity>();
+            T entity = Activator.CreateInstance<T>();
 
             int number = 0;
-            foreach (PropertyInfo property in typeof(TEntity).GetProperties())
+            foreach (PropertyInfo property in typeof(T).GetProperties())
             {
                 if (property.PropertyType == typeof(int))
                 {

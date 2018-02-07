@@ -11,57 +11,53 @@ namespace BusinesLogicLayer.Services
 {
     public class BookService
     {
-        private IGenericRepository<Book> _bookRepository;
-        private IGenericRepository<PublicationHouse> _publicationHouseRepository;
         private UnitOfWork _unitOfWork;
 
         public BookService(string connectionString)
         {
             _unitOfWork = new UnitOfWork(connectionString);
-            _bookRepository = _unitOfWork.Repository<Book>(); ;
-            _publicationHouseRepository = _unitOfWork.Repository<PublicationHouse>();
         }
         public BookService(ApplicationContext context)
         {
             _unitOfWork = new UnitOfWork(context);
-            _bookRepository = new EntityBookRepository<Book>(context);
-            _publicationHouseRepository = _unitOfWork.Repository<PublicationHouse>();
         }
         public IEnumerable<Book> GetAllBook()
         {
-            return _bookRepository.GetAll();
+            return _unitOfWork.Book.GetAll();
         }
         public IEnumerable<PublicationHouse> GetAllPublicationHouses()
         {
-            return _publicationHouseRepository.GetAll();
+            return _unitOfWork.PublicationHouse.GetAll();
         }
         public void Add(Book book)
         {
-            _bookRepository.Add(book);
+            _unitOfWork.Book.Add(book);
         }
         public void Add(PublicationHouse publicationHouse)
         {
-            _publicationHouseRepository.Add(publicationHouse);
+            _unitOfWork.PublicationHouse.Add(publicationHouse);
         }
         public Book GetBookById(int id)
         {
-            return _bookRepository.FindById(id);
+            return _unitOfWork.Book.FindById(id);
         }
         public PublicationHouse GetPublicationHouseById(int id)
         {
-            return _publicationHouseRepository.FindById(id);
+            return _unitOfWork.PublicationHouse.FindById(id);
         }
         public void Edit(BookViewModel bookViewModel)
         {
-            _bookRepository.Update(bookViewModel);
+            Book book = new Book {Id = bookViewModel.Book.Id, Name = bookViewModel.Book.Name, Author = bookViewModel.Book.Author,
+                YearOfPublishing = bookViewModel.Book.YearOfPublishing, PublicationHouses = bookViewModel.PublicationHouses };
+            _unitOfWork.Book.Update(book);
         }
         public void DeleteBook(int id)
         {
-            _bookRepository.Remove(id);
+            _unitOfWork.Book.Remove(id);
         }
         public void DeletePublicationHouse(int id)
         {
-            _publicationHouseRepository.Remove(id);
+            _unitOfWork.PublicationHouse.Remove(id);
         }
     }
 }

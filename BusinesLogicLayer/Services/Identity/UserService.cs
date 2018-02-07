@@ -27,7 +27,7 @@ namespace BusinesLogicLayer.Services.Identity
                 user = new ApplicationUser { Email = userDto.Email, UserName = userDto.Email };
                 await Database.UserManager.CreateAsync(user, userDto.Password);
                 // добавляем роль
-                await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role);
+                await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role.ToString());
                 // создаем профиль клиента
                 ClientProfile clientProfile = new ClientProfile { Id = user.Id, Address = userDto.Address, Name = userDto.Name };
                 Database.ClientManager.Create(clientProfile);

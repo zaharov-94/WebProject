@@ -7,36 +7,35 @@ namespace BusinesLogicLayer.Services
 {
     public class BrochureService
     {
-        private IGenericRepository<Brochure> _brochureRepository;
+        
         private UnitOfWork _unitOfWork;
 
         public BrochureService(string connectionString)
         {
             _unitOfWork = new UnitOfWork(connectionString);
-            _brochureRepository = _unitOfWork.Repository<Brochure>();
         }
         public IEnumerable<Brochure> GetAll()
         {
-            return _brochureRepository.GetAll();
+            return _unitOfWork.Brochure.GetAll();
         }
 
         public void Add(Brochure brochure)
         {
-            _brochureRepository.Add(brochure);
+            _unitOfWork.Brochure.Add(brochure);
         }
 
         public Brochure GetById(int id)
         {
-            return _brochureRepository.FindById(id);
+            return _unitOfWork.Brochure.FindById(id);
         }
 
         public void Edit(Brochure brochure)
         {
-            _brochureRepository.Update(brochure);
+            _unitOfWork.Brochure.Update(brochure);
         }
         public void Delete(int id)
         {
-            _brochureRepository.Remove(id);
+            _unitOfWork.Brochure.Remove(id);
         }
     }
 }
