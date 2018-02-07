@@ -26,34 +26,34 @@ namespace BusinesLogicLayer.Services.Identity
             {
                 user = new ApplicationUser { Email = userTable.Email, UserName = userTable.Email };
                 await Database.UserManager.CreateAsync(user, userTable.Password);
-                // добавляем роль
+
                 await Database.UserManager.AddToRoleAsync(user.Id, userTable.Role.ToString());
-                // создаем профиль клиента
+
                 ClientProfile clientProfile = new ClientProfile { Id = user.Id, Address = userTable.Address, Name = userTable.Name };
                 Database.ClientManager.Create(clientProfile);
                 await Database.SaveAsync();
-                return new OperationDetails(true, "Регистрация успешно пройдена", "");
+                return new OperationDetails(true, "Registration success", "");
 
             }
             else
             {
-                return new OperationDetails(false, "Пользователь с таким логином уже существует", "Email");
+                return new OperationDetails(false, "User alredy exist", "Email");
             }
         }
 
         public async Task<ClaimsIdentity> Authenticate(UserTable userTable)
         {
             ClaimsIdentity claim = null;
-            // находим пользователя
+            
             ApplicationUser user = await Database.UserManager.FindAsync(userTable.Email, userTable.Password);
-            // авторизуем его и возвращаем объект ClaimsIdentity
+            
             if(user!=null)
                 claim= await Database.UserManager.CreateIdentityAsync(user,
                                             DefaultAuthenticationTypes.ApplicationCookie);
             return claim;
         }
 
-        // начальная инициализация бд
+        
         public async Task SetInitialData(UserTable adminTable, List<string> roles)
         {
             foreach (string roleName in roles)
