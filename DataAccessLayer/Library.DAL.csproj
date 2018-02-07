@@ -116,13 +116,13 @@
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Entities\Entities.csproj">
+    <ProjectReference Include="..\Entities\Library.Entities.csproj">
       <Project>{23fe3147-466c-4314-9f9d-ac6babb8f195}</Project>
-      <Name>Entities</Name>
+      <Name>Library.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ViewModels\ViewModels.csproj">
+    <ProjectReference Include="..\ViewModels\Library.ViewModels.csproj">
       <Project>{A40B1AC6-8712-4098-8E43-AFAA3B68BEF4}</Project>
-      <Name>ViewModels</Name>
+      <Name>Library.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

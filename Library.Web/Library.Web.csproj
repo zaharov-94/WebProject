@@ -301,21 +301,21 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinesLogicLayer\BusinesLogicLayer.csproj">
+    <ProjectReference Include="..\BusinesLogicLayer\Library.BLL.csproj">
       <Project>{6ac767ad-802c-4ea3-adc5-3e773cc4f031}</Project>
-      <Name>BusinesLogicLayer</Name>
+      <Name>Library.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+    <ProjectReference Include="..\DataAccessLayer\Library.DAL.csproj">
       <Project>{e9ed9e86-5d55-4a98-be3f-ceb3254aff66}</Project>
-      <Name>DataAccessLayer</Name>
+      <Name>Library.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Entities\Entities.csproj">
+    <ProjectReference Include="..\Entities\Library.Entities.csproj">
       <Project>{23fe3147-466c-4314-9f9d-ac6babb8f195}</Project>
-      <Name>Entities</Name>
+      <Name>Library.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ViewModels\ViewModels.csproj">
+    <ProjectReference Include="..\ViewModels\Library.ViewModels.csproj">
       <Project>{a40b1ac6-8712-4098-8e43-afaa3b68bef4}</Project>
-      <Name>ViewModels</Name>
+      <Name>Library.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

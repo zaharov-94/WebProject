@@ -5,13 +5,13 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Web", "Library.Web\Library.Web.csproj", "{AB033674-9012-4E60-BB3A-2435FA8BC66E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{E9ED9E86-5D55-4A98-BE3F-CEB3254AFF66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.DAL", "DataAccessLayer\Library.DAL.csproj", "{E9ED9E86-5D55-4A98-BE3F-CEB3254AFF66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{23FE3147-466C-4314-9F9D-AC6BABB8F195}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Entities", "Entities\Library.Entities.csproj", "{23FE3147-466C-4314-9F9D-AC6BABB8F195}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinesLogicLayer", "BusinesLogicLayer\BusinesLogicLayer.csproj", "{6AC767AD-802C-4EA3-ADC5-3E773CC4F031}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.BLL", "BusinesLogicLayer\Library.BLL.csproj", "{6AC767AD-802C-4EA3-ADC5-3E773CC4F031}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModels", "ViewModels\ViewModels.csproj", "{A40B1AC6-8712-4098-8E43-AFAA3B68BEF4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.ViewModels", "ViewModels\Library.ViewModels.csproj", "{A40B1AC6-8712-4098-8E43-AFAA3B68BEF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
