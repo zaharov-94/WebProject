@@ -27,8 +27,15 @@ namespace DataAccessLayer.Models
 
         public void Add(T item)
         {
-            _dbSet.Add(item);
-            _context.SaveChanges();
+            try
+            {
+                _dbSet.Add(item);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                string str = ex.InnerException + " " + ex.Message;
+            } 
         }
 
         public T FindById(int id)
@@ -45,13 +52,27 @@ namespace DataAccessLayer.Models
         }
         public void Remove(int id)
         {
-            _dbSet.Remove(_dbSet.Find(id));
-            _context.SaveChanges();
+            try
+            {
+                _dbSet.Remove(_dbSet.Find(id));
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                string str = ex.InnerException + " " + ex.Message;
+            }
         }
         public virtual void Update(T item)
         {
-             _context.Entry(item).State = EntityState.Modified;
-            _context.SaveChanges();
+            try
+            {
+                _context.Entry(item).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                string str = ex.InnerException + " " + ex.Message;
+            }
         }
     }
 }

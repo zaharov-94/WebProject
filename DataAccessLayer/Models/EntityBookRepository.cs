@@ -1,5 +1,6 @@
 ﻿using Entities.Entities;
 using Library.Web.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -25,17 +26,24 @@ namespace DataAccessLayer.Models
 
         public override void Update(T item)
         {
-            Book entity = (Book)item;
-            Book book = _context.Books.Find(entity.Id);
-
-            book.PublicationHouses.Clear();
-            List<PublicationHouse> list = _context.PublicationHouses.ToList();
-            foreach (var iterator in entity.PublicationHouses)
+            try
             {
-                book.PublicationHouses.Add(list.Find(x => x.Id == iterator.Id));
+                Book entity = (Book)item;
+                Book book = _context.Books.Find(entity.Id);
+
+                book.PublicationHouses.Clear();
+                List<PublicationHouse> list = _context.PublicationHouses.ToList();
+                foreach (var iterator in entity.PublicationHouses)
+                {
+                    book.PublicationHouses.Add(list.Find(x => x.Id == iterator.Id));
+                }
+                _context.Entry(book).State = System.Data.Entity.EntityState.Modified;
+                _context.SaveChanges();
             }
-            _context.Entry(book).State = System.Data.Entity.EntityState.Modified;
-            _context.SaveChanges();
+            catch (Exception ex)
+            {
+                string str = ex.InnerException + " " + ex.Message;
+            }
         }
     }
 }

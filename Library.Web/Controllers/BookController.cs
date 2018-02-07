@@ -72,16 +72,8 @@ namespace Library.Web.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Edit(BookViewModel bookViewModel)
         {
-            try
-            {
-                _bookService.Edit(bookViewModel);
-                return RedirectToAction("Index");
-            }
-            catch(Exception ex)
-            {
-                string str = ex.InnerException + " " + ex.Message;
-                return View();
-            }
+            _bookService.Edit(bookViewModel);
+            return RedirectToAction("Index");
         }
         [Authorize(Roles = "admin")]
         public ActionResult Delete(int id)
