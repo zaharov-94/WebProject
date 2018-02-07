@@ -7,8 +7,8 @@
     <ProjectGuid>{E9ED9E86-5D55-4A98-BE3F-CEB3254AFF66}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataAccessLayer</RootNamespace>
-    <AssemblyName>DataAccessLayer</AssemblyName>
+    <RootNamespace>Library.DAL</RootNamespace>
+    <AssemblyName>Library.DAL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

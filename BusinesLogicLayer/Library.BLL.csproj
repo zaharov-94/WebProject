@@ -7,8 +7,8 @@
     <ProjectGuid>{6AC767AD-802C-4EA3-ADC5-3E773CC4F031}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BusinesLogicLayer</RootNamespace>
-    <AssemblyName>BusinesLogicLayer</AssemblyName>
+    <RootNamespace>Library.BLL</RootNamespace>
+    <AssemblyName>Library.BLL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -7,8 +7,8 @@
     <ProjectGuid>{A40B1AC6-8712-4098-8E43-AFAA3B68BEF4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ViewModels</RootNamespace>
-    <AssemblyName>ViewModels</AssemblyName>
+    <RootNamespace>Library.ViewModels</RootNamespace>
+    <AssemblyName>Library.ViewModels</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
