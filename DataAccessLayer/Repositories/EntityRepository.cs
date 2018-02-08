@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Abstract;
 using Entities.Entities;
+using Library.DAL;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -34,7 +35,7 @@ namespace DataAccessLayer.Models
             }
             catch (Exception ex)
             {
-                string str = ex.InnerException + " " + ex.Message;
+                LogRegistrator.Write(ex);
             } 
         }
 
@@ -59,7 +60,7 @@ namespace DataAccessLayer.Models
             }
             catch (Exception ex)
             {
-                string str = ex.InnerException + " " + ex.Message;
+                LogRegistrator.Write(ex);
             }
         }
         public virtual void Update(T item)
@@ -71,7 +72,7 @@ namespace DataAccessLayer.Models
             }
             catch (Exception ex)
             {
-                string str = ex.InnerException + " " + ex.Message;
+                LogRegistrator.Write(ex);
             }
         }
     }

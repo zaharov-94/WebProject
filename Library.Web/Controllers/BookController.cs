@@ -29,6 +29,7 @@ namespace Library.Web.Controllers
                 Author =x.Author, YearOfPublishing=x.YearOfPublishing }), JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             return View();
@@ -43,21 +44,15 @@ namespace Library.Web.Controllers
         }
         public JsonResult GetAllPublish()
         {
-            List<PublicationHouse> publicationHouses = new List<PublicationHouse>();
+            IEnumerable<PublicationHouse> publicationHouses = _bookService.GetAllPublicationHouses()
+                .Select(x => new PublicationHouse { Id = x.Id, Name = x.Name, Address = x.Address, Books = null });
 
-            foreach (var item in _bookService.GetAllPublicationHouses())
-            {
-                publicationHouses.Add(new PublicationHouse { Id = item.Id, Name = item.Name, Address = item.Address, Books = null });
-            }
             return Json(publicationHouses, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetSelectedPublish(int id)
         {
-            List<PublicationHouse> publicationHouses = new List<PublicationHouse>();
-            foreach (var item in _bookService.GetBookById(id).PublicationHouses)
-            {
-                publicationHouses.Add(new PublicationHouse { Id = item.Id, Name = item.Name, Address = item.Address, Books = null });
-            }
+            IEnumerable<PublicationHouse> publicationHouses = _bookService.GetBookById(id).PublicationHouses
+                .Select(x => new PublicationHouse { Id = x.Id, Name = x.Name, Address = x.Address, Books = null });
             return Json(publicationHouses, JsonRequestBehavior.AllowGet);
         }
         [Authorize(Roles = "admin")]

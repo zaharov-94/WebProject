@@ -33,9 +33,9 @@ namespace DataAccessLayer.Models
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 SqlDataReader reader = command.ExecuteReader();
                 _list.Clear();
-                if (reader.HasRows) // если есть данные
+                if (reader.HasRows)
                 {
-                    while (reader.Read()) // построчно считываем данные
+                    while (reader.Read()) 
                     {
                         _list.Add(GetEntity(reader));
                     }
@@ -64,7 +64,7 @@ namespace DataAccessLayer.Models
                 connection.Open();
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows) // если есть данные
+                if (reader.HasRows)
                 {
                     reader.Read();
                     entity = GetEntity(reader);

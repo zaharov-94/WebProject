@@ -48,6 +48,7 @@
     <Compile Include="ViewModels\BookViewModel.cs" />
     <Compile Include="ViewModels\BrochureViewModel.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
+    <Compile Include="ViewModels\PublicationViewModel.cs" />
     <Compile Include="ViewModels\RegisterModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -42,7 +42,7 @@ namespace DataAccessLayer.Models
             }
             catch (Exception ex)
             {
-                string str = ex.InnerException + " " + ex.Message;
+                throw new Exception(ex.InnerException + " " + ex.Message);
             }
         }
     }

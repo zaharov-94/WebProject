@@ -2,6 +2,8 @@
 using DataAccessLayer;
 using Library.Web.Entities;
 using System.Collections.Generic;
+using Library.ViewModels.ViewModels;
+using System.Linq;
 
 namespace BusinesLogicLayer.Services
 {
@@ -19,6 +21,13 @@ namespace BusinesLogicLayer.Services
             return _unitOfWork.Brochure.GetAll();
         }
 
+        public IEnumerable<BrochureViewModel> GetAllInViewModel()
+        {
+            IEnumerable<BrochureViewModel> list = GetAll()
+                .Select(x => new BrochureViewModel { Id = x.Id, Name = x.Name, TypeOfCover = x.TypeOfCover.ToString(), NumberOfPages = x.NumberOfPages });
+            return list;
+        }
+        
         public void Add(Brochure brochure)
         {
             _unitOfWork.Brochure.Add(brochure);

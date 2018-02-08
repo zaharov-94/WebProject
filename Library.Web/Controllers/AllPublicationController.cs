@@ -1,4 +1,7 @@
 ﻿using BusinesLogicLayer.Services;
+using Library.ViewModels.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Library.Web.Controllers
@@ -18,7 +21,7 @@ namespace Library.Web.Controllers
         }
         public JsonResult List()
         {
-            return Json(_publicationService.GetAllPublications(), JsonRequestBehavior.AllowGet);
+            return Json(_publicationService.GetAllInViewModel(), JsonRequestBehavior.AllowGet);
         }
     }
 }

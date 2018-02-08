@@ -44,8 +44,9 @@ namespace BusinesLogicLayer.Services
         }
         public void Edit(BookViewModel bookViewModel)
         {
-            Book book = new Book {Id = bookViewModel.Book.Id, Name = bookViewModel.Book.Name, Author = bookViewModel.Book.Author,
-                YearOfPublishing = bookViewModel.Book.YearOfPublishing, PublicationHouses = bookViewModel.PublicationHouses };
+            Book book = new Book();
+            book = bookViewModel.Book;
+            book.PublicationHouses = bookViewModel.PublicationHouses;
             _unitOfWork.Book.Update(book);
         }
         public void DeleteBook(int id)

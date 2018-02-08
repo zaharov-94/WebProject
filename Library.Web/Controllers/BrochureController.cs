@@ -2,6 +2,7 @@
 using BusinesLogicLayer.Services;
 using System.Web.Mvc;
 using System.Net;
+using System.Linq;
 using System.Collections.Generic;
 using Library.ViewModels.ViewModels;
 
@@ -21,12 +22,8 @@ namespace Library.Web.Controllers
         }
         public JsonResult List()
         {
-            List<BrochureViewModel> list = new List<BrochureViewModel>();
-            foreach(Brochure brochure in _brochureService.GetAll())
-            {
-                list.Add(new BrochureViewModel { Id = brochure.Id, Name = brochure.Name, TypeOfCover = brochure.TypeOfCover.ToString(), NumberOfPages = brochure.NumberOfPages });
-            }
-            return Json(list, JsonRequestBehavior.AllowGet);
+
+            return Json(_brochureService.GetAllInViewModel(), JsonRequestBehavior.AllowGet);
         }
 
         [Authorize(Roles = "admin")]

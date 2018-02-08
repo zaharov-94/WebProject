@@ -2,36 +2,37 @@
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Models;
 using Library.Web.Entities;
+using System.Linq;
 using System.Collections.Generic;
+using Library.Entities.Enums;
+using Library.ViewModels.ViewModels;
 
 namespace BusinesLogicLayer.Services
 {
     public class PublicationService
     {
         private UnitOfWork _unitOfWork;
-        private List<Publication> _publicationList;
+        private IEnumerable<Publication> _publicationList;
 
         public PublicationService(string connectionString)
         {
-            _publicationList = new List<Publication>();
+            
             _unitOfWork = new UnitOfWork(connectionString);
         }
         public IEnumerable<Publication> GetAllPublications()
         {
-            _publicationList.Clear();
-            foreach (Book book in _unitOfWork.Book.GetAll())
-            {
-                _publicationList.Add(new Publication { Name = book.Name, Type = "Book" });
-            }
-            foreach (Brochure brochure in _unitOfWork.Brochure.GetAll())
-            {
-                _publicationList.Add(new Publication { Name = brochure.Name, Type = "Brochure" });
-            }
-            foreach (Magazine magazine in _unitOfWork.Magazine.GetAll())
-            {
-                _publicationList.Add(new Publication { Name = magazine.Name, Type = "Magazine" });
-            }
+            _publicationList = new List<Publication>();
+            _publicationList = _unitOfWork.Book.GetAll().Select(x => new Publication { Name = x.Name, Type = PublicationType.Book })
+                .Concat(_unitOfWork.Brochure.GetAll().Select(x => new Publication { Name = x.Name, Type = PublicationType.Brochure }))
+                .Concat(_unitOfWork.Magazine.GetAll().Select(x => new Publication { Name = x.Name, Type = PublicationType.Magazine }));
             return _publicationList;
+        }
+
+        public IEnumerable<PublicationViewModel> GetAllInViewModel()
+        {
+            IEnumerable<PublicationViewModel> list = GetAllPublications()
+                .Select(x => new PublicationViewModel { Name = x.Name, Type = x.Type.ToString() });
+            return list;
         }
     }
 }
