@@ -13,5 +13,6 @@ namespace BusinesLogicLayer.Abstract
         Task<OperationDetails> Create(UserTable userDto);
         Task<ClaimsIdentity> Authenticate(UserTable userDto);
         Task SetInitialData(UserTable adminDto, List<string> roles);
+        Task SetInitialDataAsync();
     } 
 }

@@ -76,7 +76,7 @@ namespace Library.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterModel model)
         {
-            //await SetInitialDataAsync();
+            await UserService.SetInitialDataAsync();
 
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace Library.Web.Controllers
                 };
                 OperationDetails operationDetails = await UserService.Create(userTable);
                 if (operationDetails.Succedeed)
-                    return View("SuccessRegister");
+                    return RedirectToAction("Login","Account");
                 else
                     ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
             }

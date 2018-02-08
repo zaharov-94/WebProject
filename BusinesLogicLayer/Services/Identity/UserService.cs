@@ -7,6 +7,8 @@ using BusinesLogicLayer.Abstract;
 using BusinesLogicLayer.Infrastructure;
 using Entities.Tables;
 using Entities.Entities;
+using System;
+using Entities.Enums;
 
 namespace BusinesLogicLayer.Services.Identity
 {
@@ -41,6 +43,8 @@ namespace BusinesLogicLayer.Services.Identity
             }
         }
 
+        
+
         public async Task<ClaimsIdentity> Authenticate(UserTable userTable)
         {
             ClaimsIdentity claim = null;
@@ -61,7 +65,7 @@ namespace BusinesLogicLayer.Services.Identity
                 var role = await Database.RoleManager.FindByNameAsync(roleName);
                 if (role == null)
                 {
-                    role = new ApplicationRole { Name = roleName };
+                    role = new ApplicationRole { Name = roleName};
                     await Database.RoleManager.CreateAsync(role);
                 }
             }
@@ -72,6 +76,19 @@ namespace BusinesLogicLayer.Services.Identity
         public void Dispose()
         {
             Database.Dispose();
+        }
+
+        public async Task SetInitialDataAsync()
+        {
+            await SetInitialData(new UserTable
+            {
+                Email = "somemail@mail.ru",
+                UserName = "somemail@mail.ru",
+                Password = "ad46D_ewr3",
+                Name = "Семен Семенович Горбунков",
+                Address = "ул. Спортивная, д.30, кв.75",
+                Role = Role.Admin,
+            }, new List<string> { Role.User.ToString(), Role.Admin.ToString() });
         }
     }
 
