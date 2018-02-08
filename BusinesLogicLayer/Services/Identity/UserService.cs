@@ -82,9 +82,9 @@ namespace BusinesLogicLayer.Services.Identity
         {
             await SetInitialData(new UserTable
             {
-                Email = "somemail@mail.ru",
-                UserName = "somemail@mail.ru",
-                Password = "ad46D_ewr3",
+                Email = "ser",
+                UserName = "ser",
+                Password = "123456",
                 Role = Role.Admin,
             }, new List<string> { Role.User.ToString(), Role.Admin.ToString() });
         }
