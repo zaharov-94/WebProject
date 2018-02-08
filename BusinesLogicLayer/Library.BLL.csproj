@@ -96,7 +96,7 @@
   <ItemGroup>
     <Compile Include="Abstract\IServiceCreator.cs" />
     <Compile Include="Abstract\IUserService.cs" />
-    <Compile Include="Inrastructure\OperationDetails.cs" />
+    <Compile Include="Infrastructure\OperationDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BookService.cs" />
     <Compile Include="Services\BrochureService.cs" />
