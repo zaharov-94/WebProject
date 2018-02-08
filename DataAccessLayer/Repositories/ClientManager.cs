@@ -1,5 +1,7 @@
 ﻿using DataAccessLayer.Abstract;
 using Entities.Entities;
+using Library.DAL;
+using System;
 
 namespace DataAccessLayer.Models
 {
@@ -13,8 +15,15 @@ namespace DataAccessLayer.Models
 
         public void Create(ClientProfile item)
         {
-            Database.ClientProfiles.Add(item);
-            Database.SaveChanges();
+            try
+            {
+                Database.ClientProfiles.Add(item);
+                Database.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                LogRegistrator.Write(ex);
+            }
         }
 
         public void Dispose()

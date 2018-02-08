@@ -1,4 +1,5 @@
 ﻿using Entities.Entities;
+using Library.DAL;
 using Library.Web.Entities;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,7 @@ namespace DataAccessLayer.Models
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.InnerException + " " + ex.Message);
+                LogRegistrator.Write(ex);
             }
         }
     }

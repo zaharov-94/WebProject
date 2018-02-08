@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Entities.Entities;
+using Library.DAL;
 
 namespace DataAccessLayer.Models
 {
@@ -26,100 +27,161 @@ namespace DataAccessLayer.Models
 
         public void RefreshData()
         {
-            string sqlExpression = _sql.CreateSelectAllString();
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            string sqlExpression = _sql.CreateSelectAllString(); 
+            try
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                SqlDataReader reader = command.ExecuteReader();
-                _list.Clear();
-                if (reader.HasRows)
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    while (reader.Read()) 
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    _list.Clear();
+                    if (reader.HasRows)
                     {
-                        _list.Add(GetEntity(reader));
+                        while (reader.Read())
+                        {
+                            _list.Add(GetEntity(reader));
+                        }
                     }
-                }
 
-                reader.Close();
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogRegistrator.Write(ex);
             }
         }
         public void Add(T item)
         {
-            string sqlExpression = _sql.CreateInsertString(item);
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.ExecuteNonQuery();
+                string sqlExpression = _sql.CreateInsertString(item);
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogRegistrator.Write(ex);
             }
         }
 
         public T FindById(int id)
-        {
-            string sqlExpression = _sql.CreateSelectByIdString(id);
-            T entity = null;
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+        { 
+            try
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
+                string sqlExpression = _sql.CreateSelectByIdString(id);
+                T entity = null;
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    reader.Read();
-                    entity = GetEntity(reader);
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+                        entity = GetEntity(reader);
+                    }
+                    reader.Close();
                 }
-                reader.Close();
+                return entity;
             }
-            return entity;
+            catch (Exception ex)
+            {
+                LogRegistrator.Write(ex);
+                return null;
+            }
         }
         public IEnumerable<T> GetAll()
         {
-            return _list;
+            
+            try
+            {
+                return _list;
+            }
+            catch (Exception ex)
+            {
+                LogRegistrator.Write(ex);
+                return null;
+            }
         }
         public IEnumerable<T> Get(Func<T, bool> predicate)
         {
-            return _list.Where(predicate).ToList();
+            try
+            {
+                return _list.Where(predicate).ToList();
+            }
+            catch (Exception ex)
+            {
+                LogRegistrator.Write(ex);
+                return null;
+            }
         }
         public void Remove(int id)
         {
-            string sqlExpression = _sql.CreateDeleteString(id);
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.ExecuteNonQuery();
+                string sqlExpression = _sql.CreateDeleteString(id);
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogRegistrator.Write(ex);
             }
         }
         public void Update(T item)
         {
             T entity = (T)item;
-            string sqlExpression = _sql.CreateUpdateString(entity);
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.ExecuteNonQuery();
+                string sqlExpression = _sql.CreateUpdateString(entity);
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.ExecuteNonQuery();
+                }
             }
+            catch (Exception ex)
+            {
+                LogRegistrator.Write(ex);
+            } 
         }
         private T GetEntity(SqlDataReader reader)
         {
-            T entity = Activator.CreateInstance<T>();
-
-            int number = 0;
-            foreach (PropertyInfo property in typeof(T).GetProperties())
+            try
             {
-                if (property.PropertyType == typeof(int))
+                T entity = Activator.CreateInstance<T>();
+                int number = 0;
+                foreach (PropertyInfo property in typeof(T).GetProperties())
                 {
-                    entity.GetType().GetProperty(property.Name).SetValue(entity, int.Parse(reader.GetValue(number).ToString()));
+                    if (property.PropertyType == typeof(int))
+                    {
+                        entity.GetType().GetProperty(property.Name).SetValue(entity, int.Parse(reader.GetValue(number).ToString()));
+                    }
+                    if (property.PropertyType == typeof(string))
+                    {
+                        entity.GetType().GetProperty(property.Name).SetValue(entity, reader.GetValue(number).ToString());
+                    }
+                    number++;
                 }
-                if (property.PropertyType == typeof(string))
-                {
-                    entity.GetType().GetProperty(property.Name).SetValue(entity, reader.GetValue(number).ToString());
-                }
-                number++;
+                return entity;
             }
-            return entity;
+            catch (Exception ex)
+            {
+                LogRegistrator.Write(ex);
+                return null;
+            }
+            
         }
     }
 }

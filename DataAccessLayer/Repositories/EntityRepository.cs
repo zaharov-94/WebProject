@@ -41,15 +41,40 @@ namespace DataAccessLayer.Models
 
         public T FindById(int id)
         {
-            return _dbSet.Find(id);
+            try
+            {
+                return _dbSet.Find(id);
+            }
+            catch (Exception ex)
+            {
+                LogRegistrator.Write(ex);
+                return null;
+            }
         }
         public IEnumerable<T> GetAll()
         {
-            return _dbSet.AsNoTracking().ToList();
+            
+            try
+            {
+                return _dbSet.AsNoTracking().ToList();
+            }
+            catch (Exception ex)
+            {
+                LogRegistrator.Write(ex);
+                return null;
+            }
         }
         public IEnumerable<T> Get(Func<T, bool> predicate)
         {
-            return _dbSet.AsNoTracking().Where(predicate).ToList();
+            try
+            {
+                return _dbSet.AsNoTracking().Where(predicate).ToList();
+            }
+            catch (Exception ex)
+            {
+                LogRegistrator.Write(ex);
+                return null;
+            }
         }
         public void Remove(int id)
         {
