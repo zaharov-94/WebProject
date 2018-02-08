@@ -8,6 +8,7 @@ using Library.ViewModels.ViewModels;
 
 namespace Library.Web.Controllers
 {
+    [Authorize]
     public class BrochureController : Controller
     {
         private BrochureService _brochureService;

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Library.Web.Controllers
 {
+    [Authorize]
     public class AllPublicationController : Controller
     {
         private PublicationService _publicationService;

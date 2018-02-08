@@ -32,7 +32,7 @@
         <br />
         @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="text" class="form-control text-box single-line" id="Password" placeholder="Enter password" name="Password" value="" required="" autofocus="">
+        <input type="password" class="form-control text-box single-line" id="Password" placeholder="Enter password" name="Password" value="" required="" autofocus="">
         <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
         <br />
         <button class="btn btn-primary " value="Login" type="submit">Sign in</button>

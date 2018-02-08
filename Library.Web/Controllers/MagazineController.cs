@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 namespace Library.Web.Controllers
 {
+    [Authorize]
     public class MagazineController : Controller
     {
         private MagazineService _magazineService;
