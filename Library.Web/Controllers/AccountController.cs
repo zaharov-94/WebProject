@@ -84,8 +84,6 @@ namespace Library.Web.Controllers
                 {
                     Email = model.Email,
                     Password = model.Password,
-                    Address = model.Address,
-                    Name = model.Name,
                     Role = Role.User
                 };
                 OperationDetails operationDetails = await UserService.Create(userTable);

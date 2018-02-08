@@ -105,6 +105,10 @@
     <Compile Include="Migrations\201802071210249_TypeOfCover.Designer.cs">
       <DependentUpon>201802071210249_TypeOfCover.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802081222049_userUpd.cs" />
+    <Compile Include="Migrations\201802081222049_userUpd.Designer.cs">
+      <DependentUpon>201802081222049_userUpd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\AdoRepository.cs" />
     <Compile Include="Repositories\ClientManager.cs" />
@@ -153,6 +157,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802071210249_TypeOfCover.resx">
       <DependentUpon>201802071210249_TypeOfCover.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081222049_userUpd.resx">
+      <DependentUpon>201802081222049_userUpd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

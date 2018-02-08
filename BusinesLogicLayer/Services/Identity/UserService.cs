@@ -31,7 +31,7 @@ namespace BusinesLogicLayer.Services.Identity
 
                 await Database.UserManager.AddToRoleAsync(user.Id, userTable.Role.ToString());
 
-                ClientProfile clientProfile = new ClientProfile { Id = user.Id, Address = userTable.Address, Name = userTable.Name };
+                ClientProfile clientProfile = new ClientProfile { Id = user.Id };
                 Database.ClientManager.Create(clientProfile);
                 await Database.SaveAsync();
                 return new OperationDetails(true, "Registration success", "");
@@ -85,8 +85,6 @@ namespace BusinesLogicLayer.Services.Identity
                 Email = "somemail@mail.ru",
                 UserName = "somemail@mail.ru",
                 Password = "ad46D_ewr3",
-                Name = "Семен Семенович Горбунков",
-                Address = "ул. Спортивная, д.30, кв.75",
                 Role = Role.Admin,
             }, new List<string> { Role.User.ToString(), Role.Admin.ToString() });
         }
