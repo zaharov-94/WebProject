@@ -1,4 +1,5 @@
 ﻿using Entities.Entities;
+using Library.DAL.Repositories;
 using Library.Web.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
@@ -13,9 +14,16 @@ namespace DataAccessLayer.Models
         public DbSet<PublicationHouse> PublicationHouses { get; set; }
         public DbSet<ClientProfile> ClientProfiles { get; set; }
 
-        public ApplicationContext() : base("PublicationsContext") { }
+        public ApplicationContext() : base("PublicationsContext")
+        {
+            Database.SetInitializer<ApplicationContext>(new CreateDatabaseIfNotExists<ApplicationContext>());
+            Database.SetInitializer<ApplicationContext>(new DataInitializer());
+        }
         public ApplicationContext(string connectionString) : base(connectionString)
-        { }
+        {
+            Database.SetInitializer<ApplicationContext>(new CreateDatabaseIfNotExists<ApplicationContext>());
+            Database.SetInitializer<ApplicationContext>(new DataInitializer());
+        }
         public static ApplicationContext Create()
         {
             return new ApplicationContext("PublicationsContext");

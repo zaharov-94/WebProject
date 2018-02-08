@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<Library.Web.Entities.PublicationHouse>
 @{
     ViewBag.Title = "Publication houses Page";
-    if (!User.IsInRole("admin"))
+    if (!User.IsInRole("Admin"))
     {
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
-    if (User.IsInRole("admin"))
+    if (User.IsInRole("Admin"))
     {
         Layout = "~/Views/Shared/_AdminLayout.cshtml";
     }
@@ -26,7 +26,7 @@
         <div id="grid"></div>
         <br />
         <p>
-            @if (User.IsInRole("admin"))
+            @if (User.IsInRole("Admin"))
             {
                 @Html.ActionLink("Add publication house", "Create", null, new { @Id = "Create", @class = "btn btn-success" });
             }

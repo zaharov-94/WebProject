@@ -76,7 +76,6 @@ namespace Library.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterModel model)
         {
-            await UserService.SetInitialDataAsync();
 
             if (ModelState.IsValid)
             {

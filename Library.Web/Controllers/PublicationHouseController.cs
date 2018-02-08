@@ -28,28 +28,28 @@ namespace Library.Web.Controllers
                 Address = x.Address
             }), JsonRequestBehavior.AllowGet);
         }
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(PublicationHouse publicationHouse)
         {
             _publicationHouseService.Add(publicationHouse);
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             return View(_publicationHouseService.GetById(id));
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(PublicationHouse publicationHouse)
         {
             try
@@ -62,7 +62,7 @@ namespace Library.Web.Controllers
                 return View();
             }
         }
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             _publicationHouseService.Delete(id);

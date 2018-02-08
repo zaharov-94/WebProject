@@ -112,6 +112,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\AdoRepository.cs" />
     <Compile Include="Repositories\ClientManager.cs" />
+    <Compile Include="Repositories\DataInitializer.cs" />
     <Compile Include="Repositories\EntityBookRepository.cs" />
     <Compile Include="Repositories\IdentityUnitOfWork.cs" />
     <Compile Include="Repositories\LibraryDbContext.cs" />

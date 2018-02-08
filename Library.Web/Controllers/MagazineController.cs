@@ -24,28 +24,28 @@ namespace Library.Web.Controllers
             return Json(_magazineService.GetAll(), JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(Magazine magazine)
         {
             _magazineService.Add(magazine);
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             return View(_magazineService.GetById(id));
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(Magazine magazine)
         {
             try
@@ -59,7 +59,7 @@ namespace Library.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             _magazineService.Delete(id);

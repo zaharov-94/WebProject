@@ -29,14 +29,14 @@ namespace Library.Web.Controllers
                 Author =x.Author, YearOfPublishing=x.YearOfPublishing }), JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles ="admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(Book book)
         {
             _bookService.Add(book);
@@ -55,7 +55,7 @@ namespace Library.Web.Controllers
                 .Select(x => new PublicationHouse { Id = x.Id, Name = x.Name, Address = x.Address, Books = null });
             return Json(publicationHouses, JsonRequestBehavior.AllowGet);
         }
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             var book = _bookService.GetBookById(id);
@@ -64,13 +64,13 @@ namespace Library.Web.Controllers
             return View(viewModel);
         }
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(BookViewModel bookViewModel)
         {
             _bookService.Edit(bookViewModel);
             return RedirectToAction("Index");
         }
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             _bookService.DeleteBook(id);

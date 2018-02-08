@@ -77,17 +77,6 @@ namespace BusinesLogicLayer.Services.Identity
         {
             Database.Dispose();
         }
-
-        public async Task SetInitialDataAsync()
-        {
-            await SetInitialData(new UserTable
-            {
-                Email = "ser",
-                UserName = "ser",
-                Password = "123456",
-                Role = Role.Admin,
-            }, new List<string> { Role.User.ToString(), Role.Admin.ToString() });
-        }
     }
 
     

@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<Library.Web.Entities.Publication>
 @{
     ViewBag.Title = "Home Page";
-    if (!User.IsInRole("admin"))
+    if (!User.IsInRole("Admin"))
     {
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
-    if (User.IsInRole("admin"))
+    if (User.IsInRole("Admin"))
     {
         Layout = "~/Views/Shared/_AdminLayout.cshtml";
     }

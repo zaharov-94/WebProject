@@ -27,28 +27,28 @@ namespace Library.Web.Controllers
             return Json(_brochureService.GetAllInViewModel(), JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(Brochure brochure)
         {
             _brochureService.Add(brochure);
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             return View(_brochureService.GetById(id));
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(Brochure brochure)
         {
             try
@@ -62,7 +62,7 @@ namespace Library.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             _brochureService.Delete(id);

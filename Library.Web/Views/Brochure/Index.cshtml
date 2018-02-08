@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<Library.Web.Entities.Brochure>
 @{
     ViewBag.Title = "Home Page";
-    if (!User.IsInRole("admin"))
+    if (!User.IsInRole("Admin"))
     {
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
-    if (User.IsInRole("admin"))
+    if (User.IsInRole("Admin"))
     {
         Layout = "~/Views/Shared/_AdminLayout.cshtml";
     }
@@ -27,7 +27,7 @@
         <div id="grid"></div>
         <br />
         <p>
-            @if (User.IsInRole("admin"))
+            @if (User.IsInRole("Admin"))
             {
                 @Html.ActionLink("Add brochure", "Create", null, new { @Id = "Create", @class = "btn btn-success" });
             }
