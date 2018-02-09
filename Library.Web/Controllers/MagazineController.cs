@@ -14,7 +14,7 @@ namespace Library.Web.Controllers
         {
             _magazineService = new MagazineService(Settings.GetConnectionString());
         }
-        // GET: Magazine
+
         public ActionResult Index()
         {
             return View();
@@ -48,15 +48,8 @@ namespace Library.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(Magazine magazine)
         {
-            try
-            {
-                _magazineService.Edit(magazine);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            _magazineService.Edit(magazine);
+            return RedirectToAction("Index");
         }
 
         [Authorize(Roles = "Admin")]

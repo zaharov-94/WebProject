@@ -10,8 +10,8 @@ namespace BusinesLogicLayer.Abstract
 {
     public interface IUserService : IDisposable
     {
-        Task<OperationDetails> Create(UserTable userDto);
-        Task<ClaimsIdentity> Authenticate(UserTable userDto);
-        Task SetInitialData(UserTable adminDto, List<string> roles);
+        Task<OperationDetails> Create(UserTable userTable);
+        Task<ClaimsIdentity> Authenticate(UserTable userTable);
+        Task SetInitialData(UserTable adminTable, List<string> roles);
     } 
 }

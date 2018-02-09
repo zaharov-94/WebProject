@@ -7,8 +7,6 @@ using BusinesLogicLayer.Abstract;
 using BusinesLogicLayer.Infrastructure;
 using Entities.Tables;
 using Entities.Entities;
-using System;
-using Entities.Enums;
 
 namespace BusinesLogicLayer.Services.Identity
 {
@@ -35,7 +33,6 @@ namespace BusinesLogicLayer.Services.Identity
                 Database.ClientManager.Create(clientProfile);
                 await Database.SaveAsync();
                 return new OperationDetails(true, "Registration success", "");
-
             }
             else
             {

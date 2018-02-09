@@ -2,9 +2,6 @@
 using BusinesLogicLayer.Services;
 using System.Web.Mvc;
 using System.Net;
-using System.Linq;
-using System.Collections.Generic;
-using Library.ViewModels.ViewModels;
 
 namespace Library.Web.Controllers
 {
@@ -51,15 +48,8 @@ namespace Library.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(Brochure brochure)
         {
-            try
-            {
-                _brochureService.Edit(brochure);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            _brochureService.Edit(brochure);
+            return RedirectToAction("Index");
         }
 
         [Authorize(Roles = "Admin")]

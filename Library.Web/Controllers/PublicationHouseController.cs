@@ -52,15 +52,8 @@ namespace Library.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(PublicationHouse publicationHouse)
         {
-            try
-            {
-                _publicationHouseService.Edit(publicationHouse);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            _publicationHouseService.Edit(publicationHouse);
+            return RedirectToAction("Index");
         }
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)

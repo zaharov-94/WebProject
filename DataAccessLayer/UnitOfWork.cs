@@ -10,7 +10,7 @@ namespace DataAccessLayer
     public class UnitOfWork : IDisposable
     {
         private readonly ApplicationContext _context;
-        private bool disposed;
+        private bool _disposed;
         private Dictionary<string, object> repositories;
         private IGenericRepository<Magazine> _magazineRepository;
         private IGenericRepository<PublicationHouse> _houseRepository;
@@ -80,14 +80,14 @@ namespace DataAccessLayer
 
         public virtual void Dispose(bool disposing)
         {
-            if (!disposed)
+            if (!_disposed)
             {
                 if (disposing)
                 {
                     _context.Dispose();
                 }
             }
-            disposed = true;
+            _disposed = true;
         }
 
         public IGenericRepository<T> Repository<T>() where T : TEntity

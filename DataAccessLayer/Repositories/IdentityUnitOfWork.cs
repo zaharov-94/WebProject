@@ -9,38 +9,38 @@ namespace DataAccessLayer.Models
 {
     public class IdentityUnitOfWork : IUnitOfWork
     {
-        private ApplicationContext db;
+        private ApplicationContext _db;
 
-        private ApplicationUserManager userManager;
-        private ApplicationRoleManager roleManager;
-        private IClientManager clientManager;
+        private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
+        private IClientManager _clientManager;
 
         public IdentityUnitOfWork(string connectionString)
         {
-            db = new ApplicationContext(connectionString);
-            userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
-            roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(db));
-            clientManager = new ClientManager(db);
+            _db = new ApplicationContext(connectionString);
+            _userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(_db));
+            _roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(_db));
+            _clientManager = new ClientManager(_db);
         }
 
         public ApplicationUserManager UserManager
         {
-            get { return userManager; }
+            get { return _userManager; }
         }
 
         public IClientManager ClientManager
         {
-            get { return clientManager; }
+            get { return _clientManager; }
         }
 
         public ApplicationRoleManager RoleManager
         {
-            get { return roleManager; }
+            get { return _roleManager; }
         }
 
         public async Task SaveAsync()
         {
-            await db.SaveChangesAsync();
+            await _db.SaveChangesAsync();
         }
 
         public void Dispose()
@@ -56,9 +56,9 @@ namespace DataAccessLayer.Models
             {
                 if (disposing)
                 {
-                    userManager.Dispose();
-                    roleManager.Dispose();
-                    clientManager.Dispose();
+                    _userManager.Dispose();
+                    _roleManager.Dispose();
+                    _clientManager.Dispose();
                 }
                 this.disposed = true;
             }

@@ -1,15 +1,9 @@
 ﻿using BusinesLogicLayer.Abstract;
 using BusinesLogicLayer.Services.Identity;
-using Entities.Enums;
-using Entities.Tables;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Web;
 
 [assembly: OwinStartup(typeof(Library.Web.App_Start.Startup))]
 
