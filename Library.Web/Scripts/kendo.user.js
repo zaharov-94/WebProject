@@ -1,5 +1,4 @@
-﻿var kendoItems;
-$.getJSON('../../Book/GetAllPublish/', function (json) {
+﻿$.getJSON('../../Book/GetAllPublish/', function (json) {
     var location = window.location.pathname.split("/");
     var bookId = location[location.length - 1];
     var val = $("#PublicationHouses");
@@ -30,11 +29,7 @@ $.getJSON('../../Book/GetAllPublish/', function (json) {
         });  
 
         var multiselect = $("#PublicationHouses").data("kendoMultiSelect");
-
         kendo.bind($("#PublicationHouses"), viewModel);
-        kendoItems = multiselect.dataItems();
-        //multiselect.setDataSource(dataSource);
-        //multiselect.value(jsonsel);
     });
 });
 
