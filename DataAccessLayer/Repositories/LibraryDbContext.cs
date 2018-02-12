@@ -3,6 +3,8 @@ using Library.DAL.Repositories;
 using Library.Web.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
+using System;
+using System.Threading.Tasks;
 
 namespace DataAccessLayer.Models
 {
@@ -19,9 +21,19 @@ namespace DataAccessLayer.Models
             Database.SetInitializer<ApplicationContext>(new CreateDatabaseIfNotExists<ApplicationContext>());
             Database.SetInitializer<ApplicationContext>(new DataInitializer());
         }
+        //public ApplicationContext() : base("PublicationsContext")
+        //{
+        //    Database.SetInitializer<ApplicationContext>(new CreateDatabaseIfNotExists<ApplicationContext>());
+        //    Database.SetInitializer<ApplicationContext>(new DataInitializer());
+        //}
         public static ApplicationContext Create()
         {
             return new ApplicationContext("PublicationsContext");
+        }
+
+        internal Task SaveAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -125,7 +125,7 @@
       <Name>Library.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Library.Enums\Library.Shared.csproj">
-      <Project>{8F6E619F-4C56-4239-83DB-A08AFCDCAD7E}</Project>
+      <Project>{8f6e619f-4c56-4239-83db-a08afcdcad7e}</Project>
       <Name>Library.Shared</Name>
     </ProjectReference>
   </ItemGroup>

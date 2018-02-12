@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace Library.DAL.Repositories
 {
@@ -16,7 +17,7 @@ namespace Library.DAL.Repositories
         private ApplicationRoleManager _roleManager;
         IClientManager _clientManager;
 
-        protected override void Seed(ApplicationContext context)
+        protected override async void Seed(ApplicationContext context)
         {
             base.Seed(context);
             _userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
@@ -29,11 +30,11 @@ namespace Library.DAL.Repositories
                 UserName = "ser"
             };
             var listRoles = new List<string> { Role.Admin.ToString(), Role.User.ToString() };
-            SetInitialData(user, listRoles);
-            context.SaveChanges();
+            await SetInitialData(user, listRoles);
+            await context.SaveAsync();
         }
 
-        public void SetInitialData(ApplicationUser userProfile, List<string> roles)
+        public async Task SetInitialData(ApplicationUser userProfile, List<string> roles)
         {
             foreach (string roleName in roles)
             {
@@ -41,20 +42,20 @@ namespace Library.DAL.Repositories
                 if (role == null)
                 {
                     role = new ApplicationRole { Name = roleName };
-                    _roleManager.CreateAsync(role);
+                    await _roleManager.CreateAsync(role);
                 }
             }
 
-            Create(userProfile);
+            await Create(userProfile);
         }
-        public void Create(ApplicationUser userProfile)
+        public async Task Create(ApplicationUser userProfile)
         {
             string userPassword = "123456";
             Role userRole = Role.Admin;
 
             ApplicationUser user = new ApplicationUser { Email = userProfile.Email, UserName = userProfile.Email };
-            _userManager.Create(user, userPassword);
-            _userManager.AddToRole(user.Id, userRole.ToString());
+            await _userManager.CreateAsync(user, userPassword);
+            await _userManager.AddToRoleAsync(user.Id, userRole.ToString());
             ClientProfile clientProfile = new ClientProfile { Id = user.Id };
             _clientManager.Create(clientProfile);
         }
