@@ -1,6 +1,5 @@
 ﻿using BusinesLogicLayer.Services;
 using Library.ViewModels.ViewModels;
-using Library.Web.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -23,8 +22,7 @@ namespace Library.Web.Controllers
         }
         public JsonResult List()
         {
-            return Json(_bookService.GetAllBook().Select(x => new Book {Id=x.Id, Name=x.Name,
-                Author =x.Author, YearOfPublishing=x.YearOfPublishing }), JsonRequestBehavior.AllowGet);
+            return Json(_bookService.GetAllBook(), JsonRequestBehavior.AllowGet);
         }
 
         [Authorize(Roles = "Admin")]
@@ -35,30 +33,25 @@ namespace Library.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create(Book book)
+        public ActionResult Create(BookViewModel book)
         {
             _bookService.Add(book);
             return RedirectToAction("Index");
         }
         public JsonResult GetAllPublish()
         {
-            IEnumerable<PublicationHouse> publicationHouses = _bookService.GetAllPublicationHouses()
-                .Select(x => new PublicationHouse { Id = x.Id, Name = x.Name, Address = x.Address, Books = null });
-
-            return Json(publicationHouses, JsonRequestBehavior.AllowGet);
+            return Json(_bookService.GetAllPublicationHouses(), JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetSelectedPublish(int id)
         {
-            IEnumerable<PublicationHouse> publicationHouses = _bookService.GetBookById(id).PublicationHouses
-                .Select(x => new PublicationHouse { Id = x.Id, Name = x.Name, Address = x.Address, Books = null });
+            IEnumerable<PublicationHouseViewModel> publicationHouses = _bookService.GetBookById(id).PublicationHouses
+                .Select(x => new PublicationHouseViewModel { Id = x.Id, Name = x.Name, Address = x.Address, Books = null });
             return Json(publicationHouses, JsonRequestBehavior.AllowGet);
         }
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
-            var book = _bookService.GetBookById(id);
-            var PublicationHouses = _bookService.GetAllPublicationHouses();
-            BookViewModel viewModel = new BookViewModel(book, PublicationHouses.ToList());
+            BookViewModel viewModel = _bookService.GetBookById(id);
             return View(viewModel);
         }
         [HttpPost]

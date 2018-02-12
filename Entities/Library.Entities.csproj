@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\PublicationType.cs" />
-    <Compile Include="Tables\UserTable.cs" />
     <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\Brochure.cs" />
     <Compile Include="Entities\Identity\ApplicationRole.cs" />
@@ -68,13 +67,17 @@
     <Compile Include="Entities\Publication.cs" />
     <Compile Include="Entities\PublicationHouse.cs" />
     <Compile Include="Entities\TEntity.cs" />
-    <Compile Include="Enums\Role.cs" />
-    <Compile Include="Enums\TypeOfCover.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library.Enums\Library.Shared.csproj">
+      <Project>{8f6e619f-4c56-4239-83db-a08afcdcad7e}</Project>
+      <Name>Library.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -304,13 +304,9 @@
       <Project>{6ac767ad-802c-4ea3-adc5-3e773cc4f031}</Project>
       <Name>Library.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataAccessLayer\Library.DAL.csproj">
-      <Project>{e9ed9e86-5d55-4a98-be3f-ceb3254aff66}</Project>
-      <Name>Library.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Entities\Library.Entities.csproj">
-      <Project>{23fe3147-466c-4314-9f9d-ac6babb8f195}</Project>
-      <Name>Library.Entities</Name>
+    <ProjectReference Include="..\Library.Enums\Library.Shared.csproj">
+      <Project>{8F6E619F-4C56-4239-83DB-A08AFCDCAD7E}</Project>
+      <Name>Library.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\ViewModels\Library.ViewModels.csproj">
       <Project>{a40b1ac6-8712-4098-8e43-afaa3b68bef4}</Project>

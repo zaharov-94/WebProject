@@ -14,9 +14,5 @@ namespace Library.Web.Entities
         public int YearOfPublishing { get; set; }
 
         public virtual ICollection<PublicationHouse> PublicationHouses { get; set; }
-        public Book()
-        {
-            PublicationHouses = new List<PublicationHouse>();
-        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using BusinesLogicLayer.Services;
-using Library.Web.Entities;
+using Library.ViewModels.ViewModels;
 using System.Net;
 using System.Web.Mvc;
 
@@ -32,7 +32,7 @@ namespace Library.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create(Magazine magazine)
+        public ActionResult Create(MagazineViewModel magazine)
         {
             _magazineService.Add(magazine);
             return RedirectToAction("Index");
@@ -46,7 +46,7 @@ namespace Library.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(Magazine magazine)
+        public ActionResult Edit(MagazineViewModel magazine)
         {
             _magazineService.Edit(magazine);
             return RedirectToAction("Index");

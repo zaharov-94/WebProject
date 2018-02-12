@@ -2,7 +2,7 @@
 
 namespace DataAccessLayer
 {
-    class Sql<T> where T : class
+    class SqlStringCreator<T> where T : class
     {
         public string CreateSelectAllString()
         {

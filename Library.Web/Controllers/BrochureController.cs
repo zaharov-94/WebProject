@@ -1,7 +1,8 @@
-﻿using Library.Web.Entities;
-using BusinesLogicLayer.Services;
+﻿using BusinesLogicLayer.Services;
 using System.Web.Mvc;
 using System.Net;
+using Library.ViewModels.ViewModels;
+using System.Linq;
 
 namespace Library.Web.Controllers
 {
@@ -16,12 +17,12 @@ namespace Library.Web.Controllers
         }
         public ActionResult Index()
         {
-            return View(_brochureService.GetAll());
+            return View();
         }
         public JsonResult List()
         {
-
-            return Json(_brochureService.GetAllInViewModel(), JsonRequestBehavior.AllowGet);
+            return Json(_brochureService.GetAll().Select(x => new { x.Id, x.Name, x.NumberOfPages,
+                TypeOfCover = x.TypeOfCover.ToString()}), JsonRequestBehavior.AllowGet);
         }
 
         [Authorize(Roles = "Admin")]
@@ -32,7 +33,7 @@ namespace Library.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create(Brochure brochure)
+        public ActionResult Create(BrochureViewModel brochure)
         {
             _brochureService.Add(brochure);
             return RedirectToAction("Index");
@@ -46,7 +47,7 @@ namespace Library.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(Brochure brochure)
+        public ActionResult Edit(BrochureViewModel brochure)
         {
             _brochureService.Edit(brochure);
             return RedirectToAction("Index");

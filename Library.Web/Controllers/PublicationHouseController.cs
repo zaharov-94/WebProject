@@ -1,5 +1,5 @@
 ﻿using BusinesLogicLayer.Services;
-using Library.Web.Entities;
+using Library.ViewModels.ViewModels;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -17,16 +17,11 @@ namespace Library.Web.Controllers
         }
         public ActionResult Index()
         {
-            return View(_publicationHouseService.GetAll());
+            return View();
         }
         public JsonResult List()
         {
-            return Json(_publicationHouseService.GetAll().Select(x => new PublicationHouse
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Address = x.Address
-            }), JsonRequestBehavior.AllowGet);
+            return Json(_publicationHouseService.GetAll(), JsonRequestBehavior.AllowGet);
         }
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
@@ -36,7 +31,7 @@ namespace Library.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create(PublicationHouse publicationHouse)
+        public ActionResult Create(PublicationHouseViewModel publicationHouse)
         {
             _publicationHouseService.Add(publicationHouse);
             return RedirectToAction("Index");
@@ -50,7 +45,7 @@ namespace Library.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(PublicationHouse publicationHouse)
+        public ActionResult Edit(PublicationHouseViewModel publicationHouse)
         {
             _publicationHouseService.Edit(publicationHouse);
             return RedirectToAction("Index");

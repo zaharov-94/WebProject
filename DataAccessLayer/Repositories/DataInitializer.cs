@@ -2,8 +2,7 @@
 using DataAccessLayer.Identity;
 using DataAccessLayer.Models;
 using Entities.Entities;
-using Entities.Enums;
-using Entities.Tables;
+using Library.Enums;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
@@ -24,19 +23,17 @@ namespace Library.DAL.Repositories
             _roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(context));
             _clientManager = new ClientManager(context);
 
-            var userTable = new UserTable
+            var user = new ApplicationUser
             {
                 Email = "ser",
-                UserName = "ser",
-                Password = "123456",
-                Role = Role.Admin,
+                UserName = "ser"
             };
             var listRoles = new List<string> { Role.Admin.ToString(), Role.User.ToString() };
-            SetInitialData(userTable, listRoles);
+            SetInitialData(user, listRoles);
             context.SaveChanges();
         }
 
-        public void SetInitialData(UserTable adminTable, List<string> roles)
+        public void SetInitialData(ApplicationUser userProfile, List<string> roles)
         {
             foreach (string roleName in roles)
             {
@@ -48,21 +45,18 @@ namespace Library.DAL.Repositories
                 }
             }
 
-            Create(adminTable);
+            Create(userProfile);
         }
-        public void Create(UserTable userTable)
+        public void Create(ApplicationUser userProfile)
         {
-            ApplicationUser user = _userManager.FindByEmail(userTable.Email);
-            if (user == null)
-            {
-                user = new ApplicationUser { Email = userTable.Email, UserName = userTable.Email };
-                _userManager.Create(user, userTable.Password);
+            string userPassword = "123456";
+            Role userRole = Role.Admin;
 
-                _userManager.AddToRole(user.Id, userTable.Role.ToString());
-
-                ClientProfile clientProfile = new ClientProfile { Id = user.Id };
-                _clientManager.Create(clientProfile);
-            }
+            ApplicationUser user = new ApplicationUser { Email = userProfile.Email, UserName = userProfile.Email };
+            _userManager.Create(user, userPassword);
+            _userManager.AddToRole(user.Id, userRole.ToString());
+            ClientProfile clientProfile = new ClientProfile { Id = user.Id };
+            _clientManager.Create(clientProfile);
         }
     }
 }

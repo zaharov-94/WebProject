@@ -1,19 +1,16 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Library.ViewModels.ViewModels
 {
-    public class BookViewModel
+    public class MagazineViewModel
     {
         [Key]
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
-        public string Author { get; set; }
+        public int Number { get; set; }
         [Required]
         public int YearOfPublishing { get; set; }
-
-        public ICollection<PublicationHouseViewModel> PublicationHouses { get; set; }
     }
 }

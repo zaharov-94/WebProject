@@ -14,14 +14,14 @@ namespace DataAccessLayer.Models
     public class AdoRepository<T> : IGenericRepository<T> where T: TEntity
     {
         private string _connectionString;
-        private Sql<T> _sql;
+        private SqlStringCreator<T> _sql;
         private List<T> _list;
 
         public AdoRepository(string connectionString)
         {
             _list = new List<T>();
             _connectionString = connectionString;
-            _sql = new Sql<T>();
+            _sql = new SqlStringCreator<T>();
             RefreshData();
         }
 

@@ -1,21 +1,28 @@
 ﻿using DataAccessLayer.Abstract;
+using DataAccessLayer.Identity;
 using DataAccessLayer.Models;
 using Entities.Entities;
 using Library.Web.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
     public class UnitOfWork : IDisposable
     {
         private readonly ApplicationContext _context;
-        private bool _disposed;
+        private bool _disposed = false;
         private Dictionary<string, object> repositories;
         private IGenericRepository<Magazine> _magazineRepository;
         private IGenericRepository<PublicationHouse> _houseRepository;
         private IGenericRepository<Brochure> _brochureRepository;
         private IGenericRepository<Book> _bookRepository;
+
+        private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
+        private IClientManager _clientManager;
 
         public IGenericRepository<Magazine> Magazine
         {
@@ -57,9 +64,40 @@ namespace DataAccessLayer
             }
         }
 
-        public UnitOfWork(ApplicationContext context)
+        public ApplicationUserManager UserManager
         {
-            _context = context;
+            get
+            {
+                if (_userManager == null)
+                {
+                    CreateIdentity();
+                }
+                return _userManager;
+            }
+        }
+
+        public IClientManager ClientManager
+        {
+            get
+            {
+                if (_clientManager == null)
+                {
+                    CreateIdentity();
+                }
+                return _clientManager;
+            }
+        }
+
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                if (_roleManager == null)
+                {
+                    CreateIdentity();
+                }
+                return _roleManager;
+            }
         }
 
         public UnitOfWork(string connectionString)
@@ -76,6 +114,11 @@ namespace DataAccessLayer
         public void Save()
         {
             _context.SaveChanges();
+        }
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
         }
 
         public virtual void Dispose(bool disposing)
@@ -110,6 +153,13 @@ namespace DataAccessLayer
                 repositories.Add(type, repositoryInstance);
             }
             return (IGenericRepository<T>) repositories[type];
+        }
+
+        private void CreateIdentity()
+        {
+            _clientManager = new ClientManager(_context);
+            _roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(_context));
+            _userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(_context));
         }
     }
 }

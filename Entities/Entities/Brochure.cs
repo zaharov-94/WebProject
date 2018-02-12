@@ -1,10 +1,6 @@
 ﻿using Entities.Entities;
-using Entities.Enums;
-using System;
-using System.Collections.Generic;
+using Library.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace Library.Web.Entities
 {

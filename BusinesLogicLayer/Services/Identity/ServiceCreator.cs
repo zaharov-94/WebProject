@@ -1,4 +1,5 @@
 ﻿using BusinesLogicLayer.Abstract;
+using DataAccessLayer;
 using DataAccessLayer.Models;
 
 namespace BusinesLogicLayer.Services.Identity
@@ -7,7 +8,7 @@ namespace BusinesLogicLayer.Services.Identity
     {
         public IUserService CreateUserService(string connection)
         {
-            return new UserService(new IdentityUnitOfWork(connection));
+            return new UserService(new UnitOfWork(connection));
         }
     }
 }

@@ -2,24 +2,24 @@
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using System.Collections.Generic;
-using DataAccessLayer.Abstract;
 using BusinesLogicLayer.Abstract;
 using BusinesLogicLayer.Infrastructure;
 using Entities.Tables;
 using Entities.Entities;
+using DataAccessLayer;
 
 namespace BusinesLogicLayer.Services.Identity
 {
     public class UserService : IUserService
     {
-        IUnitOfWork Database { get; set; }
+        UnitOfWork Database { get; set; }
 
-        public UserService(IUnitOfWork uow)
+        public UserService(UnitOfWork uow)
         {
             Database = uow;
         }
 
-        public async Task<OperationDetails> Create(UserTable userTable)
+        public async Task<OperationDetails> Create(UserViewModel userTable)
         {
             ApplicationUser user = await Database.UserManager.FindByEmailAsync(userTable.Email);
             if (user == null)
@@ -32,17 +32,17 @@ namespace BusinesLogicLayer.Services.Identity
                 ClientProfile clientProfile = new ClientProfile { Id = user.Id };
                 Database.ClientManager.Create(clientProfile);
                 await Database.SaveAsync();
-                return new OperationDetails(true, "Registration success", "");
+                return new OperationDetails {Succedeed= true, Message = "Registration success", Property=  ""};
             }
             else
             {
-                return new OperationDetails(false, "User alredy exist", "Email");
+                return new OperationDetails { Succedeed= false, Message = "User alredy exist", Property = "Email" };
             }
         }
 
         
 
-        public async Task<ClaimsIdentity> Authenticate(UserTable userTable)
+        public async Task<ClaimsIdentity> Authenticate(UserViewModel userTable)
         {
             ClaimsIdentity claim = null;
             
@@ -55,7 +55,7 @@ namespace BusinesLogicLayer.Services.Identity
         }
 
         
-        public async Task SetInitialData(UserTable adminTable, List<string> roles)
+        public async Task SetInitialData(UserViewModel adminTable, List<string> roles)
         {
             foreach (string roleName in roles)
             {

@@ -30,8 +30,8 @@ namespace DataAccessLayer.Models
             {
                 Book entity = (Book)item;
                 Book book = _context.Books.Find(entity.Id);
-
                 book.PublicationHouses.Clear();
+
                 List<PublicationHouse> list = _context.PublicationHouses.ToList();
                 foreach (var iterator in entity.PublicationHouses)
                 {

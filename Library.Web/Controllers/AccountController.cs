@@ -7,8 +7,8 @@ using System.Security.Claims;
 using BusinesLogicLayer.Abstract;
 using Entities.Tables;
 using BusinesLogicLayer.Infrastructure;
-using Entities.Enums;
 using Library.ViewModels.ViewModels;
+using Library.Enums;
 
 namespace Library.Web.Controllers
 {
@@ -41,7 +41,7 @@ namespace Library.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserTable userTable = new UserTable { Email = model.Email, Password = model.Password};
+                UserViewModel userTable = new UserViewModel { Email = model.Email, Password = model.Password};
                 ClaimsIdentity claim = await UserService.Authenticate(userTable);
                 if (claim == null)
                 {
@@ -78,7 +78,7 @@ namespace Library.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                UserTable userTable = new UserTable
+                UserViewModel userTable = new UserViewModel
                 {
                     Email = model.Email,
                     Password = model.Password,

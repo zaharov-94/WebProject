@@ -1,6 +1,4 @@
 ﻿using DataAccessLayer;
-using DataAccessLayer.Abstract;
-using DataAccessLayer.Models;
 using Library.Web.Entities;
 using System.Linq;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace Entities.Enums
+﻿namespace Library.Enums
 {
     public enum TypeOfCover
     {

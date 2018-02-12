@@ -1,17 +1,17 @@
-﻿using Library.Enums;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Library.ViewModels.ViewModels
 {
-    public class BrochureViewModel
+    public class PublicationHouseViewModel
     {
         [Key]
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
-        public TypeOfCover TypeOfCover { get; set; }
-        [Required]
-        public int NumberOfPages { get; set; }
+        public string Address { get; set; }
+
+        public virtual ICollection<BookViewModel> Books { get; set; }
     }
 }
