@@ -44,7 +44,8 @@ namespace BusinesLogicLayer.Services
             {
                 Name = bookViewModel.Name,
                 Author = bookViewModel.Author,
-                YearOfPublishing = bookViewModel.YearOfPublishing
+                YearOfPublishing = bookViewModel.YearOfPublishing,
+                PublicationHouses = ToPublicationHouse(bookViewModel.PublicationHouses).ToList()
             };
             _unitOfWork.Book.Add(book);
         }

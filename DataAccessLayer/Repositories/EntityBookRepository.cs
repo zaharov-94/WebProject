@@ -12,16 +12,32 @@ namespace DataAccessLayer.Models
         private ApplicationContext _context;
         private DbSet<T> _dbSet;
 
-        public EntityBookRepository(string connectionString) : base (connectionString)
-        {
-            _context = new ApplicationContext(connectionString);
-            _dbSet = _context.Set<T>();
-        }
-
-        public EntityBookRepository(ApplicationContext context) : base (context)
+        public EntityBookRepository(ApplicationContext context) : base(context)
         {
             _context = context;
             _dbSet = _context.Set<T>();
+        }
+
+        public override void Add(T item)
+        {
+            try
+            {
+                Book entity = new Book { Id = item.Id, Name = item.Name, Author = item.Author,
+                    YearOfPublishing = item.YearOfPublishing, PublicationHouses = new List<PublicationHouse>()};
+
+                List<PublicationHouse> list = _context.PublicationHouses.ToList();
+                foreach (var iterator in item.PublicationHouses)
+                {
+                    entity.PublicationHouses.Add(list.Find(x => x.Id == iterator.Id));
+                }
+
+                _dbSet.Add(item);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                LogRegistrator.Write(ex);
+            }
         }
 
         public override void Update(T item)

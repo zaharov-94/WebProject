@@ -13,19 +13,13 @@ namespace DataAccessLayer.Models
         private ApplicationContext _context;
         private DbSet<T> _dbSet;
 
-        public EntityRepository(string connectionString)
-        {
-           _context = new ApplicationContext(connectionString);
-            _dbSet = _context.Set<T>();
-        }
-
         public EntityRepository(ApplicationContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();
         }
 
-        public void Add(T item)
+        public virtual void Add(T item)
         {
             try
             {
