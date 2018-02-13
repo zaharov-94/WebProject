@@ -86,12 +86,16 @@ namespace BusinesLogicLayer.Services
 
         private IEnumerable<PublicationHouse> ToPublicationHouse(ICollection<PublicationHouseViewModel> list)
         {
-            return list.Select(x => new PublicationHouse
+            if (list!=null)
             {
-                Id = x.Id,
-                Name = x.Name,
-                Address = x.Address
-            });
+                return list.Select(x => new PublicationHouse
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Address = x.Address
+                });
+            }
+            return new List<PublicationHouse>();
         }
     }
 }

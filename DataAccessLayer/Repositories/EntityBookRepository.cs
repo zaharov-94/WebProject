@@ -26,14 +26,17 @@ namespace DataAccessLayer.Models
                     YearOfPublishing = item.YearOfPublishing, PublicationHouses = new List<PublicationHouse>()};
                 _context.Books.Add(entity);
                 _context.SaveChanges();
-                List<PublicationHouse> list = _context.PublicationHouses.ToList();
-                foreach (var iterator in item.PublicationHouses)
+                if (item.PublicationHouses.Count != 0 )
                 {
-                    entity.PublicationHouses.Add(list.Find(x => x.Id == iterator.Id));
+                    List<PublicationHouse> list = _context.PublicationHouses.ToList();
+                    foreach (var iterator in item.PublicationHouses)
+                    {
+                        entity.PublicationHouses.Add(list.Find(x => x.Id == iterator.Id));
+                    }
+
+                    _context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+                    _context.SaveChanges();
                 }
-                
-                _context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-                _context.SaveChanges();
             }
             catch (Exception ex)
             {
