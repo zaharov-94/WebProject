@@ -30,32 +30,26 @@ namespace Library.DAL.Repositories
                 UserName = "ser"
             };
             var listRoles = new List<string> { Role.Admin.ToString(), Role.User.ToString() };
-            await SetInitialData(user, listRoles);
-            await context.SaveAsync();
+            SetInitialData(user, listRoles);
+            context.SaveChanges();
         }
 
-        public async Task SetInitialData(ApplicationUser userProfile, List<string> roles)
+        public void SetInitialData(ApplicationUser userProfile, List<string> roles)
         {
-            foreach (string roleName in roles)
-            {
-                var role = _roleManager.FindByName(roleName);
-                if (role == null)
-                {
-                    role = new ApplicationRole { Name = roleName };
-                    await _roleManager.CreateAsync(role);
-                }
-            }
-
-            await Create(userProfile);
+            var admin = new ApplicationRole { Name = roles[0] };
+            _roleManager.Create(admin);
+            var user = new ApplicationRole { Name = roles[1] };
+            _roleManager.Create(user);
+            Create(userProfile);
         }
-        public async Task Create(ApplicationUser userProfile)
+        public void Create(ApplicationUser userProfile)
         {
             string userPassword = "123456";
             Role userRole = Role.Admin;
 
             ApplicationUser user = new ApplicationUser { Email = userProfile.Email, UserName = userProfile.Email };
-            await _userManager.CreateAsync(user, userPassword);
-            await _userManager.AddToRoleAsync(user.Id, userRole.ToString());
+            _userManager.Create(user, userPassword);
+            _userManager.AddToRole(user.Id, userRole.ToString());
             ClientProfile clientProfile = new ClientProfile { Id = user.Id };
             _clientManager.Create(clientProfile);
         }
