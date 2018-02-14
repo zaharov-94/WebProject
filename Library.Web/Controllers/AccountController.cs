@@ -8,7 +8,7 @@ using BusinesLogicLayer.Abstract;
 using Entities.Tables;
 using BusinesLogicLayer.Infrastructure;
 using Library.ViewModels.ViewModels;
-using Library.Enums;
+using Shared.Enums;
 
 namespace Library.Web.Controllers
 {

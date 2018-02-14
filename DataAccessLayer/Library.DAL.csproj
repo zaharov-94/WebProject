@@ -111,9 +111,9 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\AdoRepository.cs" />
     <Compile Include="Repositories\ClientManager.cs" />
-    <Compile Include="Repositories\DataInitializer.cs" />
+    <Compile Include="Context\DataInitializer.cs" />
     <Compile Include="Repositories\EntityBookRepository.cs" />
-    <Compile Include="Repositories\LibraryDbContext.cs" />
+    <Compile Include="Context\LibraryDbContext.cs" />
     <Compile Include="Repositories\EntityRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlStringCreator.cs" />

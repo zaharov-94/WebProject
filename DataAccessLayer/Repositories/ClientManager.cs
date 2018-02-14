@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer.Abstract;
 using Entities.Entities;
 using Library.DAL;
+using Library.DAL.Context;
 using System;
 
 namespace DataAccessLayer.Models

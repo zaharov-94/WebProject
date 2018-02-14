@@ -4,11 +4,8 @@
 }
 @Styles.Render("~/Content/kendo.common-material.min.css")
 @Styles.Render("~/Content/kendo.material.min.css")
-@Scripts.Render("~/Scripts/jquery.min.js")
-@Scripts.Render("~/Scripts/jquery.json.min.js")
-@Scripts.Render("~/Scripts/kendo.all.min.js")
-@Scripts.Render("~/Scripts/kendo.user.js")
 @Styles.Render("~/Content/Site.css")
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,13 +58,16 @@
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" id="Save" value="Save" class="btn btn-success" onclick="customSubmit();return false"/>
+                    <input type="submit" id="Save" value="Save" class="btn btn-success" onclick="customSubmit();return false" />
                     @Html.ActionLink("Cancel", "Index", null, new { @Class = "btn btn-danger" })
                 </div>
             </div>
         </div>
     }
-
+    @Scripts.Render("~/Scripts/jquery.min.js")
+    @Scripts.Render("~/Scripts/jquery.json.min.js")
+    @Scripts.Render("~/Scripts/kendo.all.min.js")
+    @Scripts.Render("~/Scripts/kendo.user.js")
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }

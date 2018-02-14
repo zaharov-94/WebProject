@@ -1,12 +1,11 @@
 ﻿using Entities.Entities;
-using Library.DAL.Repositories;
 using Library.Web.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 using System;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Models
+namespace Library.DAL.Context
 {
     public class ApplicationContext : IdentityDbContext<ApplicationUser>
     {

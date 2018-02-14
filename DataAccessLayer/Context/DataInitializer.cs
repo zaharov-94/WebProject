@@ -2,14 +2,14 @@
 using DataAccessLayer.Identity;
 using DataAccessLayer.Models;
 using Entities.Entities;
-using Library.Enums;
+using Shared.Enums;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using Library.Shared;
 using System.Data.Entity;
-using System.Threading.Tasks;
 
-namespace Library.DAL.Repositories
+namespace Library.DAL.Context
 {
     public class DataInitializer : CreateDatabaseIfNotExists<ApplicationContext>
     {
@@ -26,8 +26,8 @@ namespace Library.DAL.Repositories
 
             var user = new ApplicationUser
             {
-                Email = "ser",
-                UserName = "ser"
+                Email = Settings.UserName,
+                UserName = Settings.UserName
             };
             var listRoles = new List<string> { Role.Admin.ToString(), Role.User.ToString() };
             SetInitialData(user, listRoles);
@@ -44,7 +44,7 @@ namespace Library.DAL.Repositories
         }
         public void Create(ApplicationUser userProfile)
         {
-            string userPassword = "123456";
+            string userPassword = Settings.UserPassword;
             Role userRole = Role.Admin;
 
             ApplicationUser user = new ApplicationUser { Email = userProfile.Email, UserName = userProfile.Email };

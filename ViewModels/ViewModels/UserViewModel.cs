@@ -1,4 +1,4 @@
-﻿using Library.Enums;
+﻿using Shared.Enums;
 
 namespace Entities.Tables
 {

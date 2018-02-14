@@ -1,4 +1,4 @@
-﻿using Library.Enums;
+﻿using Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Library.ViewModels.ViewModels
@@ -10,7 +10,7 @@ namespace Library.ViewModels.ViewModels
         [Required]
         public string Name { get; set; }
         [Required]
-        public TypeOfCover TypeOfCover { get; set; }
+        public string TypeOfCover { get; set; }
         [Required]
         public int NumberOfPages { get; set; }
     }

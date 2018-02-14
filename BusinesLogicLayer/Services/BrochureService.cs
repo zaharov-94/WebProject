@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Library.ViewModels.ViewModels;
 using System.Linq;
 using System;
-using Library.Enums;
+using Shared.Enums;
 
 namespace BusinesLogicLayer.Services
 {
@@ -19,13 +19,19 @@ namespace BusinesLogicLayer.Services
         }
         public IEnumerable<BrochureViewModel> GetAll()
         {
-            return _unitOfWork.Brochure.GetAll().Select(x => new BrochureViewModel
+            List<BrochureViewModel> list = new List<BrochureViewModel>();
+            List<Brochure> brochureList = _unitOfWork.Brochure.GetAll().ToList();
+            
+            foreach (var item in brochureList)
             {
-                Id = x.Id,
-                Name = x.Name,
-                NumberOfPages = x.NumberOfPages,
-                TypeOfCover = x.TypeOfCover
-            });
+                BrochureViewModel brochureViewModel = new BrochureViewModel();
+                brochureViewModel.Id = item.Id;
+                brochureViewModel.Name = item.Name;
+                brochureViewModel.NumberOfPages = item.NumberOfPages;
+                brochureViewModel.TypeOfCover = item.TypeOfCover.ToString();
+                list.Add(brochureViewModel);
+            }
+            return list;
         }
         
         public void Add(BrochureViewModel brochureViewModel)
@@ -36,14 +42,13 @@ namespace BusinesLogicLayer.Services
         public BrochureViewModel GetById(int id)
         {
             Brochure brochure = _unitOfWork.Brochure.FindById(id);
+            BrochureViewModel brochureViewModel = new BrochureViewModel();
+            brochureViewModel.Id = brochure.Id;
+            brochureViewModel.Name = brochure.Name;
+            brochureViewModel.NumberOfPages = brochure.NumberOfPages;
+            brochureViewModel.TypeOfCover = brochure.TypeOfCover.ToString();
 
-            return new BrochureViewModel
-            {
-                Id = brochure.Id,
-                Name = brochure.Name,
-                NumberOfPages = brochure.NumberOfPages,
-                TypeOfCover = brochure.TypeOfCover
-            };
+            return brochureViewModel;
         }
 
         public void Edit(BrochureViewModel brochureViewModel)
@@ -57,23 +62,13 @@ namespace BusinesLogicLayer.Services
         }
         private Brochure ToBrochure(BrochureViewModel brochureViewModel)
         {
-            TypeOfCover typeOfCover = TypeOfCover.Hardcover;
-            foreach (var type in Enum.GetValues(typeof(TypeOfCover)))
-            {
-                if (brochureViewModel.TypeOfCover.Equals((TypeOfCover)type))
-                {
-                    typeOfCover = (TypeOfCover)type;
-                    break;
-                }
-            }
+            Brochure brochure = new Brochure();
+            brochure.Id = brochureViewModel.Id;
+            brochure.Name = brochureViewModel.Name;
+            brochure.NumberOfPages = brochureViewModel.NumberOfPages;
+            brochure.TypeOfCover = (TypeOfCover)Enum.Parse(typeof(TypeOfCover), brochureViewModel.TypeOfCover);
 
-            return new Brochure
-            {
-                Id = brochureViewModel.Id,
-                Name = brochureViewModel.Name,
-                NumberOfPages = brochureViewModel.NumberOfPages,
-                TypeOfCover = typeOfCover
-            };
+            return brochure;
         }
     }
 }

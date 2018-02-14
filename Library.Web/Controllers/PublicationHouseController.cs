@@ -33,8 +33,12 @@ namespace Library.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create(PublicationHouseViewModel publicationHouse)
         {
-            _publicationHouseService.Add(publicationHouse);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _publicationHouseService.Add(publicationHouse);
+                return RedirectToAction("Index");
+            }
+            return View(publicationHouse);  
         }
 
         [Authorize(Roles = "Admin")]
@@ -47,8 +51,12 @@ namespace Library.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(PublicationHouseViewModel publicationHouse)
         {
-            _publicationHouseService.Edit(publicationHouse);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _publicationHouseService.Edit(publicationHouse);
+                return RedirectToAction("Index");
+            }
+            return View(publicationHouse);
         }
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)

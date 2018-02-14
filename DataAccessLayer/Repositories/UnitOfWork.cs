@@ -2,6 +2,7 @@
 using DataAccessLayer.Identity;
 using DataAccessLayer.Models;
 using Entities.Entities;
+using Library.DAL.Context;
 using Library.Web.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;

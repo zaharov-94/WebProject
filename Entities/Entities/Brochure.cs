@@ -1,5 +1,5 @@
 ﻿using Entities.Entities;
-using Library.Enums;
+using Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Library.Web.Entities

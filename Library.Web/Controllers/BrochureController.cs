@@ -21,8 +21,7 @@ namespace Library.Web.Controllers
         }
         public JsonResult List()
         {
-            return Json(_brochureService.GetAll().Select(x => new { x.Id, x.Name, x.NumberOfPages,
-                TypeOfCover = x.TypeOfCover.ToString()}), JsonRequestBehavior.AllowGet);
+            return Json(_brochureService.GetAll(), JsonRequestBehavior.AllowGet);
         }
 
         [Authorize(Roles = "Admin")]
@@ -35,8 +34,12 @@ namespace Library.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create(BrochureViewModel brochure)
         {
-            _brochureService.Add(brochure);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _brochureService.Add(brochure);
+                return RedirectToAction("Index");
+            }
+            return View(brochure);
         }
 
         [Authorize(Roles = "Admin")]
@@ -49,8 +52,12 @@ namespace Library.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(BrochureViewModel brochure)
         {
-            _brochureService.Edit(brochure);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _brochureService.Edit(brochure);
+                return RedirectToAction("Index");
+            }
+            return View(brochure);
         }
 
         [Authorize(Roles = "Admin")]

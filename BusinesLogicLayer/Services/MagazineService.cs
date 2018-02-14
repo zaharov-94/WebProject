@@ -16,15 +16,16 @@ namespace BusinesLogicLayer.Services
         public IEnumerable<MagazineViewModel> GetAll()
         {
             List<MagazineViewModel> list = new List<MagazineViewModel>();
-            foreach (var magazine in _unitOfWork.Magazine.GetAll())
+            IEnumerable<Magazine> listMagazine = _unitOfWork.Magazine.GetAll();
+            
+            foreach (var magazine in listMagazine)
             {
-                list.Add(new MagazineViewModel
-                {
-                    Id = magazine.Id,
-                    Name = magazine.Name,
-                    Number = magazine.Number,
-                    YearOfPublishing = magazine.YearOfPublishing
-                });
+                MagazineViewModel magazineViewItem = new MagazineViewModel();
+                magazineViewItem.Id = magazine.Id;
+                magazineViewItem.Name = magazine.Name;
+                magazineViewItem.Number = magazine.Number;
+                magazineViewItem.YearOfPublishing = magazine.YearOfPublishing;
+                list.Add(magazineViewItem);
             }
             return list;
         }
@@ -37,13 +38,13 @@ namespace BusinesLogicLayer.Services
         public MagazineViewModel GetById(int id)
         {
             Magazine magazine = _unitOfWork.Magazine.FindById(id);
-            return new MagazineViewModel
-            {
-                Id = magazine.Id,
-                Name = magazine.Name,
-                Number = magazine.Number,
-                YearOfPublishing = magazine.YearOfPublishing
-            };
+            MagazineViewModel magazineViewModel = new MagazineViewModel();
+            magazineViewModel.Id = magazine.Id;
+            magazineViewModel.Name = magazine.Name;
+            magazineViewModel.Number = magazine.Number;
+            magazineViewModel.YearOfPublishing = magazine.YearOfPublishing;
+
+            return magazineViewModel;
         }
 
         public void Edit(MagazineViewModel magazineViewModel)
@@ -57,13 +58,12 @@ namespace BusinesLogicLayer.Services
 
         private Magazine ToMagazine(MagazineViewModel magazineViewModel)
         {
-            return new Magazine
-            {
-                Id = magazineViewModel.Id,
-                Name = magazineViewModel.Name,
-                Number = magazineViewModel.Number,
-                YearOfPublishing = magazineViewModel.YearOfPublishing
-            };
+            Magazine magazine = new Magazine();
+            magazine.Id = magazineViewModel.Id;
+            magazine.Name = magazineViewModel.Name;
+            magazine.Number = magazineViewModel.Number;
+            magazine.YearOfPublishing = magazineViewModel.YearOfPublishing;
+            return magazine;
         }
     }
 }

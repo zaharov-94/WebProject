@@ -13,15 +13,13 @@
 @Styles.Render("~/Content/kendo.common-material.min.css")
 @Styles.Render("~/Content/kendo.material.min.css")
 @Styles.Render("~/Content/Site.css")
-@Scripts.Render("~/Scripts/jquery.min.js")
-@Scripts.Render("~/Scripts/kendo.all.min.js")
-@Scripts.Render("~/Scripts/kendo.grid.brochure.js")
+
 
 <header class="masthead col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
     <h3 class="text-muted">User brochures</h3>
 </header>
 <div class="tab-content col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    
+
     <div class="table-responsive">
         <div id="grid"></div>
         <br />
@@ -33,3 +31,6 @@
         </p>
     </div>
 </div>
+@Scripts.Render("~/Scripts/jquery.min.js")
+@Scripts.Render("~/Scripts/kendo.all.min.js")
+@Scripts.Render("~/Scripts/kendo.grid.brochure.js")

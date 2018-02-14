@@ -1,4 +1,4 @@
-﻿namespace Library.Enums
+﻿namespace Shared.Enums
 {
     public enum Role
     {

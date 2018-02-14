@@ -21,6 +21,10 @@ namespace Library.DAL
             }
             catch
             {
+                string pathToLog = Path.Combine(AppDomain.CurrentDomain.BaseDirectory+"Errors");
+                string fullText = string.Format("[{0}()] {1}\r\n",
+                ex.TargetSite.DeclaringType, ex.Message);
+                File.WriteAllText(pathToLog, fullText);
             }
         }
     }

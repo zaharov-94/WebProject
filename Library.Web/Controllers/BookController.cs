@@ -35,8 +35,12 @@ namespace Library.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create(BookViewModel book)
         {
-            _bookService.Add(book);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _bookService.Add(book);
+                return RedirectToAction("Index");
+            }
+            return View(book);
         }
         public JsonResult GetAllPublish()
         {
@@ -58,8 +62,12 @@ namespace Library.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(BookViewModel bookViewModel)
         {
-            _bookService.Edit(bookViewModel);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _bookService.Edit(bookViewModel);
+                return RedirectToAction("Index");
+            }
+            return View(bookViewModel);
         }
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)

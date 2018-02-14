@@ -17,65 +17,71 @@ namespace BusinesLogicLayer.Services
 
         public IEnumerable<BookViewModel> GetAllBook()
         {
-            return _unitOfWork.Book.GetAll()
-                .Select(x => new BookViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Author = x.Author,
-                    YearOfPublishing = x.YearOfPublishing
-                });
+            IEnumerable<Book> listBook = _unitOfWork.Book.GetAll();
+            List<BookViewModel> listBookView = new List<BookViewModel>();
+            
+            foreach(var item in listBook)
+            {
+                BookViewModel viewModel = new BookViewModel();
+                viewModel.Id = item.Id;
+                viewModel.Name = item.Name;
+                viewModel.Author = item.Author;
+                viewModel.YearOfPublishing = item.YearOfPublishing;
+                listBookView.Add(viewModel);
+            }
+
+            return listBookView;
         }
         public IEnumerable<PublicationHouseViewModel> GetAllPublicationHouses()
         {
-            return _unitOfWork.PublicationHouse.GetAll()
-                .Select(x => new PublicationHouseViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Address = x.Address,
-                    Books = null
-                });
+            List<PublicationHouseViewModel> listViewModel = new List<PublicationHouseViewModel>();
             
+            foreach (var item in _unitOfWork.PublicationHouse.GetAll())
+            {
+                PublicationHouseViewModel publicationHouseViewModel = new PublicationHouseViewModel();
+                publicationHouseViewModel.Id = item.Id;
+                publicationHouseViewModel.Name = item.Name;
+                publicationHouseViewModel.Address = item.Address;
+                publicationHouseViewModel.Books = null;
+                listViewModel.Add(publicationHouseViewModel);
+            }
+            return listViewModel;
         }
         public void Add(BookViewModel bookViewModel)
         {
-            Book book = new Book
-            {
-                Name = bookViewModel.Name,
-                Author = bookViewModel.Author,
-                YearOfPublishing = bookViewModel.YearOfPublishing,
-                PublicationHouses = ToPublicationHouse(bookViewModel.PublicationHouses).ToList()
-            };
+            Book book = new Book();
+            book.Name = bookViewModel.Name;
+            book.Author = bookViewModel.Author;
+            book.YearOfPublishing = bookViewModel.YearOfPublishing;
+            book.PublicationHouses = ToPublicationHouse(bookViewModel.PublicationHouses).ToList();
             _unitOfWork.Book.Add(book);
         }
         public BookViewModel GetBookById(int id)
         {
             Book book = _unitOfWork.Book.FindById(id);
-            return new BookViewModel
+            BookViewModel bookViewModel = new BookViewModel();
+            bookViewModel.Id = book.Id;
+            bookViewModel.Name = book.Name;
+            bookViewModel.Author = book.Author;
+            bookViewModel.YearOfPublishing = book.YearOfPublishing;
+            bookViewModel.PublicationHouses = book.PublicationHouses.Select(x => new PublicationHouseViewModel
             {
-                Id = book.Id,
-                Name = book.Name,
-                Author = book.Author,
-                YearOfPublishing = book.YearOfPublishing,
-                PublicationHouses = book.PublicationHouses.Select(x => new PublicationHouseViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Address = x.Address
-                }).ToList()
-            };
+                Id = x.Id,
+                Name = x.Name,
+                Address = x.Address
+            }).ToList();
+            return bookViewModel;
         }
         public void Edit(BookViewModel bookViewModel)
         {
-            Book book = new Book
-            {
-                Id = bookViewModel.Id,
-                Name = bookViewModel.Name,
-                Author = bookViewModel.Author,
-                YearOfPublishing = bookViewModel.YearOfPublishing,
-                PublicationHouses = ToPublicationHouse(bookViewModel.PublicationHouses).ToList()
-            };
+            Book book = new Book();
+
+            book.Id = bookViewModel.Id;
+            book.Name = bookViewModel.Name;
+            book.Author = bookViewModel.Author;
+            book.YearOfPublishing = bookViewModel.YearOfPublishing;
+            book.PublicationHouses = ToPublicationHouse(bookViewModel.PublicationHouses).ToList();
+            
             _unitOfWork.Book.Update(book);
         }
 
@@ -86,16 +92,18 @@ namespace BusinesLogicLayer.Services
 
         private IEnumerable<PublicationHouse> ToPublicationHouse(ICollection<PublicationHouseViewModel> list)
         {
-            if (list!=null)
+            List<PublicationHouse> listPublicationHouses = new List<PublicationHouse>();
+            
+            foreach(var item in list)
             {
-                return list.Select(x => new PublicationHouse
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Address = x.Address
-                });
+                PublicationHouse publicationHouse = new PublicationHouse();
+                publicationHouse.Id = item.Id;
+                publicationHouse.Name = item.Name;
+                publicationHouse.Address = item.Address;
+                listPublicationHouses.Add(publicationHouse);
             }
-            return new List<PublicationHouse>();
+
+            return listPublicationHouses;
         }
     }
 }

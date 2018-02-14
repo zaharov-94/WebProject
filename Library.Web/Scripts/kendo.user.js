@@ -35,22 +35,22 @@
 
 $(document).ready(function () {
     $('form').submit(function () {
-        var multiselect = $("#PublicationHouses").data("kendoMultiSelect");
-        var $data = {};
-        $('form').find('input').each(function () {
-           $data[this.name] = $(this).val();
-        });
-        var otherFields = multiselect.dataItems();
-        $data["PublicationHouses"] = otherFields;
-        var obj = $.toJSON($data);
-        $.ajax({
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            type: 'POST',
-            url: '../../Book/Edit/',
-            data: obj
-        });
-        window.location.pathname = '../../Book/Index';
-        return false;
+                var multiselect = $("#PublicationHouses").data("kendoMultiSelect");
+                var $data = {};
+                $('form').find('input').each(function () {
+                    $data[this.name] = $(this).val();
+                });
+                var otherFields = multiselect.dataItems();
+                $data["PublicationHouses"] = otherFields;
+                var obj = $.toJSON($data);
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: '../../Book/Edit/',
+                    data: obj
+                });
+                window.location.pathname = '../../Book/Index';
+                return false;
     });
 });

@@ -34,8 +34,12 @@ namespace Library.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create(MagazineViewModel magazine)
         {
-            _magazineService.Add(magazine);
-            return RedirectToAction("Index");
+            if(ModelState.IsValid)
+            {
+                _magazineService.Add(magazine);
+                return RedirectToAction("Index");
+            }
+            return View(magazine);
         }
 
         [Authorize(Roles = "Admin")]
@@ -48,8 +52,12 @@ namespace Library.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(MagazineViewModel magazine)
         {
-            _magazineService.Edit(magazine);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _magazineService.Edit(magazine);
+                return RedirectToAction("Index");
+            }
+            return View(magazine);
         }
 
         [Authorize(Roles = "Admin")]
