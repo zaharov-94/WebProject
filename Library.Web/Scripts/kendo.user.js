@@ -36,7 +36,6 @@
 $(document).ready(function () {
     $('form').submit(function () {
         var multiselect = $("#PublicationHouses").data("kendoMultiSelect");
-
         var $data = {};
         $('form').find('input').each(function () {
            $data[this.name] = $(this).val();

@@ -50,6 +50,13 @@ namespace DataAccessLayer.Models
             {
                 Book entity = (Book)item;
                 Book book = _context.Books.Find(entity.Id);
+                foreach (var prop in item.GetType().GetProperties())
+                {
+                    if(prop.Name != "PublicationHouses")
+                    {
+                        book.GetType().GetProperty(prop.Name).SetValue(book, prop.GetValue(item));
+                    }
+                }
                 book.PublicationHouses.Clear();
 
                 List<PublicationHouse> list = _context.PublicationHouses.ToList();
